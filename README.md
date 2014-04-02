@@ -1,4 +1,4 @@
 Dajoroli
 ========
 
-Split It
+Split It - the Application
