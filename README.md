@@ -1,4 +1,4 @@
-Dajoroli
+﻿Dajoroli
 ========
 
 <<<<<<< HEAD
@@ -7,7 +7,13 @@ Split It - the Application
 Split It
 
 
+<<<<<<< HEAD
 Detta är vår första README-fil. 
 
 Är detta endast min branch?
 >>>>>>> Daniel
+=======
+Detta är vår första README-fil.
+
+Och detta är mitt andra försök att lägga till något!
+>>>>>>> origin/Johannes
