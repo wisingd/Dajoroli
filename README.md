@@ -1,4 +1,4 @@
-﻿Dajoroli
+Dajoroli
 ========
 
 <<<<<<< HEAD
@@ -17,3 +17,6 @@ Detta är vår första README-fil.
 
 Och detta är mitt andra försök att lägga till något!
 >>>>>>> origin/Johannes
+
+
+Och jag lägger till något ytterligare! /Daniel
