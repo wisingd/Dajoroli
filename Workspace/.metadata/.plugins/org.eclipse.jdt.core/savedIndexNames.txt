@@ -1,0 +1,10 @@
+INDEX VERSION 1.126+/Users/Daniel/Desktop/GITHUB/Dajoroli/Workspace/.metadata/.plugins/org.eclipse.jdt.core
+3262792303.index
+3312443793.index
+823389031.index
+4139845479.index
+3399160746.index
+2490427077.index
+4058085822.index
+247115562.index
+1270315800.index
