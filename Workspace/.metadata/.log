@@ -4638,3 +4638,10 @@ java.lang.NullPointerException
 	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+!SESSION 2014-04-20 14:06:17.267 -----------------------------------------------
+java.version=1.8.0
+java.vendor=Oracle Corporation
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product
+Command-line arguments:  -data C:\Users\Johannes\Documents\GitHub\Dajoroli\Workspace -os win32 -ws win32 -arch x86_64 -product com.android.ide.eclipse.adt.package.product
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
