@@ -4945,3 +4945,19 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.
 
 !ENTRY org.eclipse.core.net 1 0 2014-04-20 15:59:23.024
 !MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+!SESSION 2014-04-20 16:01:01.574 -----------------------------------------------
+eclipse.buildId=v22.6.2-1085508
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=sv_SE
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -product com.android.ide.eclipse.adt.package.product -keyring /Users/Daniel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -data /Users/Daniel/Desktop/GITHUB/Dajoroli/Workspace -product com.android.ide.eclipse.adt.package.product -keyring /Users/Daniel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-04-20 16:01:06.658
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.google.i18n.inkstone.eclipse.LocalizationPlugin 4 0 2014-04-20 16:02:15.701
+!MESSAGE Could not get OAuth2 access token.
+
+!ENTRY com.google.i18n.inkstone.eclipse.LocalizationPlugin 4 0 2014-04-20 16:02:23.970
+!MESSAGE Could not get OAuth2 access token.
