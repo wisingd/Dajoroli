@@ -1,5 +1,7 @@
 package com.example.splitit;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +15,9 @@ import android.widget.EditText;
 
 public class MainActivity extends ActionBarActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+
+	ArrayList<Contact> contactList = new ArrayList<Contact>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,7 @@ public class MainActivity extends ActionBarActivity {
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
 
@@ -65,11 +69,16 @@ public class MainActivity extends ActionBarActivity {
 
 	/** Called when the user clicks the Send button */
 	public void sendMessage(View view) {
-	    Intent intent = new Intent(this, DisplayMessageActivity.class);
-	    EditText editText = (EditText) findViewById(R.id.edit_message);
-	    String message = editText.getText().toString();
-	    intent.putExtra(EXTRA_MESSAGE, message);
-	    startActivity(intent);
+		Intent intent = new Intent(this, DisplayMessageActivity.class);
+		EditText editText = (EditText) findViewById(R.id.edit_message);
+		String message = editText.getText().toString();
+		Contact contact = new Contact(message);
+
+		contactList.add(contact);
+
+		intent.putExtra(EXTRA_MESSAGE, message);
+		startActivity(intent);
+
 	}
-	
+
 }
