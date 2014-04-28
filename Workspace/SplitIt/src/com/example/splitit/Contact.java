@@ -1,11 +1,14 @@
 package com.example.splitit;
 
-public class Contact {
+import android.app.Application;
+
+
+public class Contact{
 	
 	String name;
 	int debt;
 	
-	public Contact(String name){
+	public  Contact(String name){
 		
 		name = this.name;
 		debt = 0;
@@ -17,7 +20,12 @@ public class Contact {
 		this.debt += debt;
 		
 	}
-	
+	public String getName(){
+		return name;
+	}
+	public int getDebt(){
+		return debt;
+	}
 	
 	
 }

@@ -1,0 +1,37 @@
+package com.example.splitit;
+
+import java.util.ArrayList;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class AnotherActivity extends Activity {
+
+	@Override
+	public void onCreate(Bundle savedInstanceState){
+		
+		super.onCreate(savedInstanceState);
+		String dettaSkaPrintas = "";
+		Bundle extras = getIntent().getExtras();
+		if (extras != null){
+			ArrayList<Contact> contactList = (ArrayList<Contact>) extras.getSerializable("MainActivity.ANOTHER_MESSAGE");
+			if (contactList.size() >= 0 ){
+				for (int i=0; i == contactList.size(); i++){
+					dettaSkaPrintas = dettaSkaPrintas + contactList.get(i).getName() + " med skulden " + contactList.get(i).getDebt() + "\n";
+				}
+			}
+		}
+		else{
+			dettaSkaPrintas = dettaSkaPrintas + "du har inga kontakter"; 
+		}
+        TextView textView = new TextView(this);
+        textView.setTextSize(40);
+        textView.setText(dettaSkaPrintas);
+
+        // Set the text view as the activity layout
+        setContentView(textView);
+			
+		
+	}
+}

@@ -1,0 +1,4 @@
+#Fri Apr 25 21:03:19 CEST 2014
+__DEFAULT__=false
+org.eclipse.help.ui.localSearch.master=true
+expression=debug

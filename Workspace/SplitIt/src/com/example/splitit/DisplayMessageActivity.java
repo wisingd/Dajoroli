@@ -19,12 +19,19 @@ public class DisplayMessageActivity extends ActionBarActivity {
         // Get the message from the intent
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-        // Create the text view
+        
         TextView textView = new TextView(this);
         textView.setTextSize(40);
-        textView.setText("The contact's name is: " + message);
 
+        if(intent.getBooleanExtra(MainActivity.BOOLEAN_MESSAGE, false)){
+        	textView.setText("You have created a contact called " + message);
+
+        }
+        else{
+        	textView.setText("The name you entered is not valid, a contact with that name might already exists");
+        }
+
+        
         // Set the text view as the activity layout
         setContentView(textView);
     }

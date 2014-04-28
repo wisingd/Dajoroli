@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="9"
         android:targetSdkVersion="19" />
 
     <application
@@ -30,6 +30,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.splitit.MainActivity" />
         </activity>
+        <activity android:name=".AnotherActivity" android:parentActivityName="com.example.splitit.MainActivity"></activity>
+        <activity android:name=".DebtAddingActivity" android:parentActivityName="com.example.splitit.MainActivity"></activity>
     </application>
 
 </manifest>

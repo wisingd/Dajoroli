@@ -1,0 +1,7 @@
+package com.example.splitit;
+
+import android.app.Activity;
+
+public class AnotherActivity extends Activity {
+
+}
