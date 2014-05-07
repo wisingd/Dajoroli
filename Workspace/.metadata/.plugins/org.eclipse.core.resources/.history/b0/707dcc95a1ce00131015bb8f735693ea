@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class DisplayMessageActivity extends ActionBarActivity { 
+public class DisplayMessageActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
         }
         else{
-        	textView.setText("The name you entered is not valid, a contact with that name might already exist");
+        	textView.setText("The name you entered is not valid, a contact with that name might already exists");
         }
 
         
