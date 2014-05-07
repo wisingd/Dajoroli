@@ -1101,9 +1101,11 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030016;
         public static final int activity_display_message=0x7f030017;
         public static final int activity_main=0x7f030018;
-        public static final int fragment_display_message=0x7f030019;
-        public static final int fragment_main=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int contact_view=0x7f030019;
+        public static final int debt_view=0x7f03001a;
+        public static final int fragment_display_message=0x7f03001b;
+        public static final int fragment_main=0x7f03001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
     }
     public static final class menu {
         public static final int display_message=0x7f0c0000;
@@ -1157,7 +1159,9 @@ containing a value of this type.
         public static final int contact=0x7f0a0015;
         public static final int edit_message=0x7f0a000f;
         public static final int i_owe_them=0x7f0a0017;
-        public static final int nytext=0x7f0a0012;
+        public static final int information_text=0x7f0a0012;
+        public static final int startContactMenu=0x7f0a0019;
+        public static final int startDebtMenu=0x7f0a0018;
         public static final int they_owe_me=0x7f0a0016;
         public static final int title_activity_display_message=0x7f0a0011;
         public static final int view_contacts=0x7f0a0013;

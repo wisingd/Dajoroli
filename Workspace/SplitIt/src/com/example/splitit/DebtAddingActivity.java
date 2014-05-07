@@ -21,7 +21,7 @@ public class DebtAddingActivity extends ActionBarActivity {
 
 		boolean bool = intent.getBooleanExtra(MainActivity.BOOLEAN_MESSAGE, false);
 
-		String print = "Your debt situation with " + message + " have been updated";
+		String print = "Your debt situation with " + message + " has been updated";
 
 		if(!bool){
 			print = "Your request somehow failed";

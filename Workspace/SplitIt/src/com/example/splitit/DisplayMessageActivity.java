@@ -28,7 +28,7 @@ public class DisplayMessageActivity extends ActionBarActivity {
 
         }
         else{
-        	textView.setText("The name you entered is not valid, a contact with that name might already exists");
+        	textView.setText("The name you entered is not valid, a contact with that name might already exist");
         }
 
         
