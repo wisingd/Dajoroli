@@ -23,7 +23,6 @@ public class AnotherActivity extends ActionBarActivity {
 		textView.setTextSize(20);
 		textView.setText("You have the following contacts \n" + message);
 
-		// Set the text view as the activity layout
 		setContentView(textView);
 	}
 

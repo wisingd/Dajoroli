@@ -50,7 +50,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		setContentView(R.layout.debt_view);
 		//rest of the code
 		addNamesToSpinner();
-		spinner.setOnItemSelectedListener(this);
 	}
 	
 	public void addNamesToSpinner(){
@@ -82,9 +81,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
-//		EditText editText2 = (EditText) findViewById(R.id.contact_name);
-//
-//		String contact = editText2.getText().toString();
+		EditText editText2 = (EditText) findViewById(R.id.contact_name);
+
+		String contact = editText2.getText().toString();
 
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
@@ -96,15 +95,15 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 
-			if(sharednames.contains(selectedName) && debtamount != 0){
+			if(sharednames.contains(contact) && debtamount != 0){
 
 				Editor editor = shareddebts.edit();
 
-				olddebt = shareddebts.getInt(selectedName, 0);
+				olddebt = shareddebts.getInt(contact, 0);
 
 				newdebt = olddebt + debtamount;
 
-				editor.putInt(selectedName, newdebt);
+				editor.putInt(contact, newdebt);
 
 				editor.commit();
 
@@ -113,10 +112,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		}
 
 
-		intent.putExtra(ANOTHER_MESSAGE, selectedName);
+		intent.putExtra(ANOTHER_MESSAGE, contact);
 
 		startActivity(intent);
-
 
 	}
 
@@ -131,7 +129,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 //
 //		String contact = editText2.getText().toString();
 
-		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
+		if(editText.getText() != null && !editText.getText().toString().isEmpty() && selectedName != ""){
 
 
 			int debtamount = Integer.parseInt(editText.getText().toString());
@@ -200,5 +198,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+		selectedName = "";
 	}
 }

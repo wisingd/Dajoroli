@@ -50,7 +50,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		setContentView(R.layout.debt_view);
 		//rest of the code
 		addNamesToSpinner();
-		spinner.setOnItemSelectedListener(this);
 	}
 	
 	public void addNamesToSpinner(){
