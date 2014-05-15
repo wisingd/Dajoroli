@@ -82,10 +82,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
-//		EditText editText2 = (EditText) findViewById(R.id.contact_name);
-//
-//		String contact = editText2.getText().toString();
-
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
 
@@ -126,10 +122,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		Intent intent = new Intent(this, DebtAddingActivity.class);
 
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
-
-//		EditText editText2 = (EditText) findViewById(R.id.contact_name);
-//
-//		String contact = editText2.getText().toString();
 
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
