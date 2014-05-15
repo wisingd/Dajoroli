@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,12 +14,13 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -35,12 +37,16 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	public SharedPreferences shareddebts;
 
+	public SharedPreferences sharednumber;
+
 	public static final String MyNames = "Mynames";
 
 	public static final String MyDebts = "Mydebts";
-	
+
+	public static final String MyNumbers = "Mynumbers";
+
 	private Spinner spinner;
-	
+
 	private String selectedName;
 
 	@Override
@@ -52,22 +58,22 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		addNamesToSpinner();
 		spinner.setOnItemSelectedListener(this);
 	}
-	
+
 	public void addNamesToSpinner(){
 		spinner = (Spinner) findViewById(R.id.contact_name);
 		List<String> list = new ArrayList<String>();
 
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		
+
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
 			Set<String> settet = mappen.keySet();
-			
+
 			Iterator <String> iteratorn = settet.iterator();
 			while(iteratorn.hasNext()){
 				String string  = iteratorn.next();
-				
+
 				list.add(string);
 			}
 		}
@@ -84,13 +90,13 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
-
 			int debtamount = Integer.parseInt(editText.getText().toString());
-
 
 			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+
+			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 			if(sharednames.contains(selectedName) && debtamount != 0){
 
@@ -105,14 +111,16 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				editor.commit();
 
 				intent.putExtra(BOOLEAN_MESSAGE, true);
+
+				if(sharednumber.getString(selectedName, "").length() > 0){
+					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
+				}
 			}
 		}
-
 
 		intent.putExtra(ANOTHER_MESSAGE, selectedName);
 
 		startActivity(intent);
-
 
 	}
 
@@ -146,6 +154,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				editor.commit();
 
 				intent.putExtra(BOOLEAN_MESSAGE, true);
+
+				if(sharednumber.getString(selectedName, "").length() > 0){
+					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
+				}				
 			}
 		}
 
@@ -154,6 +166,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		startActivity(intent);
 
+	}
+
+	public void sendSMS(String phonenumber, String message){
+		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, SendingSms.class), 0);
+		SmsManager sms = SmsManager.getDefault();
+		sms.sendTextMessage(phonenumber, null, message, pi, null);
 	}
 
 
@@ -186,7 +204,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}
 
 	@Override
-    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 		selectedName = (String) parent.getItemAtPosition(position);
 	}
 

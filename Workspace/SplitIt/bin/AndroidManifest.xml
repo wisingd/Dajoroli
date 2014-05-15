@@ -25,15 +25,33 @@
         <activity
             android:name="com.example.splitit.DisplayMessageActivity"
             android:label="@string/title_activity_display_message"
-            android:parentActivityName="com.example.splitit.MainActivity" >
+            android:parentActivityName="com.example.splitit.ContactMenu" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.splitit.MainActivity" />
         </activity>
-        <activity android:name=".AnotherActivity" android:parentActivityName="com.example.splitit.MainActivity"></activity>
-        <activity android:name=".DebtAddingActivity" android:parentActivityName="com.example.splitit.MainActivity"></activity>
-        <activity android:parentActivityName="com.example.splitit.MainActivity" android:name=".ContactMenu"></activity>
-        <activity android:name=".DebtMenu" android:parentActivityName="com.example.splitit.DisplayMessageActivity"></activity>
+        <activity
+            android:name=".AnotherActivity"
+            android:parentActivityName="com.example.splitit.ContactMenu" >
+        </activity>
+        <activity
+            android:name=".DebtAddingActivity"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+        </activity>
+        <activity
+            android:name=".ContactMenu"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+        </activity>
+        <activity
+            android:name=".DebtMenu"
+            android:parentActivityName="com.example.splitit.DisplayMessageActivity" >
+        </activity>
+        <activity android:parentActivityName=".ContactMenu" android:name=".ErasedContacts"></activity>
     </application>
+
+    <uses-permission android:name="android.permission.SEND_SMS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" >
+    </uses-permission>
 
 </manifest>

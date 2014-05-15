@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.splitit"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="9"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.splitit.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.splitit.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitit.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AnotherActivity"
+            android:parentActivityName="com.example.splitit.ContactMenu" >
+        </activity>
+        <activity
+            android:name=".DebtAddingActivity"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+        </activity>
+        <activity
+            android:name=".ContactMenu"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+        </activity>
+        <activity
+            android:name=".DebtMenu"
+            android:parentActivityName="com.example.splitit.DisplayMessageActivity" >
+        </activity>
+        <activity android:parentActivityName=".ContactMenu" android:name=".ErasedContacts"></activity>
+    </application>
+
+    <uses-permission android:name="android.permission.SEND_SMS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" >
+    </uses-permission>
+
+</manifest>

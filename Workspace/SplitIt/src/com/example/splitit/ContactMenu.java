@@ -29,9 +29,13 @@ public class ContactMenu extends ActionBarActivity {
 
 	public SharedPreferences shareddebts;
 
+	public SharedPreferences sharednumber;
+
 	public static final String MyNames = "Mynames";
 
 	public static final String MyDebts = "Mydebts";
+
+	public static final String MyNumbers = "Mynumbers";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {         
@@ -42,9 +46,12 @@ public class ContactMenu extends ActionBarActivity {
 
 	/** Called when the user clicks the Send button */
 	public void sendMessage(View view) {
+
+		String number="";
+
 		Intent intent = new Intent(this, DisplayMessageActivity.class);
 
-		EditText editText = (EditText) findViewById(R.id.edit_message);
+		EditText editText = (EditText) findViewById(R.id.contact_name);
 
 		String message = editText.getText().toString();
 
@@ -66,10 +73,35 @@ public class ContactMenu extends ActionBarActivity {
 
 			editor2.commit();
 
+			EditText edittext2 = (EditText) findViewById(R.id.phone_number);
+
+			String numberstring = edittext2.getText().toString();
+
+			if(numberstring.length() != 0){
+				
+				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
+
+				Editor editor3 = sharednumber.edit();
+
+				number = edittext2.getText().toString();
+
+				editor3.putString(message, number);
+
+				editor3.commit();
+
+			}
+
 			intent.putExtra(BOOLEAN_MESSAGE, true);
 		}
+		if(number != ""){
 
-		intent.putExtra(EXTRA_MESSAGE, message);
+			intent.putExtra(EXTRA_MESSAGE, message + " with the number " + number);
+
+		}
+		else{
+			intent.putExtra(EXTRA_MESSAGE, message);
+		}
+		
 		startActivity(intent);
 
 	}
@@ -108,9 +140,29 @@ public class ContactMenu extends ActionBarActivity {
 		intent.putExtra(ANOTHER_MESSAGE, contacts);
 		startActivity(intent);
 
-
 	}
 
+	public void eraseContacts(View view){
+		Intent intent = new Intent(this, ErasedContacts.class);
+		
+		sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
+
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+		
+		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
+		
+		Editor editor = shareddebts.edit();
+		editor.clear();
+		editor.commit();
+		Editor editor2 = sharednames.edit();
+		editor2.clear();
+		editor2.commit();
+		Editor editor3 = sharednumber.edit();
+		editor3.clear();
+		editor3.commit();
+		startActivity(intent);
+
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

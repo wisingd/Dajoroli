@@ -244,14 +244,13 @@ int id always 0x7f05000b
 int id beginning 0x7f050011
 int id checkbox 0x7f05002d
 int id collapseActionView 0x7f05000d
-int id contact_name 0x7f05003f
+int id contact_name 0x7f05003d
 int id container 0x7f05003c
-int id debt_amount 0x7f05003e
+int id debt_amount 0x7f05003f
 int id default_activity_button 0x7f050028
 int id dialog 0x7f05000e
 int id disableHome 0x7f050008
 int id dropdown 0x7f05000f
-int id edit_message 0x7f05003d
 int id edit_query 0x7f050030
 int id end 0x7f050013
 int id expand_activities_button 0x7f050026
@@ -267,6 +266,7 @@ int id middle 0x7f050012
 int id never 0x7f050009
 int id none 0x7f050010
 int id normal 0x7f050000
+int id phone_number 0x7f05003e
 int id progress_circular 0x7f050018
 int id progress_horizontal 0x7f050019
 int id radio 0x7f05002f
@@ -344,8 +344,10 @@ int string app_name 0x7f0a000d
 int string button_send 0x7f0a0010
 int string contact 0x7f0a0015
 int string edit_message 0x7f0a000f
+int string erase_contacts 0x7f0a001b
 int string i_owe_them 0x7f0a0017
 int string information_text 0x7f0a0012
+int string number 0x7f0a001a
 int string startContactMenu 0x7f0a0019
 int string startDebtMenu 0x7f0a0018
 int string they_owe_me 0x7f0a0016

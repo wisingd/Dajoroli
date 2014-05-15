@@ -14,7 +14,7 @@
     <string name="i_owe_them">I owe them</string>
     <string name="startDebtMenu">Debt menu</string>
     <string name="startContactMenu">Contact menu</string>
-    
-    
+    <string name="number">Contact phone number</string>
+    <string name="erase_contacts">Erase contacts</string>
 
 </resources>
