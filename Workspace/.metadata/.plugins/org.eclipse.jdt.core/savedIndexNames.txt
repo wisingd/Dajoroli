@@ -1,7 +1,4 @@
-INDEX VERSION 1.126+/Users/Daniel/Desktop/GITHUB/Dajoroli/Workspace/.metadata/.plugins/org.eclipse.jdt.core
-1270315800.index
-2490427077.index
-4072183454.index
-1672278616.index
-4041617583.index
-3399160746.index
+INDEX VERSION 1.126+C:\Users\Johannes\Documents\GitHub\Dajoroli\Workspace\.metadata\.plugins\org.eclipse.jdt.core
+3224838177.index
+1098081323.index
+1284074322.index

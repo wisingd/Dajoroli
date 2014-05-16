@@ -64,6 +64,8 @@ public class ContactMenu extends ActionBarActivity {
 			Editor editor =sharednames.edit();
 
 			editor.putString(message, message);
+			
+//			editor.putString("---", "---");
 
 			editor.commit();
 
@@ -120,7 +122,7 @@ public class ContactMenu extends ActionBarActivity {
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
-			
+
 			hasContacts = true;
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
@@ -131,14 +133,18 @@ public class ContactMenu extends ActionBarActivity {
 
 			String keyen = iteratorn.next();
 
+//			if(keyen == "---"){
+//				keyen = iteratorn.next();
+//			}
+
 			contacts = contacts + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
 
 			while(iteratorn.hasNext()){
 
-				keyen = iteratorn.next();
-
-				contacts =  contacts + "\n" + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
-
+//				if(keyen != "---"){
+					keyen = iteratorn.next();
+					contacts =  contacts + "\n" + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
+//				}
 			}
 		}
 
@@ -182,6 +188,7 @@ public class ContactMenu extends ActionBarActivity {
 		editor.commit();
 		Editor editor2 = sharednames.edit();
 		editor2.clear();
+//		editor2.putString("---", "---");
 		editor2.commit();
 		Editor editor3 = sharednumber.edit();
 		editor3.clear();

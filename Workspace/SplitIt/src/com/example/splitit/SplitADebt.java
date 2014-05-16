@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -32,6 +33,12 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 	private Spinner spinner2;
 
 	private Spinner spinner3;
+
+	private boolean checkbox1 =false;
+
+	private boolean checkbox2=false;
+
+	private boolean checkbox3=false;
 
 	private String selectedName1;
 
@@ -54,6 +61,9 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		checkbox1=false;
+		checkbox2=false;
+		checkbox3=false;
 		setContentView(R.layout.activity_split_adebt);
 		addNamesToSpinner(spinner1, R.id.spinner1);
 		addNamesToSpinner(spinner2, R.id.spinner2);
@@ -62,8 +72,27 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 	}
 
 	public void splitIt(View view){
-		if(selectedName1 == selectedName2 || selectedName1 == selectedName3 || selectedName2 == selectedName3){
-			new AlertDialog.Builder(this).setTitle("Samma person").setMessage("You used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+		List<String> nameList = new ArrayList<String>();
+		boolean duplicates = false;
+		if(checkbox1){
+			nameList.add(selectedName1);
+		}
+		if(checkbox2){
+			if(nameList.contains(selectedName2))
+				duplicates = true;
+			else
+				nameList.add(selectedName2);
+
+		}
+		if(checkbox3){
+			if(nameList.contains(selectedName3))
+				duplicates = true;
+			else
+				nameList.add(selectedName3);
+		}
+
+		if(duplicates || nameList.size()==0){
+			new AlertDialog.Builder(this).setTitle("Samma person").setMessage("You did not specify a single person or you used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
@@ -84,15 +113,12 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 
 					Editor editor = shareddebts.edit();
 
-					editor.putInt(selectedName1, shareddebts.getInt(selectedName1, 0) + debtamount / 3);
-
-					editor.putInt(selectedName2, shareddebts.getInt(selectedName2, 0) + debtamount / 3);
-
-					editor.putInt(selectedName3, shareddebts.getInt(selectedName3, 0) + debtamount / 3);
-
+					for(int i=0; nameList.size() > i; i++){
+						editor.putInt(nameList.get(i), shareddebts.getInt(nameList.get(i), 0) + debtamount / nameList.size());
+					}
 					editor.commit();
-					
-					new AlertDialog.Builder(this).setTitle("").setMessage("Your debt situation with " + selectedName1 + ", " + selectedName2 + " and " + selectedName3 +" have been updated.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+
+					new AlertDialog.Builder(this).setTitle("").setMessage("Your debt situations have been updated.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 						public void onClick(DialogInterface dialog, int which){
 							return;
 						}
@@ -118,6 +144,36 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 
 		}
 
+	}
+
+
+	public void onCheckBoxClick(View v){
+		boolean checked = ((CheckBox) v).isChecked();		
+		switch(v.getId()){
+		case  R.id.checkBox1:
+			if(checked){
+				checkbox1 = true;
+			}
+			else {
+				checkbox1 = false;
+			}
+
+		case  R.id.checkBox2:
+			if(checked){
+				checkbox2 = true;
+			}
+			else {
+				checkbox2 = false;
+			}
+
+		case  R.id.checkBox3:
+			if(checked){
+				checkbox3 = true;
+			}
+			else {
+				checkbox3 = false;
+			}
+		}
 	}
 
 

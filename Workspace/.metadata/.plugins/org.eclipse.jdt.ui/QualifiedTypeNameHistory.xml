@@ -6,8 +6,8 @@
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.telephony.SmsManager"/>
 <fullyQualifiedTypeName name="android.telephony.SmsMessage"/>
-<fullyQualifiedTypeName name="com.example.splitit.R.id"/>
 <fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
+<fullyQualifiedTypeName name="com.example.splitit.R.id"/>
 </qualifiedTypeNameHistroy>
