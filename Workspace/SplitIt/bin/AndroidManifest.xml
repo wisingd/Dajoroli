@@ -31,31 +31,36 @@
                 android:value="com.example.splitit.MainActivity" />
         </activity>
         <activity
-            android:name=".AnotherActivity"
+            android:name="com.example.splitit.AnotherActivity"
             android:parentActivityName="com.example.splitit.ContactMenu" >
         </activity>
         <activity
-            android:name=".DebtAddingActivity"
+            android:name="com.example.splitit.DebtAddingActivity"
             android:parentActivityName="com.example.splitit.MainActivity" >
         </activity>
         <activity
-            android:name=".ContactMenu"
+            android:name="com.example.splitit.ContactMenu"
             android:parentActivityName="com.example.splitit.MainActivity" >
         </activity>
         <activity
-            android:name=".DebtMenu"
+            android:name="com.example.splitit.DebtMenu"
             android:parentActivityName="com.example.splitit.DisplayMessageActivity" >
         </activity>
         <activity
-            android:name=".ErasedContacts"
-            android:parentActivityName=".ContactMenu" >
+            android:name="com.example.splitit.ErasedContacts"
+            android:parentActivityName="com.example.splitit.ContactMenu" >
         </activity>
-        
-         <activity android:name="com.example.splitit.SplitADebt"
+        <activity
+            android:name="com.example.splitit.SplitADebt"
             android:label="@string/title_activity_split_adebt"
-            android:parentActivityName="com.example.splitit.DebtMenu">
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            android:parentActivityName="com.example.splitit.DebtMenu" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.splitit.DebtMenu" />
+        </activity>
+        <activity
+            android:name="com.example.splitit.DanielsTest"
+            android:label="@string/title_activity_daniels_test" >
         </activity>
     </application>
 
