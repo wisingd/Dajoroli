@@ -109,7 +109,6 @@ public class ContactMenu extends ActionBarActivity {
 	}
 	/** Called when the user clicks the other button */
 	public void viewContacts(View view){
-		boolean hasContacts = false;
 
 		Intent intent = new Intent(this, AnotherActivity.class);
 
@@ -120,8 +119,6 @@ public class ContactMenu extends ActionBarActivity {
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
-			
-			hasContacts = true;
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
 
@@ -140,19 +137,12 @@ public class ContactMenu extends ActionBarActivity {
 				contacts =  contacts + "\n" + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
 
 			}
+			intent.putExtra(BOOLEAN_MESSAGE, true);
 		}
 
-		if(hasContacts){
-			intent.putExtra(ANOTHER_MESSAGE, contacts);
-			startActivity(intent);	
-		}
-		else{
-			new AlertDialog.Builder(this).setTitle("No friends :(").setMessage("You do not have any contacts.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
+		intent.putExtra(ANOTHER_MESSAGE, contacts);
+		startActivity(intent);
+
 	}
 
 	public void doYouReallyWantToEraseContacts(View view){

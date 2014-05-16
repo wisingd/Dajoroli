@@ -20,8 +20,9 @@ public class AnotherActivity extends ActionBarActivity {
 		String message = intent.getStringExtra(MainActivity.ANOTHER_MESSAGE);
 
 		TextView textView = new TextView(this);
-		textView.setTextSize(20);		
+		textView.setTextSize(20);
 		textView.setText("You have the following contacts \n" + message);
+
 		setContentView(textView);
 	}
 

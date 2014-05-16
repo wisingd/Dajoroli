@@ -20,8 +20,18 @@ public class AnotherActivity extends ActionBarActivity {
 		String message = intent.getStringExtra(MainActivity.ANOTHER_MESSAGE);
 
 		TextView textView = new TextView(this);
-		textView.setTextSize(20);		
-		textView.setText("You have the following contacts \n" + message);
+		textView.setTextSize(20);
+		
+		boolean trueorfalse = intent.getBooleanExtra(ContactMenu.BOOLEAN_MESSAGE, false);
+
+		if(trueorfalse){
+			textView.setText("You have the following contacts \n" + message);
+			}
+		else{
+			
+			textView.setText("You do not have any contacts");
+			
+		}
 		setContentView(textView);
 	}
 
