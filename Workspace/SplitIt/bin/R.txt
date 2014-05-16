@@ -346,9 +346,9 @@ int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000e
 int string amount 0x7f0a0014
 int string app_name 0x7f0a000d
-int string button_send 0x7f0a0010
+int string button_create_contact 0x7f0a0010
 int string contact 0x7f0a0015
-int string edit_message 0x7f0a000f
+int string contact_name 0x7f0a000f
 int string erase_contacts 0x7f0a001b
 int string hello_world 0x7f0a001f
 int string i_owe_them 0x7f0a0017

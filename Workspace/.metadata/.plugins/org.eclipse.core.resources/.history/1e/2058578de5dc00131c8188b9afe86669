@@ -26,8 +26,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="addContact"
-        android:text="@string/button_create_contact" />
+        android:onClick="sendMessage"
+        android:text="@string/button_send" />
 
     <Button
         android:layout_width="wrap_content"

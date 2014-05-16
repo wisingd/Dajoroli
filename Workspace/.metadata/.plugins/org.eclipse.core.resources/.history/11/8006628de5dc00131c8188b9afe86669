@@ -46,8 +46,8 @@ public class ContactMenu extends ActionBarActivity {
 		setContentView(R.layout.contact_view);
 	}
 
-	/** Called when the user clicks the "Create contact!"-button */
-	public void addContact(View view) {
+	/** Called when the user clicks the Send button */
+	public void sendMessage(View view) {
 
 		String number="";
 

@@ -13,7 +13,7 @@
             android:id="@+id/contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/contact_name" />
+            android:hint="@string/edit_message" />
 
         <EditText
             android:id="@+id/phone_number"
@@ -26,8 +26,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="addContact"
-        android:text="@string/button_create_contact" />
+        android:onClick="sendMessage"
+        android:text="@string/button_send" />
 
     <Button
         android:layout_width="wrap_content"

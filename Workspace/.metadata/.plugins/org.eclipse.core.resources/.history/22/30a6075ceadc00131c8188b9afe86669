@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -22,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 
 public class SplitADebt extends ActionBarActivity implements OnItemSelectedListener{
@@ -60,66 +58,21 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		addNamesToSpinner(spinner3, R.id.spinner3);
 
 	}
-
+	
 	public void splitIt(View view){
 		if(selectedName1 == selectedName2 || selectedName1 == selectedName3 || selectedName2 == selectedName3){
-			new AlertDialog.Builder(this).setTitle("Samma person").setMessage("You used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			new AlertDialog.Builder(this).setTitle("Samma person").setMessage("Du använde samma person flera gånger").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
 			}).show();
 		}
 		else{
-			EditText editText = (EditText) findViewById(R.id.debt_amount);
-
-			if(editText.getText() != null && !editText.getText().toString().isEmpty()){
-
-				int debtamount = Integer.parseInt(editText.getText().toString());
-
-				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
-				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
-
-				if (debtamount != 0){
-
-					Editor editor = shareddebts.edit();
-
-					editor.putInt(selectedName1, shareddebts.getInt(selectedName1, 0) + debtamount / 3);
-
-					editor.putInt(selectedName2, shareddebts.getInt(selectedName2, 0) + debtamount / 3);
-
-					editor.putInt(selectedName3, shareddebts.getInt(selectedName3, 0) + debtamount / 3);
-
-					editor.commit();
-					
-					new AlertDialog.Builder(this).setTitle("").setMessage("Your debt situation with " + selectedName1 + ", " + selectedName2 + " and " + selectedName3 +" have been updated.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int which){
-							return;
-						}
-					}).show();					
-
-				}
-
-				else{
-					new AlertDialog.Builder(this).setTitle("").setMessage("You have to set an amount that is not zero").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int which){
-							return;
-						}
-					}).show();
-				}
-			}
-			else{
-				new AlertDialog.Builder(this).setTitle("").setMessage("You have to set an amount").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-			}
-
+			
+			
+			
 		}
-
 	}
-
 
 	public void addNamesToSpinner(Spinner spinner, int id){
 		spinner = (Spinner) findViewById(id);
