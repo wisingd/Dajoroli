@@ -21,5 +21,6 @@
     <string name="title_activity_split_adebt">SplitADebt</string>
     <string name="hello_world">Hello world!</string>
     <string name="splitOnThree">Split on these contacts!</string>
+    <string name="title_activity_daniels_test">DanielsTest</string>
 
 </resources>
