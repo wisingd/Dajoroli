@@ -34,11 +34,11 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 
 	private Spinner spinner3;
 
-	private boolean checkbox1;
+	private boolean checkbox1 =false;
 
-	private boolean checkbox2;
+	private boolean checkbox2=false;
 
-	private boolean checkbox3;
+	private boolean checkbox3=false;
 
 	private String selectedName1;
 
@@ -74,32 +74,29 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 	public void splitIt(View view){
 		List<String> nameList = new ArrayList<String>();
 		boolean duplicates = false;
-		if(checkbox1==true){
+		int j=0;
+		if(checkbox1){
 			nameList.add(selectedName1);
+			j++;
 		}
-		if(checkbox2==true){
+		if(checkbox2){
+			j++;
 			if(nameList.contains(selectedName2))
 				duplicates = true;
 			else
 				nameList.add(selectedName2);
 
 		}
-		if(checkbox3==true){
+		if(checkbox3){
+			j++;
 			if(nameList.contains(selectedName3))
 				duplicates = true;
 			else
 				nameList.add(selectedName3);
 		}
 
-		if(duplicates){
-			new AlertDialog.Builder(this).setTitle("Same person").setMessage("You used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-		else if(nameList.size()==0){
-			new AlertDialog.Builder(this).setTitle("No person").setMessage("You did not specify a single person").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+		if(duplicates || nameList.size()==0){
+			new AlertDialog.Builder(this).setTitle("Samma person " + j).setMessage("You did not specify a single person or you used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
@@ -164,7 +161,7 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 			else {
 				checkbox1 = false;
 			}
-			break;
+
 		case  R.id.checkBox2:
 			if(checked){
 				checkbox2 = true;
@@ -172,7 +169,7 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 			else {
 				checkbox2 = false;
 			}
-			break;
+
 		case  R.id.checkBox3:
 			if(checked){
 				checkbox3 = true;
@@ -180,7 +177,6 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 			else {
 				checkbox3 = false;
 			}
-			break;
 		}
 	}
 

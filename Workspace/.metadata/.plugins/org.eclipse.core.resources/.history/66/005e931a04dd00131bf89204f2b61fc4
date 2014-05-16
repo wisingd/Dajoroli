@@ -74,10 +74,13 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 	public void splitIt(View view){
 		List<String> nameList = new ArrayList<String>();
 		boolean duplicates = false;
+		int j=0;
 		if(checkbox1==true){
 			nameList.add(selectedName1);
+			j++;
 		}
 		if(checkbox2==true){
+			j++;
 			if(nameList.contains(selectedName2))
 				duplicates = true;
 			else
@@ -85,21 +88,15 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 
 		}
 		if(checkbox3==true){
+			j++;
 			if(nameList.contains(selectedName3))
 				duplicates = true;
 			else
 				nameList.add(selectedName3);
 		}
 
-		if(duplicates){
-			new AlertDialog.Builder(this).setTitle("Same person").setMessage("You used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-		else if(nameList.size()==0){
-			new AlertDialog.Builder(this).setTitle("No person").setMessage("You did not specify a single person").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+		if(duplicates || nameList.size()==0){
+			new AlertDialog.Builder(this).setTitle("Samma person " + j).setMessage("You did not specify a single person or you used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
@@ -158,29 +155,28 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		boolean checked = ((CheckBox) v).isChecked();		
 		switch(v.getId()){
 		case  R.id.checkBox1:
-			if(checked){
+//			if(checked){
 				checkbox1 = true;
-			}
-			else {
-				checkbox1 = false;
-			}
-			break;
+//			}
+//			else {
+//				checkbox1 = false;
+//			}
+
 		case  R.id.checkBox2:
-			if(checked){
+//			if(checked){
 				checkbox2 = true;
-			}
-			else {
-				checkbox2 = false;
-			}
-			break;
+//			}
+//			else {
+//				checkbox2 = false;
+//			}
+
 		case  R.id.checkBox3:
-			if(checked){
+//			if(checked){
 				checkbox3 = true;
-			}
-			else {
-				checkbox3 = false;
-			}
-			break;
+//			}
+//			else {
+//				checkbox3 = false;
+//			}
 		}
 	}
 

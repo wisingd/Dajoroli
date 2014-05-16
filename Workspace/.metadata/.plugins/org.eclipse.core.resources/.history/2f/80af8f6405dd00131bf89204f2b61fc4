@@ -91,15 +91,8 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 				nameList.add(selectedName3);
 		}
 
-		if(duplicates){
-			new AlertDialog.Builder(this).setTitle("Same person").setMessage("You used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-		else if(nameList.size()==0){
-			new AlertDialog.Builder(this).setTitle("No person").setMessage("You did not specify a single person").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+		if(duplicates || nameList.size()==0){
+			new AlertDialog.Builder(this).setTitle("Same person").setMessage("You did not specify a single person or you used the same person multiple times").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
