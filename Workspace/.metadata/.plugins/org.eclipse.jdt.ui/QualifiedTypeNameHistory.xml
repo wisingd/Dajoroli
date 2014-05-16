@@ -3,7 +3,9 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.example.splitit.R.layout"/>
 <fullyQualifiedTypeName name="android.support.v7.internal.widget.AdapterViewICS.OnItemSelectedListener"/>
-<fullyQualifiedTypeName name="com.example.splitit.R.id"/>
 <fullyQualifiedTypeName name="android.content.Context"/>
 <fullyQualifiedTypeName name="android.telephony.SmsManager"/>
+<fullyQualifiedTypeName name="android.telephony.SmsMessage"/>
+<fullyQualifiedTypeName name="com.example.splitit.R.id"/>
+<fullyQualifiedTypeName name="android.app.AlertDialog.Builder"/>
 </qualifiedTypeNameHistroy>

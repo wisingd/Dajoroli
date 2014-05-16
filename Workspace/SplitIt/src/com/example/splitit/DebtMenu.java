@@ -112,9 +112,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 				intent.putExtra(BOOLEAN_MESSAGE, true);
 
-				if(sharednumber.getString(selectedName, "").length() > 0){
-					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
-				}
+//				if(sharednumber.getString(selectedName, "").length() > 0){
+//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
+//				}
 			}
 		}
 
@@ -140,6 +140,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+			
+			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 			if(sharednames.contains(selectedName) && debtamount != 0){
 
@@ -155,9 +157,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 				intent.putExtra(BOOLEAN_MESSAGE, true);
 
-				if(sharednumber.getString(selectedName, "").length() > 0){
-					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
-				}				
+//				if(sharednumber.getString(selectedName, "").length() > 0){
+//					sendSMS(sharednumber.getString(selectedName, ""), "La till att jag är skyldig dig " + debtamount + " stålar");
+//				}				
 			}
 		}
 
@@ -172,6 +174,11 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, SendingSms.class), 0);
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phonenumber, null, message, pi, null);
+	}
+	
+	public void splitDebt(View view){
+		Intent intent = new Intent(this, SplitADebt.class);
+		startActivity(intent);
 	}
 
 

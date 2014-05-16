@@ -16,5 +16,10 @@
     <string name="startContactMenu">Contact menu</string>
     <string name="number">Contact phone number</string>
     <string name="erase_contacts">Erase contacts</string>
+    <string name="name">Name</string>
+    <string name="split_debt">Split a debt</string>
+    <string name="title_activity_split_adebt">SplitADebt</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="splitOnThree">Split on these contacts!</string>
 
 </resources>

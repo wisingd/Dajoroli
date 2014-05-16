@@ -4,7 +4,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -78,7 +80,7 @@ public class ContactMenu extends ActionBarActivity {
 			String numberstring = edittext2.getText().toString();
 
 			if(numberstring.length() != 0){
-				
+
 				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
 
 				Editor editor3 = sharednumber.edit();
@@ -101,7 +103,7 @@ public class ContactMenu extends ActionBarActivity {
 		else{
 			intent.putExtra(EXTRA_MESSAGE, message);
 		}
-		
+
 		startActivity(intent);
 
 	}
@@ -142,15 +144,28 @@ public class ContactMenu extends ActionBarActivity {
 
 	}
 
-	public void eraseContacts(View view){
-		Intent intent = new Intent(this, ErasedContacts.class);
-		
+	public void doYouReallyWantToEraseContacts(View view){
+		new AlertDialog.Builder(this).setTitle("Erase contacts").setMessage("Do you really want to erase all contacts?").setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+				eraseContacts();
+			}
+		}).setNegativeButton("No", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+				return;
+			}
+		}).show();
+	}
+
+
+
+	public void eraseContacts(){
+
 		sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
 
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-		
+
 		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
-		
+
 		Editor editor = shareddebts.edit();
 		editor.clear();
 		editor.commit();
@@ -160,9 +175,16 @@ public class ContactMenu extends ActionBarActivity {
 		Editor editor3 = sharednumber.edit();
 		editor3.clear();
 		editor3.commit();
-		startActivity(intent);
+
+		new AlertDialog.Builder(this).setTitle("Contacts erased!").setMessage("You have erased all of your contacts!").setPositiveButton("Okej", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+				return;
+			}
+		}).show();
 
 	}
+
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

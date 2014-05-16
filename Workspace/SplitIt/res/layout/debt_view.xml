@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-        <TextView
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/information_text"
@@ -27,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_dropdown"
+            android:prompt="@string/name"
             android:spinnerMode="dropdown" />
     </LinearLayout>
 
@@ -47,7 +49,11 @@
             android:onClick="iOweThem"
             android:text="@string/i_owe_them" />
     </LinearLayout>
-    
-    
+
+    <Button
+        android:layout_width="224dp"
+        android:layout_height="167dp"
+        android:onClick="splitDebt"
+        android:text="@string/split_debt" />
 
 </LinearLayout>

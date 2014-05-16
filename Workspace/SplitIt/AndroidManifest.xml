@@ -46,7 +46,17 @@
             android:name=".DebtMenu"
             android:parentActivityName="com.example.splitit.DisplayMessageActivity" >
         </activity>
-        <activity android:parentActivityName=".ContactMenu" android:name=".ErasedContacts"></activity>
+        <activity
+            android:name=".ErasedContacts"
+            android:parentActivityName=".ContactMenu" >
+        </activity>
+        
+         <activity android:name="com.example.splitit.SplitADebt"
+            android:label="@string/title_activity_split_adebt"
+            android:parentActivityName="com.example.splitit.DebtMenu">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.splitit.DebtMenu" />
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.SEND_SMS" >
