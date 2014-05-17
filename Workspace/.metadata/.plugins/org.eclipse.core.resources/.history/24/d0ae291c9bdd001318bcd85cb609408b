@@ -65,6 +65,8 @@ public class ContactMenu extends ActionBarActivity {
 
 			editor.putString(message, message);
 			
+//			editor.putString("---", "---");
+
 			editor.commit();
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);

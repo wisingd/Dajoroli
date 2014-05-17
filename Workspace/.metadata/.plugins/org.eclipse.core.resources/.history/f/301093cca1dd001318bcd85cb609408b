@@ -111,8 +111,23 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				editor.putInt(selectedName, newdebt);
 
 				editor.commit();
+				
+				String string = "";
 
-				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(true, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+				if ( newdebt > 0 && olddebt >= 0){
+					string = selectedName +" now has a total debt of " + Integer.toString(newdebt) + "kr.";
+				}
+				else if (newdebt > 0 && olddebt < 0){
+					string = "Your debt situation has changed! " + selectedName + " now owes you " + Integer.toString(newdebt) + "kr."; 
+				}
+				else if(newdebt == 0){
+					string = "You are now even with " + selectedName + ".";
+				}
+				else{
+					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
+				}
+				
+				new AlertDialog.Builder(this).setTitle("Update").setMessage(string).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}
@@ -181,24 +196,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				editor.putInt(selectedName, newdebt);
 
 				editor.commit();
-				
-				String string = "";
 
-				if ( newdebt > 0 && olddebt >= 0){
-					string = selectedName +" now has a total debt of " + Integer.toString(newdebt) + "kr.";
-				}
-				else if (newdebt > 0 && olddebt < 0){
-					string = "Your debt situation has changed! " + selectedName + " now owes you " + Integer.toString(newdebt) + "kr."; 
-				}
-				else if(newdebt == 0){
-					string = "You are now even with " + selectedName + ".";
-				}
-				else{
-					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
-				}
-
-
-				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(false, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+				new AlertDialog.Builder(this).setTitle("Update").setMessage("Your debt situation with " + selectedName + " has been updated.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}

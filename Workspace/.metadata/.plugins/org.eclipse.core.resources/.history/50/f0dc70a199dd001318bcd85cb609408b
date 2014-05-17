@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name="com.example.splitit.DebtAddingActivity"
-            android:parentActivityName="com.example.splitit.DebtMenu" >
+            android:parentActivityName="com.example.splitit.MainActivity" >
         </activity>
         <activity
             android:name="com.example.splitit.ContactMenu"

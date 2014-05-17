@@ -86,7 +86,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	public void theyOweMe(View view){
 		int newdebt, olddebt;
 
-		//		Intent intent = new Intent(this, DebtAddingActivity.class);
+		Intent intent = new Intent(this, DebtAddingActivity.class);
 
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
@@ -112,49 +112,24 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 				editor.commit();
 
-				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(true, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
+				intent.putExtra(BOOLEAN_MESSAGE, true);
 
-
-				//				intent.putExtra(BOOLEAN_MESSAGE, true);
-
-				//				if(sharednumber.getString(selectedName, "").length() > 0){
-				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
-				//				}
+//				if(sharednumber.getString(selectedName, "").length() > 0){
+//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
+//				}
 			}
-
-			else{
-				new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount that is not 0.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-
-			}
-
 		}
 
-		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
-		//
-		//		startActivity(intent);
-		else{
-			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
+		intent.putExtra(ANOTHER_MESSAGE, selectedName);
 
+		startActivity(intent);
 
 	}
 
 	public void iOweThem(View view){
 		int newdebt, olddebt;
 
-		//		Intent intent = new Intent(this, DebtAddingActivity.class);
+//		Intent intent = new Intent(this, DebtAddingActivity.class);
 
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
@@ -167,7 +142,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
 
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
+			
 			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 			if(sharednames.contains(selectedName) && debtamount != 0){
@@ -182,44 +157,28 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 				editor.commit();
 				
-				String string = "";
-
-				if ( newdebt > 0 && olddebt >= 0){
-					string = selectedName +" now has a total debt of " + Integer.toString(newdebt) + "kr.";
-				}
-				else if (newdebt > 0 && olddebt < 0){
-					string = "Your debt situation has changed! " + selectedName + " now owes you " + Integer.toString(newdebt) + "kr."; 
-				}
-				else if(newdebt == 0){
-					string = "You are now even with " + selectedName + ".";
-				}
-				else{
-					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
-				}
-
-
-				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(false, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+				new AlertDialog.Builder(this).setTitle("Update").setMessage("Your debt situation with " + selectedName + " has been updated.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}
 				}).show();
 
-				//				intent.putExtra(BOOLEAN_MESSAGE, true);
+//				intent.putExtra(BOOLEAN_MESSAGE, true);
 
-				//				if(sharednumber.getString(selectedName, "").length() > 0){
-				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att jag är skyldig dig " + debtamount + " stålar");
-				//				}				
+//				if(sharednumber.getString(selectedName, "").length() > 0){
+//					sendSMS(sharednumber.getString(selectedName, ""), "La till att jag är skyldig dig " + debtamount + " stålar");
+//				}				
 			}
-
+			
 			else{
 				new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount that is not 0.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}
 				}).show();
-
+				
 			}
-
+				
 		}
 		else{
 			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
@@ -227,14 +186,14 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 					return;
 				}
 			}).show();
-
-
+		
+			
 		}
 
 
-		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
-		//
-		//		startActivity(intent);
+//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
+//
+//		startActivity(intent);
 
 	}
 
@@ -243,7 +202,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phonenumber, null, message, pi, null);
 	}
-
+	
 	public void splitDebt(View view){
 		Intent intent = new Intent(this, SplitADebt.class);
 		startActivity(intent);
