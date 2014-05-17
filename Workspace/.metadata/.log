@@ -946,3 +946,638 @@ java.lang.NullPointerException
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:17:26.169
 !MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:51:53.023
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 11:51:53.293
+!MESSAGE fragment_main.xml: Couldn't resolve resource @string/startEvent
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:54:21.923
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:42.573
+!MESSAGE Warning: Ignoring name conflict in resource file for name hello_world
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:42.573
+!MESSAGE Warning: Ignoring name conflict in resource file for name action_settings
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:42.584
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_horizontal_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:42.585
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_vertical_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:42.591
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_horizontal_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:50.444
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:55:57.956
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:00:22.581
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:00:28.329
+!MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:00:52.777
+!MESSAGE Failed to update a TargetChangeListener.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.<init>(RenderService.java:129)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.create(RenderService.java:226)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.renderWithBridge(GraphicalEditorPart.java:1578)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.recomputeLayout(GraphicalEditorPart.java:1309)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.changed(GraphicalEditorPart.java:725)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.onTargetChange(GraphicalEditorPart.java:1196)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.onDescriptorsChanged(LayoutEditorDelegate.java:916)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.delegateInitUiRootNode(LayoutEditorDelegate.java:835)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.updateEditor(GraphicalEditorPart.java:953)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.onTargetLoaded(GraphicalEditorPart.java:917)
+	at com.android.ide.eclipse.adt.AdtPlugin$11.run(AdtPlugin.java:1759)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4145)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3762)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:138)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:610)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.517
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.518
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.518
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 12:08:32.519
+!MESSAGE fragment_daniels_test.xml: Couldn't resolve resource @string/hello_world
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.528
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.674
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.687
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.688
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.689
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.701
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.701
+!MESSAGE palette: Failed to find style 'autoCompleteTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.705
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.706
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.706
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.708
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.709
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.710
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.711
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.712
+!MESSAGE palette: Failed to find style 'buttonStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.718
+!MESSAGE palette: Failed to find style 'checkboxStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.719
+!MESSAGE palette: Failed to find style 'checkboxStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.720
+!MESSAGE palette: Failed to find style 'checkboxStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.721
+!MESSAGE palette: Failed to find style 'checkboxStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.723
+!MESSAGE palette: Failed to find style 'checkboxStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.726
+!MESSAGE palette: Failed to find style 'checkedTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.727
+!MESSAGE palette: Failed to find style 'checkedTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.728
+!MESSAGE palette: Failed to find style 'checkedTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.728
+!MESSAGE palette: Failed to find style 'checkedTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.730
+!MESSAGE palette: Failed to find style 'checkedTextViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.745
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.746
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.747
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:32.747
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.241
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.242
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.243
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.244
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.245
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.249
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.249
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.260
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.261
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.262
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.262
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.263
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.264
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.265
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.265
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.266
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.272
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.273
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.273
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.275
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.276
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.278
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.279
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.280
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.282
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.283
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.283
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.284
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.285
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.286
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.287
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.289
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.292
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.293
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.295
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.297
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.298
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.299
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.300
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.303
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.305
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.306
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.307
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.308
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.310
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.311
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.311
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.313
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.314
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.315
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.327
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.329
+!MESSAGE palette: Failed to find style 'editTextStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.330
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.331
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 12:08:33.342
+!MESSAGE Failed to render set of icons for AnalogClock, AutoCompleteTextView, Button, SmallButton, CheckBox, CheckedTextView, DigitalClock, PlainText, Password, PasswordNumeric, PersonName, Phone, PostalAddress, MultilineText, Date, Time, Email, Number, NumberSigned, NumberDecimal, LargeText, MediumText, SmallText, MultiAutoCompleteTextView, ProgressBarNormal, ProgressBarHorizontal, ProgressBarLarge, ProgressBarSmall, QuickContactBadge, RadioButton, RatingBar, SeekBar, ListView, ExpandableListView, Spinner, TextView, ToggleButton, ZoomButton, ZoomControls, CalendarView, RadioGroup
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.342
+!MESSAGE 
+!STACK 0
+android.content.res.Resources$NotFoundException
+	at com.android.layoutlib.bridge.android.BridgeContext.obtainStyledAttributes(BridgeContext.java:468)
+	at android.content.res.Resources_Theme_Delegate.obtainStyledAttributes(Resources_Theme_Delegate.java:48)
+	at android.content.res.Resources$Theme.obtainStyledAttributes(Resources.java:1279)
+	at android.widget.TextView.<init>(TextView.java:667)
+	at android.widget.TextView.<init>(TextView.java:618)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at android.view.LayoutInflater.createView(LayoutInflater.java:594)
+	at android.view.BridgeInflater.onCreateView(BridgeInflater.java:86)
+	at android.view.LayoutInflater.onCreateView(LayoutInflater.java:669)
+	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:694)
+	at android.view.BridgeInflater.createViewFromTag(BridgeInflater.java:131)
+	at android.view.LayoutInflater.rInflate_Original(LayoutInflater.java:755)
+	at android.view.LayoutInflater_Delegate.rInflate(LayoutInflater_Delegate.java:64)
+	at android.view.LayoutInflater.rInflate(LayoutInflater.java:727)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:492)
+	at android.view.LayoutInflater.inflate(LayoutInflater.java:373)
+	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:399)
+	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:336)
+	at com.android.ide.common.rendering.LayoutLibrary.createSession(LayoutLibrary.java:332)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.createRenderSession(RenderService.java:504)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.render(PreviewIconFactory.java:273)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.initColors(PreviewIconFactory.java:595)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.getBackgroundColor(PreviewIconFactory.java:570)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PaletteControl.reloadPalette(PaletteControl.java:437)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.reloadPalette(GraphicalEditorPart.java:1327)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.changed(GraphicalEditorPart.java:771)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.onTargetChange(GraphicalEditorPart.java:1196)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.onDescriptorsChanged(LayoutEditorDelegate.java:916)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.delegateInitUiRootNode(LayoutEditorDelegate.java:835)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.updateEditor(GraphicalEditorPart.java:953)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.onTargetLoaded(GraphicalEditorPart.java:917)
+	at com.android.ide.eclipse.adt.AdtPlugin$11.run(AdtPlugin.java:1759)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4145)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3762)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:138)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:610)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.350
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.351
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.351
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.352
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.353
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.355
+!MESSAGE palette: Failed to find style 'switchStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 12:08:33.356
+!MESSAGE Failed to render set of icons for Switch
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.357
+!MESSAGE 
+!STACK 0
+java.lang.NullPointerException
+	at android.widget.Switch.jumpDrawablesToCurrentState(Switch.java:825)
+	at android.view.ViewGroup.jumpDrawablesToCurrentState(ViewGroup.java:5488)
+	at android.view.ViewGroup.jumpDrawablesToCurrentState(ViewGroup.java:5488)
+	at android.widget.FrameLayout.jumpDrawablesToCurrentState(FrameLayout.java:189)
+	at android.view.View.onAttachedToWindow(View.java:12116)
+	at android.view.ViewGroup.onAttachedToWindow(ViewGroup.java:3497)
+	at android.view.View.dispatchAttachedToWindow(View.java:12585)
+	at android.view.ViewGroup.dispatchAttachedToWindow(ViewGroup.java:2458)
+	at android.view.AttachInfo_Accessor.setAttachInfo(AttachInfo_Accessor.java:42)
+	at com.android.layoutlib.bridge.impl.RenderSessionImpl.inflate(RenderSessionImpl.java:407)
+	at com.android.layoutlib.bridge.Bridge.createSession(Bridge.java:336)
+	at com.android.ide.common.rendering.LayoutLibrary.createSession(LayoutLibrary.java:332)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.createRenderSession(RenderService.java:504)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.render(PreviewIconFactory.java:273)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.initColors(PreviewIconFactory.java:595)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PreviewIconFactory.getBackgroundColor(PreviewIconFactory.java:570)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.PaletteControl.reloadPalette(PaletteControl.java:437)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.reloadPalette(GraphicalEditorPart.java:1327)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.changed(GraphicalEditorPart.java:771)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.onTargetChange(GraphicalEditorPart.java:1196)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.onDescriptorsChanged(LayoutEditorDelegate.java:916)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.delegateInitUiRootNode(LayoutEditorDelegate.java:835)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.updateEditor(GraphicalEditorPart.java:953)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.onTargetLoaded(GraphicalEditorPart.java:917)
+	at com.android.ide.eclipse.adt.AdtPlugin$11.run(AdtPlugin.java:1759)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4145)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3762)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:138)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:610)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.362
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.369
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.370
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.371
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.459
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.459
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.460
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.461
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.468
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.468
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.469
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.470
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.478
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.478
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.479
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.480
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.558
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.559
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.560
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.561
+!MESSAGE palette: Failed to find style 'tabWidgetStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.573
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.574
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.575
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.575
+!MESSAGE palette: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.589
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.590
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.590
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 12:08:33.591
+!MESSAGE fragment_daniels_test.xml: Couldn't resolve resource @string/hello_world
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 12:08:33.592
+!MESSAGE fragment_daniels_test.xml: Failed to find style 'textViewStyle' in current theme
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 12:08:38.361
+!MESSAGE fragment_daniels_test.xml: Couldn't resolve resource @string/hello_world
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-17 15:20:24.496
+!MESSAGE fragment_event_creater.xml: Couldn't resolve resource @string/createevent
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:24:21.642
+!MESSAGE Warning: Ignoring name conflict in resource file for name hello_world
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:24:21.642
+!MESSAGE Warning: Ignoring name conflict in resource file for name action_settings
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:24:21.663
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_horizontal_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:24:21.664
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_vertical_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:24:21.671
+!MESSAGE Warning: Ignoring name conflict in resource file for name activity_horizontal_margin
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 15:59:46.032
+!MESSAGE Failed to update a TargetChangeListener.
+!STACK 0
+java.lang.NullPointerException
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.<init>(RenderService.java:129)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.RenderService.create(RenderService.java:226)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.renderWithBridge(GraphicalEditorPart.java:1578)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.recomputeLayout(GraphicalEditorPart.java:1309)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.changed(GraphicalEditorPart.java:725)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart.onTargetChange(GraphicalEditorPart.java:1196)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.onDescriptorsChanged(LayoutEditorDelegate.java:916)
+	at com.android.ide.eclipse.adt.internal.editors.layout.LayoutEditorDelegate.delegateInitUiRootNode(LayoutEditorDelegate.java:835)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.updateEditor(GraphicalEditorPart.java:953)
+	at com.android.ide.eclipse.adt.internal.editors.layout.gle2.GraphicalEditorPart$TargetListener.onTargetLoaded(GraphicalEditorPart.java:917)
+	at com.android.ide.eclipse.adt.AdtPlugin$11.run(AdtPlugin.java:1759)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages(Synchronizer.java:135)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:4145)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3762)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1113)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:997)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:138)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:610)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:567)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:124)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:354)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:181)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:636)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:591)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)

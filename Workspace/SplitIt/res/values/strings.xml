@@ -19,8 +19,13 @@
     <string name="name">Name</string>
     <string name="split_debt">Split a debt</string>
     <string name="title_activity_split_adebt">SplitADebt</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="event_name">Enter the name of the event</string>
     <string name="splitOnThree">Split on these contacts!</string>
     <string name="title_activity_daniels_test">DanielsTest</string>
+    <string name="startEvent">Event!</string>
+    <string name="title_activity_event_creater">Create event</string>
+    <string name="hello_world">Hello world</string>
+    <string name="createevent">Create event!</string>
+    <string name="title_activity_add_attenders">Add attenders</string>
 
 </resources>

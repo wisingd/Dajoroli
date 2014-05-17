@@ -10,4 +10,8 @@
 <fullyQualifiedTypeName name="android.widget.EditText"/>
 <fullyQualifiedTypeName name="android.content.SharedPreferences.Editor"/>
 <fullyQualifiedTypeName name="com.example.splitit.R.id"/>
+<fullyQualifiedTypeName name="android.app.DialogFragment"/>
+<fullyQualifiedTypeName name="android.app.FragmentManager"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView.OnItemSelectedListener"/>
 </qualifiedTypeNameHistroy>
