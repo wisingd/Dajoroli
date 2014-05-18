@@ -91,4 +91,8 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, ContactMenu.class);
 		startActivity(intent);
 	}
+	public void startEvent(View view){
+		Intent intent = new Intent(this,EventCreater.class);
+		startActivity(intent);
+	}
 }

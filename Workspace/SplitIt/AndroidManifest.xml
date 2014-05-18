@@ -5,12 +5,12 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="11"
         android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/bank4_kopia"
+        android:icon="@drawable/bank4"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -61,6 +61,22 @@
         <activity
             android:name="com.example.splitit.DanielsTest"
             android:label="@string/title_activity_daniels_test" >
+        </activity>
+        <activity
+            android:name="com.example.splitit.EventCreater"
+            android:label="@string/title_activity_event_creater"
+            android:parentActivityName="com.example.splitit.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.splitit.AddAttenders"
+            android:label="@string/title_activity_add_attenders"
+            android:parentActivityName="com.example.splitit.EventCreater" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="EventCreater" />
         </activity>
     </application>
 
