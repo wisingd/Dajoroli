@@ -946,3 +946,28 @@ java.lang.NullPointerException
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2014-05-17 11:17:26.169
 !MESSAGE debt_view.xml: Resouce id 0x1010081 is not of type STYLE (instead attr)
+!SESSION 2014-05-18 13:06:09.054 -----------------------------------------------
+eclipse.buildId=v22.6.2-1085508
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=sv_SE
+Framework arguments:  -product com.android.ide.eclipse.adt.package.product -keyring /Users/Daniel/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product com.android.ide.eclipse.adt.package.product -keyring /Users/Daniel/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-05-18 13:06:11.539
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.core.net 1 0 2014-05-18 13:06:17.161
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY com.android.ide.eclipse.ddms 4 0 2014-05-18 13:06:21.543
+!MESSAGE DDMS files not found: /Users/Daniel/Downloads/adt-bundle-mac-x86_64-20140321/eclipse/Eclipse.app/Contents/MacOS/C:\Users\Johannes\Desktop\PROgrammering\adt-bundle-windows-x86_64-20140321\sdk/platform-tools/adb /Users/Daniel/Downloads/adt-bundle-mac-x86_64-20140321/eclipse/Eclipse.app/Contents/MacOS/C:\Users\Johannes\Desktop\PROgrammering\adt-bundle-windows-x86_64-20140321\sdk/tools/hprof-conv /Users/Daniel/Downloads/adt-bundle-mac-x86_64-20140321/eclipse/Eclipse.app/Contents/MacOS/C:\Users\Johannes\Desktop\PROgrammering\adt-bundle-windows-x86_64-20140321\sdk/tools/traceview 
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-18 13:08:25.820
+!MESSAGE fragment_main.xml: Couldn't resolve resource @drawable/bank4_kopia
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-18 13:08:26.625
+!MESSAGE fragment_main.xml: Couldn't resolve resource @drawable/bank4_kopia
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2014-05-18 13:08:27.222
+!MESSAGE fragment_main.xml: Couldn't resolve resource @drawable/bank4_kopia
