@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/event_name"
         android:layout_marginTop="10dp"
-        android:onClick="showDatePickerDialog"
-         />
+        android:onClick="showDatePickerDialog" />
 
     <Button
         android:id="@+id/create_event"

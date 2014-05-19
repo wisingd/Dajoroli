@@ -22,30 +22,26 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
+/**
+ * This class is not activity, but solely adds the ability to choose among your contacts and how many of them should be active. 
+ * This is accomplished by spinners and check-boxes.
+ */
 public class AddAttenders extends ActionBarActivity implements OnItemSelectedListener{
 
 	private Spinner spinner1;
-
 	private Spinner spinner2;
-
 	private Spinner spinner3;
 
 	private boolean checkbox1;
-
 	private boolean checkbox2;
-
 	private boolean checkbox3;
 
 	private String selectedName1;
-
 	private String selectedName2;
-
 	private String selectedName3;
 
-	public SharedPreferences sharednames;
-	
+	public SharedPreferences sharednames;	
 	public static final String MyNames = "Mynames";
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +50,24 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 		checkbox3=false;
 
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_add_attenders);
 
 		addNamesToSpinner(spinner1, R.id.spinner1);
 		addNamesToSpinner(spinner2, R.id.spinner2);
 		addNamesToSpinner(spinner3, R.id.spinner3);
 
-
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-	
+
+	/**
+	 * Adding the names from the SharedPreference to the spinners. This is done by first adding them to a list, which is converted
+	 * to a Map, where the associated debt is linked as value. To add the values to the spinners, an iterator is added on the 
+	 * map and run through.
+	 */
 	public void addNamesToSpinner(Spinner spinner, int id){
 		spinner = (Spinner) findViewById(id);
 		List<String> list = new ArrayList<String>();
@@ -86,11 +86,16 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 				list.add(string);
 			}
 		}
+
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
 		spinner.setAdapter(dataAdapter);
 		spinner.setOnItemSelectedListener(this);
 	}
 	
+	/**
+	 * Defines what happens when the check-boxes are clicked. That is, altering between being true or false. This will affect
+	 * which and how many contacts are accounted for later.
+	 */
 	public void onCheckBoxClick(View v){
 		boolean checked = ((CheckBox) v).isChecked();		
 		switch(v.getId()){
@@ -121,21 +126,16 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 		}
 	}
 
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_attenders, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -143,9 +143,6 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -177,8 +174,5 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-		
 	}
-
 }

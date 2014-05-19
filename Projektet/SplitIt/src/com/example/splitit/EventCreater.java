@@ -1,10 +1,11 @@
 package com.example.splitit;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -13,17 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class EventCreater extends ActionBarActivity {
 
-	private static int eventyear;
-
-	private static int eventmonth;
-
-	private static int eventday;
-
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
+	
+	int year, month, day;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +33,21 @@ public class EventCreater extends ActionBarActivity {
 		}
 	}
 
+	private String getDateString() {
+		String message = Integer.toString(year) + "/" + Integer.toString(month) + "/" + Integer.toString(day);
+		return message;
+	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.event_creater, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -56,9 +55,6 @@ public class EventCreater extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -72,33 +68,27 @@ public class EventCreater extends ActionBarActivity {
 			return rootView;
 		}
 	}
-//	public void showDatePickerDialog(View v) {
-//		DialogFragment newFragment = new DatePickerFragment();
-//		newFragment.show(getFragmentManager(), "datePicker");
-//		;
-//	}
 
-	public static void setDate(int year, int month, int day){
-		eventyear = year;
-
-		eventmonth = month;
-
-		eventday = day;
-
+	public void showDatePickerDialog(View v) {
+		MyDatePicker newFragment = new MyDatePicker();
+		newFragment.show(getFragmentManager(), "datePicker");
+		
+		year = newFragment.getYear();
+		month = newFragment.getMonth();
+		day = newFragment.getDay();
 	}
 
 	public void createEvent(View v){
+		
 		Intent intent = new Intent(this, AddAttenders.class);
-
 		EditText editText = (EditText) findViewById(R.id.event_name);
-
 		String message = editText.getText().toString();
 
 		if(message.length() != 0){
-
 			intent.putExtra(EXTRA_MESSAGE, message);
 			startActivity(intent);
 		}
+		
 		else{
 			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
@@ -107,23 +97,4 @@ public class EventCreater extends ActionBarActivity {
 			}).show();
 		}
 	}
-	//	public static class DatePickerFragment  extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-	//		
-	//
-	//		@Override
-	//		public Dialog onCreateDialog(Bundle savedInstanceState) {
-	//			// Use the current date as the default date in the picker
-	//			final Calendar c = Calendar.getInstance();
-	//			int year = c.get(Calendar.YEAR);
-	//			int month = c.get(Calendar.MONTH);
-	//			int day = c.get(Calendar.DAY_OF_MONTH);
-	//
-	//			// Create a new instance of DatePickerDialog and return it
-	//			return new DatePickerDialog(getActivity(), this, year, month, day);
-	//		}
-	//
-	//		public void onDateSet(DatePicker view, int year, int month, int day) {
-	//			EventCreater.setDate(year, month, day);
-	//		}
-	//	}
 }

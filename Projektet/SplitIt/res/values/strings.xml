@@ -28,5 +28,4 @@
     <string name="createevent">Create event!</string>
     <string name="title_activity_add_attenders">Add attenders</string>
     <color name="bgcolor">#87DDFF</color>
-
 </resources>

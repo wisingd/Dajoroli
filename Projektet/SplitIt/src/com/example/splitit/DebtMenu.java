@@ -30,25 +30,18 @@ import android.widget.Spinner;
 public class DebtMenu extends ActionBarActivity implements OnItemSelectedListener{
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
 	public final static String BOOLEAN_MESSAGE = "com.example.myfirstapp.trueorfalse";
-
 	public final static String ANOTHER_MESSAGE = "com.example.myfirstapp.contactlist";
 
 	public SharedPreferences sharednames;
-
 	public SharedPreferences shareddebts;
-
 	public SharedPreferences sharednumber;
 
 	public static final String MyNames = "Mynames";
-
 	public static final String MyDebts = "Mydebts";
-
 	public static final String MyNumbers = "Mynumbers";
 
 	private Spinner spinner;
-
 	private String selectedName;
 
 	@Override
@@ -56,17 +49,17 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		super.onCreate(savedInstanceState);    
 		setContentView(R.layout.debt_view);
-		//rest of the code
+
 		addNamesToSpinner();
 		spinner.setOnItemSelectedListener(this);
 	}
 
 	public void addNamesToSpinner(){
+		
 		spinner = (Spinner) findViewById(R.id.contact_name);
 		List<String> list = new ArrayList<String>();
-
+		
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
@@ -84,10 +77,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}
 
 	public void theyOweMe(View view){
+		
 		int newdebt, olddebt;
-
-		//		Intent intent = new Intent(this, DebtAddingActivity.class);
-
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
@@ -95,9 +86,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			int debtamount = Integer.parseInt(editText.getText().toString());
 
 			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
 			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 			if(sharednames.contains(selectedName) && debtamount != 0){
@@ -105,11 +94,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				Editor editor = shareddebts.edit();
 
 				olddebt = shareddebts.getInt(selectedName, 0);
-
 				newdebt = olddebt + debtamount;
-
 				editor.putInt(selectedName, newdebt);
-
 				editor.commit();
 
 				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(true, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
@@ -117,7 +103,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						return;
 					}
 				}).show();
-
 
 				//				intent.putExtra(BOOLEAN_MESSAGE, true);
 
@@ -147,8 +132,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				}
 			}).show();
 		}
-
-
 	}
 
 	public void iOweThem(View view){
@@ -160,44 +143,34 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
-
 			int debtamount = Integer.parseInt(editText.getText().toString());
 
-
 			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-
 			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
 			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 			if(sharednames.contains(selectedName) && debtamount != 0){
 
 				Editor editor = shareddebts.edit();
-
 				olddebt = shareddebts.getInt(selectedName, 0);
-
 				newdebt = olddebt - debtamount;
-
 				editor.putInt(selectedName, newdebt);
-
 				editor.commit();
 				
 				String string = "";
 
-				if ( newdebt > 0 && olddebt >= 0){
+				if ( newdebt > 0 && olddebt >= 0)
 					string = selectedName +" now has a total debt of " + Integer.toString(newdebt) + "kr.";
-				}
-				else if (newdebt > 0 && olddebt < 0){
+
+				else if (newdebt > 0 && olddebt < 0)
 					string = "Your debt situation has changed! " + selectedName + " now owes you " + Integer.toString(newdebt) + "kr."; 
-				}
-				else if(newdebt == 0){
+
+				else if(newdebt == 0)
 					string = "You are now even with " + selectedName + ".";
-				}
-				else{
+				
+				else
 					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
-				}
-
-
+				
 				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(false, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
@@ -217,21 +190,17 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						return;
 					}
 				}).show();
-
 			}
-
 		}
+		
 		else{
 			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
 			}).show();
-
-
 		}
-
-
+		
 		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
 		//
 		//		startActivity(intent);
@@ -249,7 +218,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		startActivity(intent);
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -262,9 +230,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() { }

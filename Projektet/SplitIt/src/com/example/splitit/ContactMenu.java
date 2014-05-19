@@ -19,24 +19,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+/**
+ * The starting menu of the contact management. From here you can add contacts, view contacts debts and delete contacts. 
+ */
 public class ContactMenu extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
 	public final static String BOOLEAN_MESSAGE = "com.example.myfirstapp.trueorfalse";
-
 	public final static String ANOTHER_MESSAGE = "com.example.myfirstapp.contactlist";
-
+	
 	public SharedPreferences sharednames;
-
 	public SharedPreferences shareddebts;
-
 	public SharedPreferences sharednumber;
 
 	public static final String MyNames = "Mynames";
-
 	public static final String MyDebts = "Mydebts";
-
 	public static final String MyNumbers = "Mynumbers";
 
 	@Override
@@ -46,75 +43,77 @@ public class ContactMenu extends ActionBarActivity {
 		setContentView(R.layout.contact_view);
 	}
 
-	/** Called when the user clicks the "Create contact!"-button */
 	public void addContact(View view) {
 
 		String number="";
-
-		Intent intent = new Intent(this, DisplayMessageActivity.class);
-
 		EditText editText = (EditText) findViewById(R.id.contact_name);
-
 		String message = editText.getText().toString();
-
 		sharednames = getSharedPreferences(MyNames, MODE_WORLD_READABLE);
 
-		if(!sharednames.contains(message) && message.length()>0){
+		if(message.length()>0){
+			if(!sharednames.contains(message)){ 
 
-			Editor editor =sharednames.edit();
-
-			editor.putString(message, message);
+				Editor editor = sharednames.edit();
+				editor.putString(message, message);
+				editor.commit();
 			
-			editor.commit();
+				shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
 
-			shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+				Editor editor2 = shareddebts.edit();
+				editor2.putInt(message, 0);
+				editor2.commit();
 
-			Editor editor2 = shareddebts.edit();
+				EditText edittext2 = (EditText) findViewById(R.id.phone_number);
+				String numberstring = edittext2.getText().toString();
 
-			editor2.putInt(message, 0);
+				if(numberstring.length() != 0){
 
-			editor2.commit();
+					sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
+					
+					Editor editor3 = sharednumber.edit();
+					number = edittext2.getText().toString();
+					editor3.putString(message, number);
+					editor3.commit();
 
-			EditText edittext2 = (EditText) findViewById(R.id.phone_number);
+					new AlertDialog.Builder(this).setTitle("Update").setMessage("You have added " + message + " (" + number + ") as a contact!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+							return;
+						}
+					}).show();					
+				}
 
-			String numberstring = edittext2.getText().toString();
-
-			if(numberstring.length() != 0){
-
-				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
-
-				Editor editor3 = sharednumber.edit();
-
-				number = edittext2.getText().toString();
-
-				editor3.putString(message, number);
-
-				editor3.commit();
+				else{
+					new AlertDialog.Builder(this).setTitle("Update").setMessage("You have added " + message + " as a contact!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+							return;
+						}
+					}).show();
+				}
 
 			}
 
-			intent.putExtra(BOOLEAN_MESSAGE, true);
+			else{
+				new AlertDialog.Builder(this).setTitle("Update").setMessage("You already have a contact with this name!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
+					public void onClick(DialogInterface dialog, int which){
+						return;
+					}
+				}).show();
+			}
 		}
-		if(number != ""){
 
-			intent.putExtra(EXTRA_MESSAGE, message + " with the number " + number);
-
-		}
 		else{
-			intent.putExtra(EXTRA_MESSAGE, message);
+			new AlertDialog.Builder(this).setTitle("Update").setMessage("You have to enter a name!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int which){
+					return;
+				}
+			}).show();
 		}
-
-		startActivity(intent);
-
 	}
-	/** Called when the user clicks the other button */
-	/** Called when the user clicks the other button */
+	
 	public void viewContacts(View view){
 
 		Intent intent = new Intent(this, ContactViewing.class);
-
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
@@ -141,14 +140,10 @@ public class ContactMenu extends ActionBarActivity {
 		}).show();
 	}
 
-
-
 	public void eraseContacts(){
 
 		sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
 		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 		Editor editor = shareddebts.edit();
@@ -156,7 +151,9 @@ public class ContactMenu extends ActionBarActivity {
 		editor.commit();
 		Editor editor2 = sharednames.edit();
 		editor2.clear();
-//		editor2.putString("---", "---");
+		
+		//		editor2.putString("---", "---");
+		
 		editor2.commit();
 		Editor editor3 = sharednumber.edit();
 		editor3.clear();
@@ -167,16 +164,11 @@ public class ContactMenu extends ActionBarActivity {
 				return;
 			}
 		}).show();
-
 	}
-
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -184,9 +176,6 @@ public class ContactMenu extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() { }
@@ -199,5 +188,4 @@ public class ContactMenu extends ActionBarActivity {
 			return rootView;
 		}
 	}
-
 }

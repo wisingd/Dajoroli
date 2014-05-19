@@ -7,17 +7,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Helper extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION = 2;
-	
 	private static final String EVENT_TABLE="Eventlist";
-	
 	private static final String colEventName = "Event Name";
-	
 	private static final String colDate = "Date";
-	
 	private static final String colAttender = "Attender";
-	
 	private static final String colTotalCost = "Total Cost";
-	
 	private static final String DATABASE_NAME="basename";
 	
 //	private static final String TABLE_CREATE = "CREATE TABLE " + TABLE_NAME + " (" + KEY_WORD + " TEXT, " + KEY_DEFINITION + " TEXT);";

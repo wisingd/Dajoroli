@@ -29,33 +29,23 @@ import android.widget.Spinner;
 public class SplitADebt extends ActionBarActivity implements OnItemSelectedListener{
 
 	private Spinner spinner1;
-
 	private Spinner spinner2;
-
 	private Spinner spinner3;
 
 	private boolean checkbox1;
-
 	private boolean checkbox2;
-
 	private boolean checkbox3;
 
 	private String selectedName1;
-
 	private String selectedName2;
-
 	private String selectedName3;
 
 	public SharedPreferences sharednames;
-
 	public SharedPreferences shareddebts;
-
 	public SharedPreferences sharednumber;
 
 	public static final String MyNames = "Mynames";
-
 	public static final String MyDebts = "Mydebts";
-
 	public static final String MyNumbers = "Mynumbers";	
 
 	@Override
@@ -80,13 +70,15 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		if(checkbox2==true){
 			if(nameList.contains(selectedName2))
 				duplicates = true;
+			
 			else
 				nameList.add(selectedName2);
-
 		}
+		
 		if(checkbox3==true){
 			if(nameList.contains(selectedName3))
 				duplicates = true;
+			
 			else
 				nameList.add(selectedName3);
 		}
@@ -111,9 +103,7 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 			if(editText.getText() != null && !editText.getText().toString().isEmpty()){
 
 				int debtamount = Integer.parseInt(editText.getText().toString());
-
 				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
 				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
 				if (debtamount != 0){
@@ -148,11 +138,8 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 					}
 				}).show();
 			}
-
 		}
-
 	}
-
 
 	public void onCheckBoxClick(View v){
 		boolean checked = ((CheckBox) v).isChecked();		
@@ -184,7 +171,6 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		}
 	}
 
-
 	public void addNamesToSpinner(Spinner spinner, int id){
 		spinner = (Spinner) findViewById(id);
 		List<String> list = new ArrayList<String>();
@@ -208,7 +194,6 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		spinner.setOnItemSelectedListener(this);
 	}
 
-
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 		switch(parent.getId()){
@@ -224,21 +209,16 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		}
 	}
 
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -246,9 +226,6 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -265,7 +242,5 @@ public class SplitADebt extends ActionBarActivity implements OnItemSelectedListe
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// TODO Auto-generated method stub
-
 	}
 }

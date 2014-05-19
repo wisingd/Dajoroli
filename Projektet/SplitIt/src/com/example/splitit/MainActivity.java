@@ -15,21 +15,15 @@ import android.view.ViewGroup;
 public class MainActivity extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
 	public final static String BOOLEAN_MESSAGE = "com.example.myfirstapp.trueorfalse";
-
 	public final static String ANOTHER_MESSAGE = "com.example.myfirstapp.contactlist";
-
-	public ArrayList<Contact> contactList = new ArrayList<Contact>();
 
 	public SharedPreferences sharednames;
 	public SharedPreferences shareddebts;
 	public SharedPreferences sharednumber;
 
 	public static final String MyNames = "Mynames";
-
 	public static final String MyDebts = "Mydebts";
-	
 	public static final String MyNumbers = "Mynumbers";
 
 	@Override
@@ -46,16 +40,13 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
+
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -63,9 +54,6 @@ public class MainActivity extends ActionBarActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
 	public static class PlaceholderFragment extends Fragment {
 
 		public PlaceholderFragment() {
@@ -80,11 +68,9 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	
 	public void startDebtMenu(View view){
 		Intent intent = new Intent(this, DebtMenu.class);
 		startActivity(intent);
-		
 	}
 	
 	public void startContactMenu(View view){
