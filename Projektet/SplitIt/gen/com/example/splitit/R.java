@@ -794,10 +794,11 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070003;
+        public static final int abc_search_url_text_holo=0x7f070004;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
+        public static final int bgcolor=0x7f070003;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -981,17 +982,19 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int bank4=0x7f020057;
-        public static final int bank4_stor=0x7f020058;
-        public static final int clock=0x7f020059;
-        public static final int clock_stor=0x7f02005a;
-        public static final int coins8=0x7f02005b;
-        public static final int coins8_stor=0x7f02005c;
-        public static final int contacts_stor=0x7f02005d;
-        public static final int dollars8=0x7f02005e;
-        public static final int dollars8_stor=0x7f02005f;
-        public static final int ic_launcher=0x7f020060;
-        public static final int wygj=0x7f020061;
+        public static final int amnls=0x7f020057;
+        public static final int bank4=0x7f020058;
+        public static final int bank4_stor=0x7f020059;
+        public static final int clock=0x7f02005a;
+        public static final int clock_stor=0x7f02005b;
+        public static final int coins8=0x7f02005c;
+        public static final int coins8_stor=0x7f02005d;
+        public static final int contacts_stor=0x7f02005e;
+        public static final int dollars8=0x7f02005f;
+        public static final int dollars8_stor=0x7f020060;
+        public static final int ic_launcher=0x7f020061;
+        public static final int mybutton=0x7f020062;
+        public static final int wygj=0x7f020063;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;

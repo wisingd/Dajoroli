@@ -108,50 +108,20 @@ public class ContactMenu extends ActionBarActivity {
 
 	}
 	/** Called when the user clicks the other button */
+	/** Called when the user clicks the other button */
 	public void viewContacts(View view){
-		boolean hasContacts = false;
 
-		Intent intent = new Intent(this, AnotherActivity.class);
-
-		String contacts = "";
+		Intent intent = new Intent(this, ContactViewing.class);
 
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
 
 		Map<String,?> mappen = sharednames.getAll();
 
 		if(mappen.size() > 0){
-
-			hasContacts = true;
-
-			shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
-
-			Set<String> settet = mappen.keySet();
-
-			Iterator <String> iteratorn = settet.iterator();
-
-			String keyen = iteratorn.next();
-
-//			if(keyen == "---"){
-//				keyen = iteratorn.next();
-//			}
-
-			contacts = contacts + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
-
-			while(iteratorn.hasNext()){
-
-//				if(keyen != "---"){
-					keyen = iteratorn.next();
-					contacts =  contacts + "\n" + sharednames.getString(keyen, "") + " with the debt " + Integer.toString(shareddebts.getInt(keyen, 0));
-//				}
-			}
-		}
-
-		if(hasContacts){
-			intent.putExtra(ANOTHER_MESSAGE, contacts);
 			startActivity(intent);	
 		}
 		else{
-			new AlertDialog.Builder(this).setTitle("No friends :(").setMessage("You do not have any contacts.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			new AlertDialog.Builder(this).setTitle("No friends :( ").setMessage("You do not have any contacts.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}

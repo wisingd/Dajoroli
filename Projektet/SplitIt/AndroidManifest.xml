@@ -31,10 +31,6 @@
                 android:value="com.example.splitit.MainActivity" />
         </activity>
         <activity
-            android:name="com.example.splitit.AnotherActivity"
-            android:parentActivityName="com.example.splitit.ContactMenu" >
-        </activity>
-        <activity
             android:name="com.example.splitit.DebtAddingActivity"
             android:parentActivityName="com.example.splitit.DebtMenu" >
         </activity>
@@ -78,6 +74,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="EventCreater" />
         </activity>
+        <activity android:parentActivityName="com.example.splitit.ContactMenu" android:name=".ContactViewing"></activity>
     </application>
 
     <uses-permission android:name="android.permission.SEND_SMS" >

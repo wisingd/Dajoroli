@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.splitit.EventCreater$PlaceholderFragment" >
+    tools:context="com.example.splitit.EventCreater$PlaceholderFragment" 
+    android:background="@color/bgcolor">
 
     <EditText
         android:id="@+id/event_name"
