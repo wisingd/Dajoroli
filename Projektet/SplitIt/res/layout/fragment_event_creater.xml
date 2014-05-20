@@ -17,12 +17,14 @@
 
     <ImageButton
         android:id="@+id/showDatePicker"
-        android:src="@drawable/clock"
+        android:src="@drawable/clock_stor_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/event_name"
         android:layout_marginTop="10dp"
-        android:onClick="showDatePickerDialog" />
+        android:onClick="showDatePickerDialog"
+        android:scaleX="0.70"
+   		android:scaleY="0.70" />
 
     <Button
         android:id="@+id/create_event"

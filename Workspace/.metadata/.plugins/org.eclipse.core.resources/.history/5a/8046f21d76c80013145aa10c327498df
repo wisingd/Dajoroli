@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">MyFirstApp</string>
-    <string name="hello_world">Hello world! This is Dajoroli. Below you can write text! The text doesn't appear... But does snapshot work?</string>
-    <string name="action_settings">Settings</string>
-    <string name="edit_message">Write Something</string>
-
-</resources>

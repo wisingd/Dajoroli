@@ -3,9 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:background="@color/bgcolor">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,27 +12,38 @@
         android:layout_centerVertical="true"
         android:orientation="vertical" >
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/vvvvvvv"/>
+
         <ImageButton
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:onClick="startEvent"
-            android:src="@drawable/dollars8" />
+            android:src="@drawable/dollars8_stor_v_b" 
+            android:scaleX="0.70"
+    		android:scaleY="0.70"/>
+    		
 
         <ImageButton
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:onClick="startDebtMenu"
-            android:src="@drawable/coins8" />
+            android:src="@drawable/coins8_stor_v_b"
+            android:scaleX="0.70"
+    		android:scaleY="0.70" />
 
         <ImageButton
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:onClick="startContactMenu"
-            android:src="@drawable/wygj" />
-
+            android:src="@drawable/contacts_stor_vit_blur"
+            android:scaleX="0.70"
+    		android:scaleY="0.70" />
     </LinearLayout>
 
 </RelativeLayout>
