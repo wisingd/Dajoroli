@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="@color/bgcolor">
+    android:background="@color/bgcolor"
+    android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/information_text"
-        android:textSize="15sp" />
+    <!-- <TextView -->
+    <!-- android:layout_width="wrap_content" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:text="@string/information_text" -->
+    <!-- android:textSize="15sp" /> -->
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/debt_amount"
@@ -36,26 +35,52 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dip"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
             android:onClick="theyOweMe"
-            android:text="@string/they_owe_me" />
+            android:src="@drawable/they_owe_me" 
+            android:background="@android:color/transparent"/>
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="70dip"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
             android:onClick="iOweThem"
-            android:text="@string/i_owe_them" />
+            android:src="@drawable/i_owe_them"
+            android:background="@android:color/transparent" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="224dp"
-        android:layout_height="167dp"
-        android:onClick="splitDebt"
-        android:text="@string/split_debt"
-        android:background="@drawable/mybutton" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="splitDebt"
+            android:text="@string/split_debt" />
+        <!-- android:background="@drawable/mybutton" -->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="viewContacts"
+            android:text="@string/view_contacts" />
+        
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick=""
+            android:text="@string/delete_debt" />
+    </LinearLayout>
 
 </LinearLayout>

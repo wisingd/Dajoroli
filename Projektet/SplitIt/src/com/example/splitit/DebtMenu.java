@@ -55,10 +55,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}
 
 	public void addNamesToSpinner(){
-		
+
 		spinner = (Spinner) findViewById(R.id.contact_name);
 		List<String> list = new ArrayList<String>();
-		
+
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
 		Map<String,?> mappen = sharednames.getAll();
 
@@ -77,7 +77,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}
 
 	public void theyOweMe(View view){
-		
+
 		int newdebt, olddebt;
 		EditText editText = (EditText) findViewById(R.id.debt_amount);
 
@@ -104,11 +104,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 					}
 				}).show();
 
-				//				intent.putExtra(BOOLEAN_MESSAGE, true);
-
-				//				if(sharednumber.getString(selectedName, "").length() > 0){
-				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du är skyldig mig " + debtamount + " stålar");
-				//				}
+//				Intent intent = null;
+//				intent.putExtra(BOOLEAN_MESSAGE, true);
+//
+//				if(sharednumber.getString(selectedName, "").length() > 0){
+//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du Šr skyldig mig " + debtamount + " stålar");
+//				}
 			}
 
 			else{
@@ -156,7 +157,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				newdebt = olddebt - debtamount;
 				editor.putInt(selectedName, newdebt);
 				editor.commit();
-				
+
 				String string = "";
 
 				if ( newdebt > 0 && olddebt >= 0)
@@ -167,10 +168,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 				else if(newdebt == 0)
 					string = "You are now even with " + selectedName + ".";
-				
+
 				else
 					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
-				
+
 				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(false, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
@@ -192,7 +193,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				}).show();
 			}
 		}
-		
+
 		else{
 			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
@@ -200,7 +201,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				}
 			}).show();
 		}
-		
+
 		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
 		//
 		//		startActivity(intent);
@@ -215,6 +216,14 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	public void splitDebt(View view){
 		Intent intent = new Intent(this, SplitADebt.class);
+		startActivity(intent);
+	}
+	
+	public void viewContacts(View view){
+		Intent intent = new Intent(this, ContactViewing.class);
+		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = sharednames.getAll();
+
 		startActivity(intent);
 	}
 

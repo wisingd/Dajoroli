@@ -17,7 +17,7 @@
 
     <ImageButton
         android:id="@+id/showDatePicker"
-        android:src="@drawable/clock_stor_v"
+        android:src="@drawable/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/event_name"

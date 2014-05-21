@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgcolor">
+    android:background="@color/bgcolor" >
 
     <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -13,37 +14,52 @@
         android:orientation="vertical" >
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/vvvvvvv"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/splitit_logo" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:layout_marginBottom="1dip"
+            android:layout_marginLeft="1dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginTop="1dip"
             android:background="@android:color/transparent"
             android:onClick="startEvent"
-            android:src="@drawable/dollars8_stor_v_b" 
+            android:scaleType="centerInside"
             android:scaleX="0.70"
-    		android:scaleY="0.70"/>
-    		
+            android:scaleY="0.70"
+            android:src="@drawable/dollars8text" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:layout_marginBottom="1dip"
+            android:layout_marginLeft="1dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginTop="1dip"
             android:background="@android:color/transparent"
             android:onClick="startDebtMenu"
-            android:src="@drawable/coins8_stor_v_b"
+            android:scaleType="centerInside"
             android:scaleX="0.70"
-    		android:scaleY="0.70" />
+            android:scaleY="0.70"
+            android:src="@drawable/coins8text" />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:layout_marginBottom="1dip"
+            android:layout_marginLeft="1dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginTop="1dip"
             android:background="@android:color/transparent"
             android:onClick="startContactMenu"
-            android:src="@drawable/contacts_stor_vit_blur"
+            android:scaleType="centerInside"
             android:scaleX="0.70"
-    		android:scaleY="0.70" />
+            android:scaleY="0.70"
+            android:src="@drawable/contactstext" />
     </LinearLayout>
 
 </RelativeLayout>

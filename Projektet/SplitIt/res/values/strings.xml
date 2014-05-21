@@ -27,5 +27,8 @@
     <string name="hello_world">Hello world</string>
     <string name="createevent">Create event!</string>
     <string name="title_activity_add_attenders">Add attenders</string>
-    <color name="bgcolor">#87DDFF</color>
+    <string name="delete_debt">Delete a debt</string>
+    
+    <color name="bgcolor1">#87DDFF</color>
+    <color name="bgcolor">#1A1D87</color>
 </resources>

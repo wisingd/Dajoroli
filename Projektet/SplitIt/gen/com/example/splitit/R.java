@@ -794,11 +794,12 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070004;
+        public static final int abc_search_url_text_holo=0x7f070005;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int bgcolor=0x7f070003;
+        public static final int bgcolor=0x7f070004;
+        public static final int bgcolor1=0x7f070003;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -982,26 +983,18 @@ containing a value of this type.
         public static final int abc_textfield_searchview_holo_light=0x7f020054;
         public static final int abc_textfield_searchview_right_holo_dark=0x7f020055;
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
-        public static final int amnls=0x7f020057;
-        public static final int bank4=0x7f020058;
-        public static final int bank4_stor=0x7f020059;
-        public static final int clock_stor=0x7f02005a;
-        public static final int clock_stor_v=0x7f02005b;
-        public static final int coins8=0x7f02005c;
-        public static final int coins8_stor=0x7f02005d;
-        public static final int coins8_stor_v=0x7f02005e;
-        public static final int coins8_stor_v_b=0x7f02005f;
-        public static final int contacts_stor=0x7f020060;
-        public static final int contacts_stor_vit_blur=0x7f020061;
-        public static final int dollars8=0x7f020062;
-        public static final int dollars8_stor=0x7f020063;
-        public static final int dollars8_stor_v=0x7f020064;
-        public static final int dollars8_stor_v_b=0x7f020065;
-        public static final int ic_launcher=0x7f020066;
-        public static final int mybutton=0x7f020067;
-        public static final int ontacts_v=0x7f020068;
-        public static final int vvvvvvv=0x7f020069;
-        public static final int wygj=0x7f02006a;
+        public static final int bank4=0x7f020057;
+        public static final int clock=0x7f020058;
+        public static final int coins8=0x7f020059;
+        public static final int coins8text=0x7f02005a;
+        public static final int contacts=0x7f02005b;
+        public static final int contactstext=0x7f02005c;
+        public static final int dollars8=0x7f02005d;
+        public static final int dollars8text=0x7f02005e;
+        public static final int i_owe_them=0x7f02005f;
+        public static final int mybutton=0x7f020060;
+        public static final int splitit_logo=0x7f020061;
+        public static final int they_owe_me=0x7f020062;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1015,7 +1008,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050049;
+        public static final int action_settings=0x7f05004a;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1042,6 +1035,7 @@ containing a value of this type.
         public static final int icon=0x7f05002a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
+        public static final int linearLayout1=0x7f050049;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
@@ -1196,6 +1190,7 @@ containing a value of this type.
         public static final int contact=0x7f0a0015;
         public static final int contact_name=0x7f0a000f;
         public static final int createevent=0x7f0a0025;
+        public static final int delete_debt=0x7f0a0027;
         public static final int erase_contacts=0x7f0a001b;
         public static final int event_name=0x7f0a001f;
         public static final int hello_world=0x7f0a0024;
