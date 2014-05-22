@@ -16,16 +16,9 @@
             android:scaleY="0.50"
             android:src="@drawable/event_name" />
     	
-    	<TextView android:id="@+id/text"
+    	<TextView android:id="@+id/textview"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text= "" />
-    	
-    	<EditText
-            android:id="@+id/event_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/event_name" />
+              android:layout_height="wrap_content"/>
 
         <ImageButton
             android:layout_width="match_parent"
@@ -36,6 +29,10 @@
             android:scaleX="0.50"
             android:scaleY="0.50"
             android:src="@drawable/date" />
+        
+        <TextView android:id="@+id/textview2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
 
         <ImageButton
             android:layout_width="match_parent"

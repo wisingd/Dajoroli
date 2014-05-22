@@ -33,10 +33,10 @@ public class EventCreater extends ActionBarActivity {
 		}
 	}
 
-	private String getDateString() {
-		String message = Integer.toString(year) + "/" + Integer.toString(month) + "/" + Integer.toString(day);
-		return message;
-	}
+//	private String getDateString() {
+//		String message = Integer.toString(year) + "/" + Integer.toString(month) + "/" + Integer.toString(day);
+//		return message;
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,28 +70,39 @@ public class EventCreater extends ActionBarActivity {
 	}
 
 	public void showDatePickerDialog(View v) {
+		TextView value;
+		value = (TextView) findViewById(R.id.textview2);
+		//final EditText input = new EditText(this);
+
 		MyDatePicker newFragment = new MyDatePicker();
 		newFragment.show(getFragmentManager(), "datePicker");
+
+		value = (TextView) findViewById(R.id.textview2);
 
 		year = newFragment.getYear();
 		month = newFragment.getMonth();
 		day = newFragment.getDay();
+
+		value.setText("" + day + "/" + month + "/" + year);
 	}
 
 	public void eventNameDialog(View view){
+
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
 		alert.setTitle("Title");
 		alert.setMessage("Message");
 
-		// Set an EditText view to get user input 
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				String value = "" + input.getText();
-				// Do something with value!
+				TextView value;
+				value = (TextView) findViewById(R.id.textview);
+				String message = "" + input.getText();
+
+				value.setText("" + message);
 			}
 		});
 
@@ -105,23 +116,23 @@ public class EventCreater extends ActionBarActivity {
 	}
 
 
-	public void createEvent(View v){
-
-		Intent intent = new Intent(this, AddAttenders.class);
-		EditText editText = (EditText) findViewById(R.id.event_name);
-		String message = editText.getText().toString();
-
-		if(message.length() != 0){
-			intent.putExtra(EXTRA_MESSAGE, message);
-			startActivity(intent);
-		}
-
-		else{
-			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-	}
+//	public void createEvent(View v){
+//
+//		Intent intent = new Intent(this, AddAttenders.class);
+//		EditText editText = (EditText) findViewById(R.id.event_name);
+//		String message = editText.getText().toString();
+//
+//		if(message.length() != 0){
+//			intent.putExtra(EXTRA_MESSAGE, message);
+//			startActivity(intent);
+//		}
+//
+//		else{
+//			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+//				public void onClick(DialogInterface dialog, int which){
+//					return;
+//				}
+//			}).show();
+//		}
+//	}
 }

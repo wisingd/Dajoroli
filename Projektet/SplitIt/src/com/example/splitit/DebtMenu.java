@@ -75,7 +75,13 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
 		spinner.setAdapter(dataAdapter);
 	}
-
+	
+	public void theyOweMeTwo(View view){
+		
+		
+		
+	}
+	
 	public void theyOweMe(View view){
 
 		int newdebt, olddebt;
