@@ -127,7 +127,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		//
 		//		startActivity(intent);
 		else{
-			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("OK", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}

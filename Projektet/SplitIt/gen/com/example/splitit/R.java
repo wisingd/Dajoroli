@@ -798,8 +798,8 @@ containing a value of this type.
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
-        public static final int bgcolor=0x7f070004;
-        public static final int bgcolor1=0x7f070003;
+        public static final int bgcolor=0x7f070003;
+        public static final int bgcolor1=0x7f070004;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -989,12 +989,21 @@ containing a value of this type.
         public static final int coins8text=0x7f02005a;
         public static final int contacts=0x7f02005b;
         public static final int contactstext=0x7f02005c;
-        public static final int dollars8=0x7f02005d;
-        public static final int dollars8text=0x7f02005e;
-        public static final int i_owe_them=0x7f02005f;
-        public static final int mybutton=0x7f020060;
-        public static final int splitit_logo=0x7f020061;
-        public static final int they_owe_me=0x7f020062;
+        public static final int create=0x7f02005d;
+        public static final int create_contact=0x7f02005e;
+        public static final int date=0x7f02005f;
+        public static final int delete=0x7f020060;
+        public static final int dollars8=0x7f020061;
+        public static final int dollars8text=0x7f020062;
+        public static final int erase_contacts=0x7f020063;
+        public static final int event_name=0x7f020064;
+        public static final int i_owe_them=0x7f020065;
+        public static final int line=0x7f020066;
+        public static final int mybutton=0x7f020067;
+        public static final int split=0x7f020068;
+        public static final int splitit_logo=0x7f020069;
+        public static final int they_owe_me=0x7f02006a;
+        public static final int view_contacts=0x7f02006b;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
@@ -1008,7 +1017,7 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05004a;
+        public static final int action_settings=0x7f050049;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1019,7 +1028,6 @@ containing a value of this type.
         public static final int collapseActionView=0x7f05000d;
         public static final int contact_name=0x7f050044;
         public static final int container=0x7f05003c;
-        public static final int create_event=0x7f050048;
         public static final int debt_amount=0x7f050043;
         public static final int default_activity_button=0x7f050028;
         public static final int dialog=0x7f05000e;
@@ -1027,7 +1035,7 @@ containing a value of this type.
         public static final int dropdown=0x7f05000f;
         public static final int edit_query=0x7f050030;
         public static final int end=0x7f050013;
-        public static final int event_name=0x7f050046;
+        public static final int event_name=0x7f050047;
         public static final int expand_activities_button=0x7f050026;
         public static final int expanded_menu=0x7f05002c;
         public static final int home=0x7f050014;
@@ -1035,7 +1043,7 @@ containing a value of this type.
         public static final int icon=0x7f05002a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050027;
-        public static final int linearLayout1=0x7f050049;
+        public static final int linearLayout1=0x7f050048;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050029;
         public static final int middle=0x7f050012;
@@ -1058,7 +1066,6 @@ containing a value of this type.
         public static final int search_voice_btn=0x7f05003b;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
-        public static final int showDatePicker=0x7f050047;
         public static final int showHome=0x7f050004;
         public static final int showTitle=0x7f050006;
         public static final int spinner1=0x7f05003d;
@@ -1067,6 +1074,7 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+        public static final int text=0x7f050046;
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int up=0x7f050021;

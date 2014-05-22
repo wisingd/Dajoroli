@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bgcolor" >
+    android:background="@color/bgcolor"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,22 +24,41 @@
             android:inputType="number" />
     </LinearLayout>
 
-    <Button
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="addContact"
-        android:text="@string/button_create_contact" />
+        android:layout_gravity="center"
+        android:orientation="vertical" >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="viewContacts"
-        android:text="@string/view_contacts" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="addContact"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/create_contact" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="doYouReallyWantToEraseContacts"
-        android:text="@string/erase_contacts" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="viewContacts"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/view_contacts" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="doYouReallyWantToEraseContacts"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/erase_contacts" />
+    </LinearLayout>
 
 </LinearLayout>

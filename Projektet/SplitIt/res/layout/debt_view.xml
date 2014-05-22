@@ -5,16 +5,10 @@
     android:background="@color/bgcolor"
     android:orientation="vertical" >
 
-    <!-- <TextView -->
-    <!-- android:layout_width="wrap_content" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:text="@string/information_text" -->
-    <!-- android:textSize="15sp" /> -->
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal" >
 
         <EditText
             android:id="@+id/debt_amount"
@@ -35,52 +29,65 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_gravity="center" >
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="70dip"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
+            android:background="@android:color/transparent"
             android:onClick="theyOweMe"
-            android:src="@drawable/they_owe_me" 
-            android:background="@android:color/transparent"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="70dip"
+            android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
+            android:src="@drawable/they_owe_me" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
             android:onClick="iOweThem"
-            android:src="@drawable/i_owe_them"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/i_owe_them" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical" >
-
-        <Button
-            android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:src="@drawable/line" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
             android:onClick="splitDebt"
-            android:text="@string/split_debt" />
-        <!-- android:background="@drawable/mybutton" -->
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/split" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="viewContacts"
-            android:text="@string/view_contacts" />
-        
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick=""
-            android:text="@string/delete_debt" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/delete"
+            android:onClick=" " />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/contacts"
+            android:onClick="viewContacts" />
+       
     </LinearLayout>
 
 </LinearLayout>

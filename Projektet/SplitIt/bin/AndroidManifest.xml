@@ -65,9 +65,9 @@
         <activity android:parentActivityName="com.example.splitit.ContactMenu" android:name=".ContactViewing"></activity>
     </application>
 
-    <uses-permission android:name="android.permission.SEND_SMS" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.RECEIVE_SMS" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    
 
 </manifest>

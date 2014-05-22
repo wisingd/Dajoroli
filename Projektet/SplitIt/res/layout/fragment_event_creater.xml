@@ -1,39 +1,50 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.splitit.EventCreater$PlaceholderFragment" 
-    android:background="@color/bgcolor">
+    android:background="@color/bgcolor"
+    android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/event_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/event_name" />
+       
+    	<ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="eventNameDialog"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/event_name" />
+    	
+    	<TextView android:id="@+id/text"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text= "" />
+    	
+    	<EditText
+            android:id="@+id/event_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/event_name" />
 
-    <ImageButton
-        android:id="@+id/showDatePicker"
-        android:src="@drawable/clock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/event_name"
-        android:layout_marginTop="10dp"
-        android:onClick="showDatePickerDialog"
-        android:scaleX="0.70"
-   		android:scaleY="0.70" />
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="showDatePickerDialog"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/date" />
 
-    <Button
-        android:id="@+id/create_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/showDatePicker"
-        android:layout_below="@+id/showDatePicker"
-        android:layout_marginTop="22dp"
-        android:text="@string/createevent" 
-        android:onClick="createEvent"/>
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:background="@android:color/transparent"
+            android:onClick="createEvent"
+            android:scaleType="centerInside"
+            android:scaleX="0.50"
+            android:scaleY="0.50"
+            android:src="@drawable/create" />
 
-</RelativeLayout>
+</LinearLayout>

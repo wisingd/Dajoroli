@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class EventCreater extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-	
+
 	int year, month, day;
 
 	@Override
@@ -72,14 +72,41 @@ public class EventCreater extends ActionBarActivity {
 	public void showDatePickerDialog(View v) {
 		MyDatePicker newFragment = new MyDatePicker();
 		newFragment.show(getFragmentManager(), "datePicker");
-		
+
 		year = newFragment.getYear();
 		month = newFragment.getMonth();
 		day = newFragment.getDay();
 	}
 
+	public void eventNameDialog(View view){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Title");
+		alert.setMessage("Message");
+
+		// Set an EditText view to get user input 
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = "" + input.getText();
+				// Do something with value!
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
+		});
+
+		alert.show();
+	}
+
+
 	public void createEvent(View v){
-		
+
 		Intent intent = new Intent(this, AddAttenders.class);
 		EditText editText = (EditText) findViewById(R.id.event_name);
 		String message = editText.getText().toString();
@@ -88,7 +115,7 @@ public class EventCreater extends ActionBarActivity {
 			intent.putExtra(EXTRA_MESSAGE, message);
 			startActivity(intent);
 		}
-		
+
 		else{
 			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
