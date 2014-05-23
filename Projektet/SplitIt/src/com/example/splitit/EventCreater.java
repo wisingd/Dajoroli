@@ -16,6 +16,11 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * @author Johannes
+ * 
+ *Creates an activity that allows the user to write the name and date of an event.  
+ */
 public class EventCreater extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
@@ -32,11 +37,6 @@ public class EventCreater extends ActionBarActivity {
 			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 	}
-
-//	private String getDateString() {
-//		String message = Integer.toString(year) + "/" + Integer.toString(month) + "/" + Integer.toString(day);
-//		return message;
-//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,7 +68,11 @@ public class EventCreater extends ActionBarActivity {
 			return rootView;
 		}
 	}
-
+/**
+ * The method that runs when the user clicks the "Date"-button, displays a DatePicker.
+ * 
+ * @param v the view that runs the method, i.e. the button "Date"
+ */
 	public void showDatePickerDialog(View v) {
 		TextView value;
 		value = (TextView) findViewById(R.id.textview2);
@@ -85,13 +89,20 @@ public class EventCreater extends ActionBarActivity {
 
 		value.setText("" + day + "/" + month + "/" + year);
 	}
-
+/**
+ * Displays a dialog where the user can enter a name for the event.
+ * Consists  of a EditText-line where the user can write the name, 
+ * a button that closes the dialog and a button that writes the written
+ *  name in an TextView on the original activity.
+ *  
+ * @param view the view that runs the method, i.e. the button "Name" 
+ */
 	public void eventNameDialog(View view){
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-		alert.setTitle("Title");
-		alert.setMessage("Message");
+		alert.setTitle("Name");
+		alert.setMessage("Choose a name for your event");
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
