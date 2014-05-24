@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,7 +26,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class DebtMenu extends ActionBarActivity implements OnItemSelectedListener{
 
@@ -75,13 +78,150 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
 		spinner.setAdapter(dataAdapter);
 	}
-	
+
 	public void theyOweMeTwo(View view){
-		
-		
-		
+		ArrayList<String> list = new ArrayList<String>();
+		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = sharednames.getAll();
+
+		if(mappen.size() > 0){
+			Set<String> settet = mappen.keySet();
+			Iterator <String> iteratorn = settet.iterator();
+			while(iteratorn.hasNext()){
+				String string  = iteratorn.next();
+				list.add(string);
+			}
+		}
+
+		CharSequence[] cs = (CharSequence[]) list.toArray(new CharSequence[list.size()]);
+
+		final ArrayList<String> selectedItems = new ArrayList<String>();
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Enter name").setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+				ArrayList<String> selectedItems = new ArrayList<String>();
+
+				if (isChecked) {
+					// If the user checked the item, add it to the selected items
+					selectedItems.add(cs.charAt(which));
+				} 
+
+				else if (selectedItems.contains(which)) {
+					// Else, if the item is already in the array, remove it 
+					selectedItems.remove(Integer.valueOf(which));
+				}
+			}
+		});
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				TextView value;
+
+				String listString = "";
+
+				for (String s :selectedItems){
+					listString += s + "\n";
+				}
+
+				value = (TextView) findViewById(R.id.textview);
+				value.setText("" + listString);
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
+		});
+
+		alert.create();
+		alert.show();
 	}
-	
+
+
+
+	//		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+	//
+	//		alert.setTitle("Enter debt and name");
+	//		
+	//		LinearLayout layout = new LinearLayout(this);
+	//		layout.setOrientation(LinearLayout.VERTICAL);
+	//
+	//		final EditText input1 = new EditText(this);
+	//		input1.setInputType(InputType.TYPE_CLASS_NUMBER);
+	//		input1.setHint("Enter debt");
+	//		layout.addView(input1);
+	//
+	//		List<String> list = new ArrayList<String>();
+	//
+	//		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
+	//
+	//		Map<String,?> mappen = sharednames.getAll();
+	//
+	//		if(mappen.size() > 0){
+	//			Set<String> settet = mappen.keySet();
+	//
+	//			Iterator <String> iteratorn = settet.iterator();
+	//			while(iteratorn.hasNext()){
+	//				String string  = iteratorn.next();
+	//
+	//				list.add(string);
+	//			}
+	//		}
+	//		
+	//		List mSelectedItems = new ArrayList();  // Where we track the selected items
+	//	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	//	    // Set the dialog title
+	//	    builder.setTitle(R.string.pick_toppings)
+	//	    // Specify the list array, the items to be selected by default (null for none),
+	//	    // and the listener through which to receive callbacks when items are selected
+	//	           .setMultiChoiceItems(R.array.toppings, null,
+	//	                      new DialogInterface.OnMultiChoiceClickListener() {
+	//	               @Override
+	//	               public void onClick(DialogInterface dialog, int which,
+	//	                       boolean isChecked) {
+	//	                   if (isChecked) {
+	//	                       // If the user checked the item, add it to the selected items
+	//	                       mSelectedItems.add(which);
+	//	                   } else if (mSelectedItems.contains(which)) {
+	//	                       // Else, if the item is already in the array, remove it 
+	//	                       mSelectedItems.remove(Integer.valueOf(which));
+	//	                   }
+	//	               }
+	//	           })
+	//		
+	//		final EditText input2 = new EditText(this);
+	//		input2.setHint("Name");
+	//		layout.addView(input2);
+	//
+	//		alert.setView(layout);
+	//		
+	//		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+	//			public void onClick(DialogInterface dialog, int whichButton) {
+	//				TextView value;
+	//				value = (TextView) findViewById(R.id.textview);
+	//				String message1 = "" + input1.getText();
+	//				String message2 = "" + input2.getText();
+	//
+	//				value.setText("" + message1 + message2);
+	//			}
+	//		});
+	//
+	//		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	//			public void onClick(DialogInterface dialog, int whichButton) {
+	//				// Canceled.
+	//			}
+	//		});
+	//
+	//		alert.show();
+
+
+
 	public void theyOweMe(View view){
 
 		int newdebt, olddebt;
@@ -110,12 +250,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 					}
 				}).show();
 
-//				Intent intent = null;
-//				intent.putExtra(BOOLEAN_MESSAGE, true);
-//
-//				if(sharednumber.getString(selectedName, "").length() > 0){
-//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du Šr skyldig mig " + debtamount + " stålar");
-//				}
+				//				Intent intent = null;
+				//				intent.putExtra(BOOLEAN_MESSAGE, true);
+				//
+				//				if(sharednumber.getString(selectedName, "").length() > 0){
+				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du Šr skyldig mig " + debtamount + " stålar");
+				//				}
 			}
 
 			else{
@@ -224,7 +364,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		Intent intent = new Intent(this, SplitADebt.class);
 		startActivity(intent);
 	}
-	
+
 	public void viewContacts(View view){
 		Intent intent = new Intent(this, ContactViewing.class);
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
