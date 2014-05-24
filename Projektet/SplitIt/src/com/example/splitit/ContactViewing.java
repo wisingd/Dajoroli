@@ -19,6 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * An activity that displays the users stored contacts and their associated debts.
+ * 
+ * @author Johannes
+ *
+ */
 public class ContactViewing extends ActionBarActivity {
 
 	public SharedPreferences sharednames;
@@ -26,7 +32,9 @@ public class ContactViewing extends ActionBarActivity {
 
 	public static final String MyNames = "Mynames";
 	public static final String MyDebts = "Mydebts";
-
+/**
+ * Starts the activity and sets the layout to a textview that is filled using getContactString(). 
+ */
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 
@@ -34,11 +42,20 @@ public class ContactViewing extends ActionBarActivity {
 
 		TextView textView = new TextView(this);
 		textView.setTextSize(20);
-		textView.setBackgroundColor(Color.parseColor("#87DDFF"));
+		textView.setBackgroundColor(Color.parseColor("#50649F"));
 		textView.setText(getContactString());
 		setContentView(textView);
 	}
-
+/**
+ * Returns a string that describes what the user's current contact list contains. 
+ * Takes the values and keys stored in the SharedPreferences shareddebts and transforms 
+ * them into a map from which the keyset is stored as a set. An iterator then runs through
+ * the different contacts and depending on which value that is associated with the 
+ * contact the contact is added to one out of three lists. These list are then written 
+ * in a specific order in a string and this string is then returned.  
+ * 
+ * @return A string containing all the contacts and their associated debts.
+ */
 	public String getContactString(){
 
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);

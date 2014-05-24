@@ -17,9 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
+ * Creates an activity that allows the user to write the name and date of an event.
+ *   
  * @author Johannes
- * 
- *Creates an activity that allows the user to write the name and date of an event.  
  */
 public class EventCreater extends ActionBarActivity {
 
@@ -68,11 +68,11 @@ public class EventCreater extends ActionBarActivity {
 			return rootView;
 		}
 	}
-/**
- * The method that runs when the user clicks the "Date"-button, displays a DatePicker.
- * 
- * @param v the view that runs the method, i.e. the button "Date"
- */
+	/**
+	 * The method that runs when the user clicks the "Date"-button, displays a DatePicker.
+	 * 
+	 * @param v the view that runs the method, i.e. the button "Date"
+	 */
 	public void showDatePickerDialog(View v) {
 		TextView value;
 		value = (TextView) findViewById(R.id.textview2);
@@ -89,14 +89,14 @@ public class EventCreater extends ActionBarActivity {
 
 		value.setText("" + day + "/" + month + "/" + year);
 	}
-/**
- * Displays a dialog where the user can enter a name for the event.
- * Consists  of a EditText-line where the user can write the name, 
- * a button that closes the dialog and a button that writes the written
- *  name in an TextView on the original activity.
- *  
- * @param view the view that runs the method, i.e. the button "Name" 
- */
+	/**
+	 * Displays a dialog where the user can enter a name for the event.
+	 * Consists  of a EditText-line where the user can write the name, 
+	 * a button that closes the dialog and a button that writes the written
+	 *  name in an TextView on the original activity.
+	 *  
+	 * @param view the view that runs the method, i.e. the button "Name" 
+	 */
 	public void eventNameDialog(View view){
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -126,24 +126,36 @@ public class EventCreater extends ActionBarActivity {
 		alert.show();
 	}
 
+	/**
+	 * Run when the user clicks the "Create" button and continues with the event creation.
+	 * 
+	 * 
+	 * @param v The view from which the method is initiated.
+	 */
+	public void createEvent(View v){
 
-//	public void createEvent(View v){
-//
-//		Intent intent = new Intent(this, AddAttenders.class);
-//		EditText editText = (EditText) findViewById(R.id.event_name);
-//		String message = editText.getText().toString();
-//
-//		if(message.length() != 0){
-//			intent.putExtra(EXTRA_MESSAGE, message);
-//			startActivity(intent);
-//		}
-//
-//		else{
-//			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-//				public void onClick(DialogInterface dialog, int which){
-//					return;
-//				}
-//			}).show();
-//		}
-//	}
+		new AlertDialog.Builder(this).setTitle("Work in progress").setMessage("Work in progress.").setPositiveButton("Return", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+				return;
+			}
+		}).show();
+
+		//
+		//		Intent intent = new Intent(this, AddAttenders.class);
+		//		EditText editText = (EditText) findViewById(R.id.event_name);
+		//		String message = editText.getText().toString();
+		//
+		//		if(message.length() != 0){
+		//			intent.putExtra(EXTRA_MESSAGE, message);
+		//			startActivity(intent);
+		//		}
+		//
+		//		else{
+		//			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+		//				public void onClick(DialogInterface dialog, int which){
+		//					return;
+		//				}
+		//			}).show();
+		//		}
+	}
 }
