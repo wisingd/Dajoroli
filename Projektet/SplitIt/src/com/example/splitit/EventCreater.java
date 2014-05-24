@@ -1,8 +1,11 @@
 package com.example.splitit;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -25,7 +28,11 @@ public class EventCreater extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 
-	int year, month, day;
+	private static int year, month, day;
+
+	public static SharedPreferences sharedevent;
+
+	public static final String MyEvent = "Myevent";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,18 +83,25 @@ public class EventCreater extends ActionBarActivity {
 	public void showDatePickerDialog(View v) {
 		TextView value;
 		value = (TextView) findViewById(R.id.textview2);
-		//final EditText input = new EditText(this);
 
 		MyDatePicker newFragment = new MyDatePicker();
-		newFragment.show(getFragmentManager(), "datePicker");
 
-		value = (TextView) findViewById(R.id.textview2);
+		newFragment.show(getFragmentManager(), "datePicker");
 
 		year = newFragment.getYear();
 		month = newFragment.getMonth();
 		day = newFragment.getDay();
 
 		value.setText("" + day + "/" + month + "/" + year);
+	}	
+
+	public void setDate(){
+		TextView value = (TextView) findViewById(R.id.textview2);
+
+		sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+
+		value.setText("" + sharedevent.getInt("day", 0) + "/" + sharedevent.getInt("month", 0) + "/" + sharedevent.getInt("year", 0));
+
 	}
 	/**
 	 * Displays a dialog where the user can enter a name for the event.
@@ -114,6 +128,12 @@ public class EventCreater extends ActionBarActivity {
 				String message = "" + input.getText();
 
 				value.setText("" + message);
+
+				sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+
+				Editor editor = sharedevent.edit();
+				editor.putString("name", message);
+				editor.commit();
 			}
 		});
 
@@ -125,6 +145,10 @@ public class EventCreater extends ActionBarActivity {
 
 		alert.show();
 	}
+	
+	public void showAttenderPickerDialog(View v){
+		
+	}
 
 	/**
 	 * Run when the user clicks the "Create" button and continues with the event creation.
@@ -133,22 +157,22 @@ public class EventCreater extends ActionBarActivity {
 	 * @param v The view from which the method is initiated.
 	 */
 	public void createEvent(View v){
+		sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 
-		new AlertDialog.Builder(this).setTitle("Work in progress").setMessage("Work in progress.").setPositiveButton("Return", new DialogInterface.OnClickListener(){
+		new AlertDialog.Builder(this).setTitle("Work in progress").setMessage("Work in progress. Datumet du valde är " + sharedevent.getInt("day", 0) + "/" + sharedevent.getInt("month", 0) + " året " + sharedevent.getInt("year", 0) ).setPositiveButton("Return", new DialogInterface.OnClickListener(){
 			public void onClick(DialogInterface dialog, int which){
 				return;
 			}
 		}).show();
 
 		//
-		//		Intent intent = new Intent(this, AddAttenders.class);
+//		Intent intent = new Intent(this, AddAttenders.class);
 		//		EditText editText = (EditText) findViewById(R.id.event_name);
 		//		String message = editText.getText().toString();
 		//
-		//		if(message.length() != 0){
-		//			intent.putExtra(EXTRA_MESSAGE, message);
-		//			startActivity(intent);
-		//		}
+//		if(sharedevent.getString("name", "").length() != 0){
+//			startActivity(intent);
+//		}
 		//
 		//		else{
 		//			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){

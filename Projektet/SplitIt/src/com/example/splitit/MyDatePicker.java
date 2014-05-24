@@ -5,13 +5,21 @@ import java.util.Calendar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.widget.DatePicker;
+
 
 public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 	int pYear;
 	int pDay;
 	int pMonth;
+	public static SharedPreferences sharedevent;
+
+	public static final String MyEvent = "Myevent";
+
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -28,6 +36,16 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 		pYear = year;
 		pDay = day;
 		pMonth = month;
+		
+		sharedevent = getActivity().getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+		
+		Editor editor = sharedevent.edit();
+		
+		editor.putInt("year", pYear);
+		editor.putInt("month", pMonth);
+		editor.putInt("day", pDay);
+		
+		editor.commit();		
 	}
 	
 	public int getYear(){
