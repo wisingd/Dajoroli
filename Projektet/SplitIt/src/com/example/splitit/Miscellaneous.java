@@ -1,7 +1,23 @@
 package com.example.splitit;
-
+/**
+ * A class with some miscellaneous methods.
+ * @author Johannes
+ *
+ */
 public class Miscellaneous {
 	
+	/**
+	 * A method that returns a string which states what the new debts have resulted in.
+	 * Depending on if a new debt has increased or decreased the total debt of the user to the contact
+	 * different strings are written. The string also differs depending on what the total situation is
+	 * with the contact.
+	 * 
+	 * @param addingOrSubtracting 	true if the debt has increased else false
+	 * @param newamount 			the amount before the addition of the last amount
+	 * @param oldamount				the amount after the addition of the last amount
+	 * @param name					the name of the contact with who the debt situation has been updated
+	 * @return
+	 */
 	public static String debtUpdateMessage( boolean addingOrSubtracting, int newamount, int oldamount, String name){
 		
 		String snew = Integer.toString(newamount);

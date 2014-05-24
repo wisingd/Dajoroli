@@ -64,9 +64,9 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 	}
 
 	/**
-	 * Adding the names from the SharedPreference to the spinners. This is done by first adding them to a list, which is converted
-	 * to a Map, where the associated debt is linked as value. To add the values to the spinners, an iterator is added on the 
-	 * map and run through.
+	 * Adding the names from the SharedPreference to the spinners. This is done 
+	 * by first adding them to a map, from which the keys are converted to a list.
+	 * To add the values to the spinners, an iterator is added to the list and runs through the list.
 	 */
 	public void addNamesToSpinner(Spinner spinner, int id){
 		spinner = (Spinner) findViewById(id);
@@ -91,7 +91,7 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 		spinner.setAdapter(dataAdapter);
 		spinner.setOnItemSelectedListener(this);
 	}
-	
+
 	/**
 	 * Defines what happens when the check-boxes are clicked. That is, altering between being true or false. This will affect
 	 * which and how many contacts are accounted for later.
@@ -157,6 +157,11 @@ public class AddAttenders extends ActionBarActivity implements OnItemSelectedLis
 		}
 	}
 
+	/** Stores the selected name a name is selected in one of the spinners.
+	 * When a name is selected in one of the spinners it is stored as a string that corresponds
+	 * to the spinner it was selected in. That is, when a name is selected in "spinner1"
+	 * it is saved in "selectedName1".
+	 */
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 		switch(parent.getId()){

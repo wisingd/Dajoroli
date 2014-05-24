@@ -43,6 +43,10 @@ public class ContactMenu extends ActionBarActivity {
 		setContentView(R.layout.contact_view);
 	}
 
+	/**
+	 * 
+	 * @param view 		the view that runs the method
+	 */
 	public void addContact(View view) {
 
 		String number="";
@@ -151,8 +155,6 @@ public class ContactMenu extends ActionBarActivity {
 		editor.commit();
 		Editor editor2 = sharednames.edit();
 		editor2.clear();
-		
-		//		editor2.putString("---", "---");
 		
 		editor2.commit();
 		Editor editor3 = sharednumber.edit();

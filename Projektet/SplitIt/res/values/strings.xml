@@ -29,6 +29,5 @@
     <string name="delete_debt">Delete a debt!</string>
     
     <color name="bgcolor">#50649F</color>
-    <color name="bgcolor1">#FFC26D</color>
     
 </resources>
