@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Helper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 12;
+	private static final int DATABASE_VERSION = 23;
 	// Table name
 	public static final String TABLE_NAME="EVENTLIST";
 
@@ -26,7 +26,7 @@ public class Helper extends SQLiteOpenHelper {
 	public static final String colTotalCost = "TotalCost";
 
 	//Sql queries
-	private static final String CREATE_TABLE = 	"CREATE TABLE " + TABLE_NAME + " (" + colEventName + " TEXT, " + colTotalCost + " INTEGER, " + colAttender + " TEXT, " + colDate + " INTEGER, PRIMARY KEY ("+colEventName+", "+colAttender+", " + colDate +"))";
+	private static final String CREATE_TABLE = 	"CREATE TABLE " + TABLE_NAME + " (" + colEventName + " TEXT, " + colTotalCost + " INTEGER, " + colAttender + " TEXT, " + colDate + " TEXT, PRIMARY KEY ("+colEventName+", "+colAttender+", " + colDate +"))";
 
 	private static final String DROP_TABLE ="DROP TABLE IF EXISTS " + TABLE_NAME;
 

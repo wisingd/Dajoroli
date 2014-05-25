@@ -2,6 +2,7 @@ package com.example.splitit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +46,8 @@ public class EventCreater extends ActionBarActivity {
 
 	public static final String MyDebts = "Mydebts";
 	
+	private String datet;
+
 	Helper helper;
 
 	@Override
@@ -53,25 +57,6 @@ public class EventCreater extends ActionBarActivity {
 
 		helper = new Helper(this);
 
-//		SQLiteDatabase sqldata = helper.getWritableDatabase();
-//
-//		String eventname = "Name1";
-//		int date = 0;
-//		String attender = "Klas";
-//		int cost = 100;
-//		
-//		ContentValues values = new ContentValues();
-//		values.put("EventName", eventname);
-//		values.put("DateOfEvent", date);
-//		values.put("Attender", attender);
-//		values.put("TotalCost", cost);
-//
-//		long id = sqldata.insert("EVENTLIST", null, values);
-//		
-//		Toast toast = Toast.makeText(this, Long.toString(id), 3);
-//		
-//		toast.show();
-		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
@@ -113,14 +98,11 @@ public class EventCreater extends ActionBarActivity {
 	 * @param v the view that runs the method, i.e. the button "Date"
 	 */
 	public void showDatePickerDialog(View v) {
-		
+
 		MyDatePicker newFragment = new MyDatePicker();
 
 		newFragment.show(getFragmentManager(), "datePicker");
 
-		year = newFragment.getYear();
-		month = newFragment.getMonth();
-		day = newFragment.getDay();
 
 	}	
 
@@ -150,29 +132,58 @@ public class EventCreater extends ActionBarActivity {
 				Editor editor = sharedevent.edit();
 				editor.putString("name", message);
 				editor.commit();
-				showAttenderPickerDialog(view);			}
+				eventCostDialog(view);			}
 		});
 
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
-				// Canceled.
 			}
 		});
 
 		alert.show();
 	}
 
-	public long addAttender(String eventname, String attender, int date){
+	public void eventCostDialog(final View view){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+
+		alert.setTitle("Cost")
+		.setMessage("Specify the cost of the event")
+		.setView(input)
+		.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+				Editor editor = sharedevent.edit();
+
+				String value = "" + input.getText();
+				int cost = Integer.parseInt(value);
+
+				editor.putInt("cost", cost);
+				editor.commit();
+				showAttenderPickerDialog(view);			
+			}
+
+		})
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.show();
+	}
+
+	public long addAttender(String eventname, String attender, String date, int cost){
 
 		SQLiteDatabase db = helper.getWritableDatabase();
-		
-		int amount = 100;
+
 
 		ContentValues values = new ContentValues();
 		values.put(Helper.colEventName, eventname);
 		values.put(Helper.colDate, date);
 		values.put(Helper.colAttender, attender);
-		values.put(Helper.colTotalCost, amount);
+		values.put(Helper.colTotalCost, cost);
 
 		long id = db.insert(Helper.TABLE_NAME, null, values);
 
@@ -206,8 +217,8 @@ public class EventCreater extends ActionBarActivity {
 					if (isChecked) {
 						selectedItems.add(list.get(which));
 					} 
-					else if (selectedItems.contains(which)) {
-						selectedItems.remove(Integer.valueOf(which));
+					else  {
+						selectedItems.remove(list.get(which));
 					}
 				}
 			});
@@ -216,11 +227,16 @@ public class EventCreater extends ActionBarActivity {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					String listString = "";
 					sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+					shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+					Editor editor = shareddebts.edit();
 
-					if(sharedevent.getString("name", "") != null)
+					if(sharedevent.getString("name", "") != null){
+						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)) + " " + Integer.toString(sharedevent.getInt("year", 0));
+						
 						for (String s :selectedItems){
-							long id = addAttender(sharedevent.getString("name", ""), s, sharedevent.getInt("year", 0));
-							listString = listString  + s + "\n";
+							long id = addAttender(sharedevent.getString("name", ""), s, datet, sharedevent.getInt("cost", 0));
+							editor.putInt(s, shareddebts.getInt(s,0) + sharedevent.getInt("cost", 0)/selectedItems.size());
+							listString = listString + "\n" + s ;
 							if (id == -1){
 								Toast toast = Toast.makeText(EventCreater.this, "failed", 3);
 								toast.show();
@@ -230,6 +246,8 @@ public class EventCreater extends ActionBarActivity {
 								toast.show();
 							}
 						}
+						editor.commit();
+					}
 
 					new AlertDialog.Builder(view.getContext()).setPositiveButton
 					("Ok", new DialogInterface.OnClickListener() {
@@ -238,7 +256,7 @@ public class EventCreater extends ActionBarActivity {
 						}
 					})
 					.setTitle("The Names:")
-					.setMessage("" + listString + " och det valda namnet är " + sharedevent.getString("name", "") + " och året är " + sharedevent.getInt("year", 0))
+					.setMessage("You have added these " + listString + " to the event " + sharedevent.getString("name", "") + " that took place on "+ datet )
 					.show();
 				}
 			});
@@ -262,45 +280,72 @@ public class EventCreater extends ActionBarActivity {
 		}
 	}
 
-	public String getAllAttenders(){
-		SQLiteDatabase db = helper.getReadableDatabase();
 
-		String attenders = "";
+	public void showEvents(final View view){
 
-		String[] columns = {Helper.colAttender};
+		final SQLiteDatabase db = helper.getReadableDatabase();
 
-		Cursor cursor = db.query(Helper.TABLE_NAME, columns,null, null, null, null, null);
+		String[] columns = {Helper.colEventName};
+
+		Cursor cursor = db.query(true,Helper.TABLE_NAME, columns, null, null, null, null, null, null);
+
+		final List<String> list = new ArrayList<String>();
 
 		while(cursor.moveToNext()){
-			attenders= attenders + cursor.getString(0);
-			
-			
+			list.add(cursor.getString(cursor.getColumnIndex(Helper.colEventName)));
 		}
-//		if(cursor.moveToFirst()){
-//			do{
-//				if(!cursor.isNull(0)){
-//				}
-//			}while(cursor.moveToNext());
-//		}
+
 		db.close();
-		return attenders;
 
-	}
+		CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+		final ArrayList<String> selectedItems = new ArrayList<String>();
 
-	public void showEvents(View v){
+		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+		alert.setTitle("Which event?")
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.setItems(cs, new DialogInterface.OnClickListener() {
+			public void onClick (DialogInterface dialog, int which) {
 
-		String attenders = getAllAttenders();
-//		String output = "";
-//
-//		for(String s : attenders){
-//			output = output + s + "\n";
-//		}
-		new AlertDialog.Builder(this).setTitle("Work in progress").setMessage(attenders).setPositiveButton("Return", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				return;
+				final int position = which;
+				final String chosenevent = list.get(which);
+
+				String[] columns2 = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
+
+				SQLiteDatabase db = helper.getReadableDatabase();
+
+				String [] whereargs = new String []{chosenevent};
+				Cursor cursor2 = db.query(Helper.TABLE_NAME, columns2, "EventName=?",whereargs , null, null, null);
+
+				List<String> attendlist = new ArrayList<String>();
+
+				String date = "";
+				int cost = 0;
+
+				while(cursor2.moveToNext()){
+					attendlist.add(cursor2.getString(cursor2.getColumnIndex(Helper.colAttender)));
+					date = cursor2.getString(cursor2.getColumnIndex(Helper.colDate));
+					cost = cursor2.getInt(cursor2.getColumnIndex(Helper.colTotalCost));
+				}
+				String str="";
+				for(String s : attendlist){
+					str = str +"\n" + s ;
+				}
+
+				new AlertDialog.Builder(view.getContext())
+				.setTitle(chosenevent)
+				.setMessage("Date: " + date + "\nTotal cost: " + cost + "kr \nAttended: "+ str )
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+
+					public void onClick(DialogInterface dialog, int which){
+						return;
+					}
+				}).show();
+
 			}
 		}).show();
-
 	}
 
 }

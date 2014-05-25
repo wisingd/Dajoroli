@@ -13,9 +13,7 @@ import android.widget.DatePicker;
 
 
 public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-	int pYear;
-	int pDay;
-	int pMonth;
+
 	public static SharedPreferences sharedevent;
 
 	public static final String MyEvent = "Myevent";
@@ -33,31 +31,17 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 	}
 
 	public void onDateSet(DatePicker view, int year, int month, int day) {
-		pYear = year;
-		pDay = day;
-		pMonth = month;
 		
 		sharedevent = getActivity().getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 		
 		Editor editor = sharedevent.edit();
 		
-		editor.putInt("year", pYear);
-		editor.putInt("month", pMonth);
-		editor.putInt("day", pDay);
+		editor.putInt("year", year);
+		editor.putInt("month", month);
+		editor.putInt("day", day);
 		
 		editor.commit();
 		
 	}
 	
-	public int getYear(){
-		return pYear;
-	}
-	
-	public int getMonth(){
-		return pMonth;
-	}
-	
-	public int getDay(){
-		return pDay;
-	}
 }
