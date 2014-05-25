@@ -25,11 +25,15 @@ public class MainActivity extends ActionBarActivity {
 	public static final String MyNames = "Mynames";
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
+	
+	public static Helper db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		db = new Helper(this);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
