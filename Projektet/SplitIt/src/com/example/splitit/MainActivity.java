@@ -25,12 +25,13 @@ public class MainActivity extends ActionBarActivity {
 	public static final String MyNames = "Mynames";
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
 			.add(R.id.container, new PlaceholderFragment()).commit();
