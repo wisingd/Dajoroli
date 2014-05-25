@@ -239,7 +239,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			new AlertDialog.Builder(this)
 			.setTitle("No friends :( ")
 			.setMessage("You do not have any contacts yet.")
-			.setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
