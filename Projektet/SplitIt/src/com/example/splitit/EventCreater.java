@@ -45,7 +45,7 @@ public class EventCreater extends ActionBarActivity {
 	public static final String MyEvent = "Myevent";
 
 	public static final String MyDebts = "Mydebts";
-	
+
 	private String datet;
 
 	Helper helper;
@@ -229,10 +229,11 @@ public class EventCreater extends ActionBarActivity {
 					sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 					shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
 					Editor editor = shareddebts.edit();
+					Editor editor2 = sharedevent.edit();
 
-					if(sharedevent.getString("name", "") != null){
-						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)) + " " + Integer.toString(sharedevent.getInt("year", 0));
-						
+					if(sharedevent.contains("year")){
+						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)+1) + " " + Integer.toString(sharedevent.getInt("year", 0));
+
 						for (String s :selectedItems){
 							long id = addAttender(sharedevent.getString("name", ""), s, datet, sharedevent.getInt("cost", 0));
 							editor.putInt(s, shareddebts.getInt(s,0) + sharedevent.getInt("cost", 0)/selectedItems.size());
@@ -247,18 +248,36 @@ public class EventCreater extends ActionBarActivity {
 							}
 						}
 						editor.commit();
+
+						new AlertDialog.Builder(view.getContext()).setPositiveButton
+						("Ok", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.setTitle("The Names:")
+						.setMessage("You have added  " + listString + " \nto '" + sharedevent.getString("name", "") + "' that took place on "+ datet+"." )
+						.show();
+						
+						editor2.clear().commit();
+
+					}else{
+						new AlertDialog.Builder(view.getContext())
+						.setTitle("Set date")
+						.setMessage("You have to set a date for the event.")
+						.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+
+							public void onClick(DialogInterface dialog, int which){
+								return;
+							}
+						}).show();
+
+						
+
 					}
 
-					new AlertDialog.Builder(view.getContext()).setPositiveButton
-					("Ok", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-						}
-					})
-					.setTitle("The Names:")
-					.setMessage("You have added these " + listString + " to the event " + sharedevent.getString("name", "") + " that took place on "+ datet )
-					.show();
 				}
+
 			});
 			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
@@ -271,7 +290,7 @@ public class EventCreater extends ActionBarActivity {
 			new AlertDialog.Builder(this)
 			.setTitle("No friends :( ")
 			.setMessage("You do not have any contacts.")
-			.setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 
 				public void onClick(DialogInterface dialog, int which){
 					return;
@@ -336,7 +355,7 @@ public class EventCreater extends ActionBarActivity {
 
 				new AlertDialog.Builder(view.getContext())
 				.setTitle(chosenevent)
-				.setMessage("Date: " + date + "\nTotal cost: " + cost + "kr \nAttended: "+ str )
+				.setMessage("Date: " + date + "\nTotal cost: " + cost + " kr \nAttenders: "+ str )
 				.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 
 					public void onClick(DialogInterface dialog, int which){
@@ -347,5 +366,7 @@ public class EventCreater extends ActionBarActivity {
 			}
 		}).show();
 	}
+
+
 
 }
