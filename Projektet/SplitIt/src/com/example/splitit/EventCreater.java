@@ -24,11 +24,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
 
 /**
  * Creates an activity that allows the user to write the name and date of an event.
  *   
- * @author Johannes
  */
 public class EventCreater extends ActionBarActivity {
 
@@ -44,10 +46,17 @@ public class EventCreater extends ActionBarActivity {
 
 	public static final String MyNames = "Mynames";
 
+	public Helper db;
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_creater);
+
+		db = new Helper(this);
+		
+		db.getWritableDatabase();
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -189,7 +198,8 @@ public class EventCreater extends ActionBarActivity {
 
 					if(sharedevent.getString("name", "") != null && sharedevent.getInt("year", 0) > 2014)
 						for (String s :selectedItems){
-							MainActivity.db.addAttender(sharedevent.getString("name", ""), s, sharedevent.getInt("year", 0));
+							db.addAttender(sharedevent.getString("name", ""), s, sharedevent.getInt("year", 0));
+							listString = listString  + s + "\n";
 						}
 
 					new AlertDialog.Builder(view.getContext()).setPositiveButton
@@ -199,7 +209,7 @@ public class EventCreater extends ActionBarActivity {
 						}
 					})
 					.setTitle("The Names:")
-					.setMessage("" + listString)
+					.setMessage("" + listString + " och det valda namnet är " + sharedevent.getString("name", "") + " och året är " + sharedevent.getInt("year", 0))
 					.show();
 				}
 			});
@@ -231,36 +241,10 @@ public class EventCreater extends ActionBarActivity {
 	 * @param v The view from which the method is initiated.
 	 */
 	public void createEvent(View v){
-		sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 
-		new AlertDialog.Builder(this).setTitle("Work in progress").setMessage("Work in progress. Datumet du valde är " + sharedevent.getInt("day", 0) + "/" + sharedevent.getInt("month", 0) + " året " + sharedevent.getInt("year", 0) ).setPositiveButton("Return", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				return;
-			}
-		}).show();
-
-		//
-		//		Intent intent = new Intent(this, AddAttenders.class);
-		//		EditText editText = (EditText) findViewById(R.id.event_name);
-		//		String message = editText.getText().toString();
-		//
-		//		if(sharedevent.getString("name", "").length() != 0){
-		//			startActivity(intent);
-		//		}
-		//
-		//		else{
-		//			new AlertDialog.Builder(this).setTitle("No name").setMessage("You did not enter a valid name.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-		//				public void onClick(DialogInterface dialog, int which){
-		//					return;
-		//				}
-		//			}).show();
-		//		}
-	}
-	
-	public void checkTheDatabase(View v){
-		List<String> attenders = MainActivity.db.getAttenders("Test", 2014);
+		List<String> attenders = db.getAllAttenders();
 		String output = "";
-		
+
 		for(String s : attenders){
 			output = output + s + "\n";
 		}
@@ -271,4 +255,5 @@ public class EventCreater extends ActionBarActivity {
 		}).show();
 
 	}
+
 }
