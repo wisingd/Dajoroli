@@ -37,12 +37,9 @@ public class EventCreater extends ActionBarActivity {
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	private static int year, month, day;
 	public static SharedPreferences sharedevent;
-<<<<<<< HEAD
-=======
 
 	public static SharedPreferences sharednames;
 
->>>>>>> FETCH_HEAD
 	public static final String MyEvent = "Myevent";
 
 	public static final String MyNames = "Mynames";

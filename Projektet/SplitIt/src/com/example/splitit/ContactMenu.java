@@ -13,6 +13,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,7 +28,7 @@ public class ContactMenu extends ActionBarActivity {
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	public final static String BOOLEAN_MESSAGE = "com.example.myfirstapp.trueorfalse";
 	public final static String ANOTHER_MESSAGE = "com.example.myfirstapp.contactlist";
-	
+
 	public SharedPreferences sharednames;
 	public SharedPreferences shareddebts;
 	public SharedPreferences sharednumber;
@@ -36,134 +37,203 @@ public class ContactMenu extends ActionBarActivity {
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
 
+	String listString="";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {         
 
 		super.onCreate(savedInstanceState);    
 		setContentView(R.layout.contact_view);
 	}
+	public void addContact(final View view){
+		shareddebts = getSharedPreferences(MyDebts, MODE_WORLD_READABLE);
+		sharednumber = getSharedPreferences(MyNumbers, MODE_WORLD_READABLE);
 
-	/**
-	 * 
-	 * @param view 		the view that runs the method
-	 */
-	public void addContact(View view) {
+		final Editor editor = sharednumber.edit();
+		final Editor editor2 = shareddebts.edit();
 
-		String number="";
-		EditText editText = (EditText) findViewById(R.id.contact_name);
-		String message = editText.getText().toString();
-		sharednames = getSharedPreferences(MyNames, MODE_WORLD_READABLE);
+		final EditText input = new EditText(view.getContext());
+		input.setHint("Name of your new friend");
 
-		if(message.length()>0){
-			if(!sharednames.contains(message)){ 
 
-				Editor editor = sharednames.edit();
-				editor.putString(message, message);
+		new AlertDialog.Builder(view.getContext())
+		.setTitle("Name")
+		.setView(input)
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+			}
+		})
+		.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+
+				final String value = "" + input.getText();
+				new AlertDialog.Builder(view.getContext())
+				.setTitle("Phone number")
+				.setMessage("Would you like to add a phone number to " + value + ", so you can notify your new friend when you add a debt?")
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						new AlertDialog.Builder(view.getContext())
+						.setTitle("Confirm")
+						.setMessage("Would you like to add " + value + " to your list of contacts, without a phone number?")
+						.setNegativeButton("No", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								editor.putString(value, null);
+								editor.commit();
+
+								editor2.putInt(value, 0);
+								editor2.commit();
+
+								new AlertDialog.Builder(view.getContext())
+								.setTitle("New contact added")
+								.setMessage("You have added " + value + " to your list of contacts!")
+								.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+									}
+								})
+								.setPositiveButton("View contacts", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										viewContacts(view);
+									}
+								})
+								.show();
+							}
+						})
+						.show();
+					}
+				})
+				.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						final EditText input2 = new EditText(view.getContext());
+						input2.setInputType(InputType.TYPE_CLASS_NUMBER);						
+						input2.setHint(value + "'s phone number");
+
+						new AlertDialog.Builder(view.getContext())
+						.setTitle("Phone number")
+						.setView(input2)
+						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								final String number = "" + input2.getText();
+								new AlertDialog.Builder(view.getContext())
+								.setTitle("Confirm")
+								.setMessage("Would you like to add " + value + " with the number " + number + " to your list of contacts?")
+								.setNegativeButton("No", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+									}
+								})
+								.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										editor.putString(value, number);
+										editor.commit();
+
+										editor2.putInt(value, 0);
+										editor2.commit();
+
+										new AlertDialog.Builder(view.getContext())
+										.setTitle("New contact added")
+										.setMessage("You have added " + value + " to your list of contacts!")
+										.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+											}
+										})
+										.setPositiveButton("View contacts", new DialogInterface.OnClickListener() {
+											@Override
+											public void onClick(DialogInterface dialog, int which) {
+												viewContacts(view);
+											}
+										})
+										.show();
+									}
+								})
+								.show();
+							}
+						})
+						.show();
+					}
+				})
+				.show();
+			}
+		})
+		.show();
+	}
+
+	public void viewContacts(View view){
+		ContactViewing cv = new ContactViewing();
+		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+		alert.setTitle("Contacts")
+		.setMessage("Hej" + cv.getContactString())
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.show();
+		
+		
+//		Intent intent = new Intent(this, ContactViewing.class);
+//		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+//		Map<String,?> mappen = shareddebts.getAll();
+//
+//		if(mappen.size() > 0){
+//			startActivity(intent);	
+//		}
+//		else{
+//			new AlertDialog.Builder(this).setTitle("No friends :( ").setMessage("You do not have any contacts.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+//				public void onClick(DialogInterface dialog, int which){
+//					return;
+//				}
+//			}).show();
+//		}
+	}
+
+	public void eraseContacts(final View view){
+
+		new AlertDialog.Builder(this)
+		.setTitle("Erase contacts")
+		.setMessage("Are you sure you want to erase all your contacts?")
+		.setNegativeButton("No", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+			}
+		})
+		.setPositiveButton("Yes, I'm sure", new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int which){
+				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
+
+				Editor editor = shareddebts.edit();
+				editor.clear();
 				editor.commit();
-			
-				shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
 
-				Editor editor2 = shareddebts.edit();
-				editor2.putInt(message, 0);
+				Editor editor2 = sharednumber.edit();
+				editor2.clear();
 				editor2.commit();
 
-				EditText edittext2 = (EditText) findViewById(R.id.phone_number);
-				String numberstring = edittext2.getText().toString();
-
-				if(numberstring.length() != 0){
-
-					sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
-					
-					Editor editor3 = sharednumber.edit();
-					number = edittext2.getText().toString();
-					editor3.putString(message, number);
-					editor3.commit();
-
-					new AlertDialog.Builder(this).setTitle("Update").setMessage("You have added " + message + " (" + number + ") as a contact!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int which){
-							return;
-						}
-					}).show();					
-				}
-
-				else{
-					new AlertDialog.Builder(this).setTitle("Update").setMessage("You have added " + message + " as a contact!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
-						public void onClick(DialogInterface dialog, int which){
-							return;
-						}
-					}).show();
-				}
-
-			}
-
-			else{
-				new AlertDialog.Builder(this).setTitle("Update").setMessage("You already have a contact with this name!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
+				new AlertDialog.Builder(view.getContext())
+				.setTitle("Contacts erased!")
+				.setMessage("You have erased all of your contacts!")
+				.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}
 				}).show();
-			}
-		}
-
-		else{
-			new AlertDialog.Builder(this).setTitle("Update").setMessage("You have to enter a name!").setPositiveButton("Okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-	}
-	
-	public void viewContacts(View view){
-
-		Intent intent = new Intent(this, ContactViewing.class);
-		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		Map<String,?> mappen = sharednames.getAll();
-
-		if(mappen.size() > 0){
-			startActivity(intent);	
-		}
-		else{
-			new AlertDialog.Builder(this).setTitle("No friends :( ").setMessage("You do not have any contacts.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-					return;
-				}
-			}).show();
-		}
-	}
-
-	public void doYouReallyWantToEraseContacts(View view){
-		new AlertDialog.Builder(this).setTitle("Erase contacts").setMessage("Do you really want to erase all contacts?").setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				eraseContacts();
-			}
-		}).setNegativeButton("No", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				return;
-			}
-		}).show();
-	}
-
-	public void eraseContacts(){
-
-		sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
-
-		Editor editor = shareddebts.edit();
-		editor.clear();
-		editor.commit();
-		Editor editor2 = sharednames.edit();
-		editor2.clear();
-		
-		editor2.commit();
-		Editor editor3 = sharednumber.edit();
-		editor3.clear();
-		editor3.commit();
-
-		new AlertDialog.Builder(this).setTitle("Contacts erased!").setMessage("You have erased all of your contacts!").setPositiveButton("Okej", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				return;
 			}
 		}).show();
 	}

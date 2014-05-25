@@ -6,25 +6,6 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/contact_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/contact_name" />
-
-        <EditText
-            android:id="@+id/phone_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/number"
-            android:inputType="number" />
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -54,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dip"
             android:background="@android:color/transparent"
-            android:onClick="doYouReallyWantToEraseContacts"
+            android:onClick="eraseContacts"
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"

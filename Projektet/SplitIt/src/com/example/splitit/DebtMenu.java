@@ -40,7 +40,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
 
-	private Spinner spinner;
 	private String selectedName;
 
 	String listString = "";
@@ -88,7 +87,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				}
 			})
 			// OK-button for Dialog 1
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			.setPositiveButton("Next", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 
 					final EditText input = new EditText(view.getContext());
@@ -104,7 +103,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						}
 					})
 					// OK-button for Dialog 2
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					.setPositiveButton("Next", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
 							final String value = "" + input.getText();
 							final int debtAmount = Integer.parseInt(value);
@@ -152,9 +151,15 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			.setMessage("You do not have any contacts yet.")
 			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
-					return;
 				}
-			}).show();
+			})
+			.setNegativeButton("Add a contact", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					//ContactMenu.addContact(view));
+				}
+			})
+			.show();
 		}
 	}
 
@@ -178,6 +183,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			// DIALOGRUTA 1
 			AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
 			alert.setTitle("Who do you owe?")
+			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
 			.setItems(cs, new DialogInterface.OnClickListener() {
 				public void onClick (DialogInterface dialog, int which) {
 
@@ -248,7 +257,75 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}// Metod
 
 	public void deleteDebt(final View view){
-	}
+		listString = "";
+		final ArrayList<String> list = new ArrayList<String>();
+		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = sharednames.getAll();
+
+		if (mappen.size() > 0){
+			Set<String> settet = mappen.keySet();
+			Iterator <String> iteratorn = settet.iterator();
+			while(iteratorn.hasNext()){
+				String string  = iteratorn.next();
+				list.add(string);
+			}//WHILE
+
+			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+			final ArrayList<String> selectedItems = new ArrayList<String>();
+			String stringList = "";
+
+			// DIALOGRUTA 1
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("Choose contacts")
+			.setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {				
+				@Override
+				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+					if (isChecked) {
+						selectedItems.add(list.get(which));
+					} 
+					else if (selectedItems.contains(which)) {
+						selectedItems.remove(Integer.valueOf(which));
+					}
+				}
+			})
+			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					for (String s: selectedItems){
+						listString = listString + "\n" + s;
+					}
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("Confirm")
+					.setMessage("Are you sure you want to even your debt situation with the following contacts? " + listString)
+					.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					})
+					.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							// Change the debt in SharedPreferences
+							shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+							Editor editor = shareddebts.edit();
+
+							for(String s: selectedItems){
+								editor.putInt(s, 0);
+								editor.commit();
+							}
+						}
+					})
+					.show();
+				}
+			})
+			.show();
+		}// IF
+
+	}//METHOD
 
 	public void sendSMS(String phonenumber, String message){
 		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, SendingSms.class), 0);

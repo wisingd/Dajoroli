@@ -6,11 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -58,6 +60,10 @@ public class ContactViewing extends ActionBarActivity {
  */
 	public String getContactString(){
 
+		String str = "Hoppla";
+		
+		shareddebts = PreferenceManager.getDefaultSharedPreferences(this);
+		
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
 
 		Map<String,?> mappen = shareddebts.getAll();
@@ -116,7 +122,8 @@ public class ContactViewing extends ActionBarActivity {
 			}
 			message = message + "\n";
 		}
-		return message;
+//		return message;
+		return str;
 	}
 
 	@Override
