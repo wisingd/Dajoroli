@@ -45,7 +45,8 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 		editor.putInt("month", pMonth);
 		editor.putInt("day", pDay);
 		
-		editor.commit();		
+		editor.commit();
+		
 	}
 	
 	public int getYear(){
