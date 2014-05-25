@@ -31,7 +31,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.70"
             android:scaleY="0.70"
-            android:src="@drawable/dollars8text" />
+            android:src="@drawable/main_events" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.70"
             android:scaleY="0.70"
-            android:src="@drawable/coins8text" />
+            android:src="@drawable/main_debt" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -59,7 +59,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.70"
             android:scaleY="0.70"
-            android:src="@drawable/contactstext" />
+            android:src="@drawable/main_contacts" />
     </LinearLayout>
 
 </RelativeLayout>

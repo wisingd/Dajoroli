@@ -20,7 +20,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/they_owe_me" />
+            android:src="@drawable/debt_they_owe_me" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -30,13 +30,13 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/i_owe_them" />
+            android:src="@drawable/debt_i_owe_them" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
-            android:src="@drawable/line" />
+            android:src="@drawable/icon_line" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/delete" />
+            android:src="@drawable/debt_even" />
 
         <ImageButton
             android:layout_width="match_parent"

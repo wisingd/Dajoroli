@@ -19,7 +19,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/create_contact" />
+            android:src="@drawable/contact_create" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/view_contacts" />
+            android:src="@drawable/contacts_view" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/erase_contacts" />
+            android:src="@drawable/contacts_erase" />
     </LinearLayout>
 
 </LinearLayout>
