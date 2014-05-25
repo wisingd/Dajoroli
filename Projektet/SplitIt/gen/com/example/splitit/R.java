@@ -1069,8 +1069,11 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05001e;
         public static final int submit_area=0x7f050039;
         public static final int tabMode=0x7f050002;
+<<<<<<< HEAD
         public static final int textview=0x7f050045;
         public static final int textview2=0x7f050046;
+=======
+>>>>>>> FETCH_HEAD
         public static final int title=0x7f05002b;
         public static final int top_action_bar=0x7f050020;
         public static final int topview=0x7f050044;

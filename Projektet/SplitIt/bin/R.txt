@@ -312,8 +312,11 @@ int id spinner3 0x7f05003f
 int id split_action_bar 0x7f05001e
 int id submit_area 0x7f050039
 int id tabMode 0x7f050002
+<<<<<<< HEAD
 int id textview 0x7f050045
 int id textview2 0x7f050046
+=======
+>>>>>>> FETCH_HEAD
 int id title 0x7f05002b
 int id top_action_bar 0x7f050020
 int id topview 0x7f050044
