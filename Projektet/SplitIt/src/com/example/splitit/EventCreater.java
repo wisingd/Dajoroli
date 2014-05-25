@@ -27,11 +27,8 @@ import android.widget.TextView;
 public class EventCreater extends ActionBarActivity {
 
 	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-
 	private static int year, month, day;
-
 	public static SharedPreferences sharedevent;
-
 	public static final String MyEvent = "Myevent";
 
 	@Override

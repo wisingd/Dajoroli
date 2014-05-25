@@ -94,7 +94,7 @@ public class ContactViewing extends ActionBarActivity {
 			message = "You have a debt to these contacts: \n";
 
 			for(String temp: iOweThese){
-				message = message + temp + "\t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.\n";
+				message = message + temp + " \t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.\n";
 			}
 			message = message + "\n";
 		}
@@ -103,7 +103,7 @@ public class ContactViewing extends ActionBarActivity {
 			message = message +  "These contacts have a debt to you \n";
 
 			for(String temp: theseOweMe){
-				message = message +  temp  + "\t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.\n";
+				message = message +  temp  + " \t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.\n";
 			}
 			message = message +"\n";
 		}

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +25,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class DebtMenu extends ActionBarActivity implements OnItemSelectedListener{
 
@@ -43,6 +43,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	private Spinner spinner;
 	private String selectedName;
 
+	String listString = "";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {         
 
@@ -50,12 +52,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		setContentView(R.layout.debt_view);
 	}
 
-	public void theyOweMeTwo(final View view){
+	public void theyOweMe(final View view){
 		final ArrayList<String> list = new ArrayList<String>();
 		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
 		Map<String,?> mappen = sharednames.getAll();
 
-		if(mappen.size() > 0){
+		if (mappen.size() > 0){
 			Set<String> settet = mappen.keySet();
 			Iterator <String> iteratorn = settet.iterator();
 			while(iteratorn.hasNext()){
@@ -65,9 +67,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
 			final ArrayList<String> selectedItems = new ArrayList<String>();
-			AlertDialog.Builder alert = new AlertDialog.Builder(this);
 
-			alert.setTitle("Choose contacts")
+			// DIALOGRUTA 1
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setTitle("Who owes you?")
 			.setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {				
 				@Override
 				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
@@ -79,40 +82,75 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						selectedItems.remove(Integer.valueOf(which));
 					}
 				}
-			});
-
-			alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			})
+			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-					String listString = "";
+				}
+			})
+			// OK-button for Dialog 1
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
 
-					for (String s :selectedItems){
-						listString = listString + s + "\n";
-					}
+					final EditText input = new EditText(view.getContext());
+					input.setInputType(InputType.TYPE_CLASS_NUMBER);
+					input.setHint("Debt");
 
-					new AlertDialog.Builder(view.getContext()).setPositiveButton
-					("Okilidokili", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
+					// DIALOG 2
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("Enter the total debt")
+					.setView(input)
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
 						}
 					})
-					.setTitle("The Names:")
-					.setMessage("" + listString)
-					.show();
+					// OK-button for Dialog 2
+					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							final String value = "" + input.getText();
+							final int debtAmount = Integer.parseInt(value);
+							listString = "Do you want to assign the total debt " + value + "kr (" + debtAmount/selectedItems.size() + " kr each) to the following contacts?";
+
+							for (String s :selectedItems){
+								listString = listString + "\n" + s;
+							}
+							// DIALOG 3
+							new AlertDialog.Builder(view.getContext())
+							.setTitle("Confirm:")
+							.setNegativeButton("No", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+								}
+							})
+							// OK-button for Dialog 3
+							.setPositiveButton ("Yes", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+									Editor editor = shareddebts.edit();
+
+									for (String s :selectedItems){
+
+										int olddebt = shareddebts.getInt(s, 0);
+										int newdebt = olddebt + debtAmount / selectedItems.size();
+										editor.putInt(s, newdebt);
+										editor.commit();
+									}
+								}
+							})
+							.setMessage("" + listString)
+							.show(); // Dialog 3
+						}
+					})
+					.show(); // Dialog 2
 				}
-			});
-			alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-				}
-			});
-			alert.show();
-		}
+			})
+			.show(); // Dialog 1
+		} // IF
 
 		else{
 			new AlertDialog.Builder(this)
 			.setTitle("No friends :( ")
-			.setMessage("You do not have any contacts.")
-			.setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-
+			.setMessage("You do not have any contacts yet.")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
@@ -120,147 +158,102 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		}
 	}
 
-	//	public void theyOweMe(View view){
-	//
-	//		int newdebt, olddebt;
-	//		EditText editText = (EditText) findViewById(R.id.debt_amount);
-	//
-	//		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
-	//
-	//			int debtamount = Integer.parseInt(editText.getText().toString());
-	//
-	//			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-	//			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-	//			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
-	//
-	//			if(sharednames.contains(selectedName) && debtamount != 0){
-	//
-	//				Editor editor = shareddebts.edit();
-	//
-	//				olddebt = shareddebts.getInt(selectedName, 0);
-	//				newdebt = olddebt + debtamount;
-	//				editor.putInt(selectedName, newdebt);
-	//				editor.commit();
-	//
-	//				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(true, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-	//					public void onClick(DialogInterface dialog, int which){
-	//						return;
-	//					}
-	//				}).show();
-	//
-	//				//				Intent intent = null;
-	//				//				intent.putExtra(BOOLEAN_MESSAGE, true);
-	//				//
-	//				//				if(sharednumber.getString(selectedName, "").length() > 0){
-	//				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att du Šr skyldig mig " + debtamount + " stålar");
-	//				//				}
-	//			}
-	//
-	//			else{
-	//				new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount that is not 0.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-	//					public void onClick(DialogInterface dialog, int which){
-	//						return;
-	//					}
-	//				}).show();
-	//
-	//			}
-	//
-	//		}
-	//
-	//		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
-	//		//
-	//		//		startActivity(intent);
-	//		else{
-	//			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("OK", new DialogInterface.OnClickListener(){
-	//				public void onClick(DialogInterface dialog, int which){
-	//					return;
-	//				}
-	//			}).show();
-	//		}
-	//	}
+	public void iOweThem(final View view){
 
-	public void iOweThem(View view){
-		int newdebt, olddebt;
+		final ArrayList<String> list = new ArrayList<String>();
+		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = sharednames.getAll();
 
-		//		Intent intent = new Intent(this, DebtAddingActivity.class);
-
-		EditText editText = (EditText) findViewById(R.id.debt_amount);
-
-		if(editText.getText() != null && !editText.getText().toString().isEmpty()){
-
-			int debtamount = Integer.parseInt(editText.getText().toString());
-
-			sharednames = getSharedPreferences(MyNames, Context.MODE_PRIVATE);
-			shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-			sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
-
-			if(sharednames.contains(selectedName) && debtamount != 0){
-
-				Editor editor = shareddebts.edit();
-				olddebt = shareddebts.getInt(selectedName, 0);
-				newdebt = olddebt - debtamount;
-				editor.putInt(selectedName, newdebt);
-				editor.commit();
-
-				String string = "";
-
-				if ( newdebt > 0 && olddebt >= 0)
-					string = selectedName +" now has a total debt of " + Integer.toString(newdebt) + "kr.";
-
-				else if (newdebt > 0 && olddebt < 0)
-					string = "Your debt situation has changed! " + selectedName + " now owes you " + Integer.toString(newdebt) + "kr."; 
-
-				else if(newdebt == 0)
-					string = "You are now even with " + selectedName + ".";
-
-				else
-					string = "Your total debt to " + selectedName + " has been decreased to " + Integer.toString(newdebt) + ".";
-
-				new AlertDialog.Builder(this).setTitle("Update").setMessage(Miscellaneous.debtUpdateMessage(false, newdebt, olddebt, selectedName)).setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-
-				//				intent.putExtra(BOOLEAN_MESSAGE, true);
-
-				//				if(sharednumber.getString(selectedName, "").length() > 0){
-				//					sendSMS(sharednumber.getString(selectedName, ""), "La till att jag är skyldig dig " + debtamount + " stålar");
-				//				}				
+		if (mappen.size() > 0){
+			Set<String> settet = mappen.keySet();
+			Iterator <String> iteratorn = settet.iterator();
+			while(iteratorn.hasNext()){
+				String string  = iteratorn.next();
+				list.add(string);
 			}
 
-			else{
-				new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount that is not 0.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-			}
-		}
+			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+			final ArrayList<String> selectedItems = new ArrayList<String>();
+
+			// DIALOGRUTA 1
+			AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+			alert.setTitle("Who do you owe?")
+			.setItems(cs, new DialogInterface.OnClickListener() {
+				public void onClick (DialogInterface dialog, int which) {
+
+					final int position = which;
+					final EditText input = new EditText(view.getContext());
+					input.setInputType(InputType.TYPE_CLASS_NUMBER);
+					input.setHint("Debt");
+
+					// DIALOG 2
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("Enter debt to " + list.get(position))
+					.setView(input)
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+						}
+					})
+
+					// OK-button for Dialog 2
+					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int whichButton) {
+							String value = "" + input.getText();
+							final int debtAmount = Integer.parseInt(value);
+							final String name = list.get(position);
+							String listString = "Do you want to add a debt of " + value + " kr to " + name + "?";
+
+							// DIALOG 3
+							new AlertDialog.Builder(view.getContext())
+							.setTitle("Confirm:")
+							.setMessage("" + listString)
+							.setNegativeButton("No", new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int whichButton) {
+								}
+							})
+
+							// OK-button for Dialog 3
+							.setPositiveButton ("Yes", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									// Change the debt in SharedPreferences
+									shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+									Editor editor = shareddebts.edit();
+									int olddebt = shareddebts.getInt(name, 0);
+									int newdebt = olddebt - debtAmount;
+									editor.putInt(name, newdebt);
+									editor.commit();
+								}
+							})
+							.show(); // Dialog 3
+						}
+					})
+					.show(); // Debt
+				}
+			})
+			.show();// SetItems
+
+		} // IF
 
 		else{
-			new AlertDialog.Builder(this).setTitle("Failed update").setMessage("Your request failed, you have to enter an amount.").setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
+			new AlertDialog.Builder(this)
+			.setTitle("No friends :( ")
+			.setMessage("You do not have any contacts yet.")
+			.setPositiveButton("okidoki", new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which){
 					return;
 				}
 			}).show();
 		}
+	}// Metod
 
-		//		intent.putExtra(ANOTHER_MESSAGE, selectedName);
-		//
-		//		startActivity(intent);
-
+	public void deleteDebt(final View view){
 	}
 
 	public void sendSMS(String phonenumber, String message){
 		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, SendingSms.class), 0);
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phonenumber, null, message, pi, null);
-	}
-
-	public void splitDebt(View view){
-		Intent intent = new Intent(this, SplitADebt.class);
-		startActivity(intent);
 	}
 
 	public void viewContacts(View view){

@@ -9,55 +9,18 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <EditText
-            android:id="@+id/debt_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/amount"
-            android:inputType="number" />
-
-        <Spinner
-            android:id="@+id/contact_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:prompt="@string/name"
-            android:spinnerMode="dropdown" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical" >
 
-        <!-- <ImageButton -->
-        <!-- android:layout_width="match_parent" -->
-        <!-- android:layout_height="70dip" -->
-        <!-- android:background="@android:color/transparent" -->
-        <!-- android:onClick="theyOweMe" -->
-        <!-- android:scaleType="centerInside" -->
-        <!-- android:scaleX="0.50" -->
-        <!-- android:scaleY="0.50" -->
-        <!-- android:src="@drawable/they_owe_me" /> -->
-
         <ImageButton
-            android:id="@+id/they_owe_me"
             android:layout_width="match_parent"
             android:layout_height="70dip"
             android:background="@android:color/transparent"
-            android:onClick="theyOweMeTwo"
+            android:onClick="theyOweMe"
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
             android:src="@drawable/they_owe_me" />
-
-        <TextView
-            android:id="@+id/textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <ImageButton
             android:layout_width="match_parent"
@@ -79,16 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="70dip"
             android:background="@android:color/transparent"
-            android:onClick="splitDebt"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/split" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
             android:onClick=" "
             android:scaleType="centerInside"
             android:scaleX="0.50"
@@ -101,8 +54,8 @@
             android:background="@android:color/transparent"
             android:onClick="viewContacts"
             android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
+            android:scaleX="0.70"
+            android:scaleY="0.70"
             android:src="@drawable/contacts" />
     </LinearLayout>
 
