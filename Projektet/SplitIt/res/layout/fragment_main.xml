@@ -31,7 +31,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.70"
             android:scaleY="0.70"
-            android:src="@drawable/main_events" />
+            android:src="@drawable/main_event" />
 
         <ImageButton
             android:layout_width="match_parent"

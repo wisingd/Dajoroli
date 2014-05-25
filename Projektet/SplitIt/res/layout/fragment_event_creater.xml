@@ -5,46 +5,70 @@
     android:background="@color/bgcolor"
     android:orientation="vertical" >
 
-       
-<!--     	<ImageButton -->
-<!--             android:layout_width="match_parent" -->
-<!--             android:layout_height="70dip" -->
-<!--             android:background="@android:color/transparent" -->
-<!--             android:onClick="eventNameDialog" -->
-<!--             android:scaleType="centerInside" -->
-<!--             android:scaleX="0.50" -->
-<!--             android:scaleY="0.50" -->
-<!--             android:src="@drawable/event_name" /> -->
-    	
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick=""
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_name" />
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="showDatePickerDialog"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/date" />
-        
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="eventNameDialog"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/create" />
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="showDatePickerDialog"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_date" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="showEvents"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:text="Show" />
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick=""
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_attenders" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick=""
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_debt" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="eventNameDialog"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_create" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_line" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="showEvents"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/event_show" />
 
 </LinearLayout>

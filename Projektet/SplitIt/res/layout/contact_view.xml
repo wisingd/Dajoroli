@@ -19,7 +19,7 @@
             android:scaleType="centerInside"
             android:scaleX="0.50"
             android:scaleY="0.50"
-            android:src="@drawable/contact_create" />
+            android:src="@drawable/contact_new" />
 
         <ImageButton
             android:layout_width="match_parent"
