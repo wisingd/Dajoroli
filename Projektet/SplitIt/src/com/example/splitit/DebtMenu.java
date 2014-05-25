@@ -1,7 +1,9 @@
 package com.example.splitit;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,15 +30,10 @@ import android.widget.Spinner;
 
 public class DebtMenu extends ActionBarActivity implements OnItemSelectedListener{
 
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
-	public final static String BOOLEAN_MESSAGE = "com.example.myfirstapp.trueorfalse";
-	public final static String ANOTHER_MESSAGE = "com.example.myfirstapp.contactlist";
 
-	public SharedPreferences sharednames;
 	public SharedPreferences shareddebts;
 	public SharedPreferences sharednumber;
 
-	public static final String MyNames = "Mynames";
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
 
@@ -53,8 +50,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	public void theyOweMe(final View view){
 		final ArrayList<String> list = new ArrayList<String>();
-		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		Map<String,?> mappen = sharednames.getAll();
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = shareddebts.getAll();
 
 		if (mappen.size() > 0){
 			Set<String> settet = mappen.keySet();
@@ -166,8 +163,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	public void iOweThem(final View view){
 
 		final ArrayList<String> list = new ArrayList<String>();
-		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		Map<String,?> mappen = sharednames.getAll();
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = shareddebts.getAll();
 
 		if (mappen.size() > 0){
 			Set<String> settet = mappen.keySet();
@@ -259,8 +256,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	public void deleteDebt(final View view){
 		listString = "";
 		final ArrayList<String> list = new ArrayList<String>();
-		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		Map<String,?> mappen = sharednames.getAll();
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+		Map<String,?> mappen = shareddebts.getAll();
 
 		if (mappen.size() > 0){
 			Set<String> settet = mappen.keySet();
@@ -284,7 +281,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 					if (isChecked) {
 						selectedItems.add(list.get(which));
 					} 
-					else if (selectedItems.contains(which)) {
+					else {
 						selectedItems.remove(Integer.valueOf(which));
 					}
 				}
@@ -325,6 +322,23 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			.show();
 		}// IF
 
+		else {
+			new AlertDialog.Builder(view.getContext())
+			.setTitle("No contacts")
+			.setMessage("You do not seem to have any friends yet")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
+			.setNegativeButton("Add contact", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					//ContactMenu.addContact(view);
+				}
+			})
+			.show();
+		}
 	}//METHOD
 
 	public void sendSMS(String phonenumber, String message){
@@ -334,11 +348,90 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	}
 
 	public void viewContacts(View view){
-		Intent intent = new Intent(this, ContactViewing.class);
-		sharednames = getSharedPreferences(MyNames, Context.MODE_WORLD_READABLE);
-		Map<String,?> mappen = sharednames.getAll();
 
-		startActivity(intent);
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+
+		Map<String,?> mappen = shareddebts.getAll();
+		Set<String> settet = mappen.keySet();
+		Iterator <String> iteratorn = settet.iterator();
+
+
+		if (mappen.size() > 0) {
+
+			List<String> iOweThese = new ArrayList<String>();
+			List<String> theseOweMe = new ArrayList<String>();
+			List<String> evenWithThese = new ArrayList<String>();		
+
+			while(iteratorn.hasNext()){
+
+				String key = iteratorn.next(); 
+
+				if( shareddebts.getInt(key, 0) > 0)
+					theseOweMe.add(key);
+				else if(shareddebts.getInt(key,0) == 0)
+					evenWithThese.add(key);
+				else
+					iOweThese.add(key);
+			}
+
+			Collections.sort(iOweThese);
+			Collections.sort(theseOweMe);
+			Collections.sort(evenWithThese);
+
+			String message = "";
+
+			if (iOweThese.size() != 0){
+				message = "You have a debt to these contacts:";
+
+				for(String temp: iOweThese){
+					message = message + "\n" + temp + "\t" + "\t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.";
+				}
+				message = message + "\n\n";
+			}
+			if (theseOweMe.size() != 0){
+				message = message +  "These contacts have a debt to you:";
+
+				for(String temp: theseOweMe){
+					message = message + "\n" + temp  + "\t" + "\t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.";
+				}
+				message = message +"\n\n";
+			}
+			if (evenWithThese.size() != 0){
+				message = message + "You are even with these contacts:";
+
+				for(String temp: evenWithThese){
+					message = message + "\n" + temp;
+				}
+				message = message + "\n";
+			}
+
+			new AlertDialog.Builder(this)
+			.setTitle("Test")
+			.setMessage("" + message)
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
+			.show();
+		}
+		
+		else {
+			new AlertDialog.Builder(this)
+			.setTitle("No friends :(")
+			.setMessage("You don't seem to have any contacts yet.")
+			.setNegativeButton("Add contact", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
+			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			})
+			.show();
+		}
 	}
 
 	@Override
