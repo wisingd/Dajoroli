@@ -70,5 +70,15 @@
         android:scaleX="0.50"
         android:scaleY="0.50"
         android:src="@drawable/event_show" />
+    
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="editEvents"
+                android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:text="Edit events"/>
 
 </LinearLayout>
