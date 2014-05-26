@@ -32,13 +32,8 @@ public class ContactMenu extends ActionBarActivity {
 
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
-	public SharedPreferences shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
-	public SharedPreferences sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
-
-	final ArrayList<String> list = new ArrayList<String>();
-	Map<String,?> mappen = shareddebts.getAll();
-	Set<String> settet = mappen.keySet();
-	Iterator <String> iteratorn = settet.iterator();
+	public SharedPreferences shareddebts;
+	public SharedPreferences sharednumber;
 
 	String listString="";
 
@@ -213,7 +208,7 @@ public class ContactMenu extends ActionBarActivity {
 			String message = "";
 
 			if (iOweThese.size() != 0){
-				message = "<b>You have a debt to these contacts:</b>";
+				message = "You have a debt to these contacts:";
 
 				for(String temp: iOweThese){
 					message = message + "\n" + temp + "\t" + "\t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.";
@@ -221,7 +216,7 @@ public class ContactMenu extends ActionBarActivity {
 				message = message + "\n\n";
 			}
 			if (theseOweMe.size() != 0){
-				message = message +  "<b>These contacts have a debt to you:</b>";
+				message = message +  "These contacts have a debt to you:";
 
 				for(String temp: theseOweMe){
 					message = message + "\n" + temp  + "\t" + "\t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.";
@@ -229,7 +224,7 @@ public class ContactMenu extends ActionBarActivity {
 				message = message +"\n\n";
 			}
 			if (evenWithThese.size() != 0){
-				message = message + "<b>You are even with these contacts:</b>";
+				message = message + "You are even with these contacts:";
 
 				for(String temp: evenWithThese){
 					message = message + "\n" + temp;
@@ -268,61 +263,90 @@ public class ContactMenu extends ActionBarActivity {
 
 	public void eraseContacts(final View view){
 
-		new AlertDialog.Builder(this)
-		.setTitle("Erase contacts")
-		.setMessage("Are you sure you want to erase all your contacts?")
-		.setNegativeButton("No", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-			}
-		})
-		.setPositiveButton("Yes, I'm sure", new DialogInterface.OnClickListener(){
-			public void onClick(DialogInterface dialog, int which){
-				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-				sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 
-				Editor editor = shareddebts.edit();
-				editor.clear();
-				editor.commit();
-
-				Editor editor2 = sharednumber.edit();
-				editor2.clear();
-				editor2.commit();
-
-				new AlertDialog.Builder(view.getContext())
-				.setTitle("Contacts erased!")
-				.setMessage("You have erased all of your contacts!")
-				.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-			}
-		}).show();
 	}
 
 	public void editContact(final View view){
 
-		String name = iteratorn.next();
-		String number = sharednumber.getString(name, null);
-		String string = "";
+
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
 
 		alert.setTitle("Choose")
 		.setMessage("What would you like to do?")
+		// ERASE
 		.setNeutralButton("Erase", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 			}
 		})
+		// ERASE ALL
 		.setNegativeButton("Erase all", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				final ArrayList<String> list = new ArrayList<String>();
+				shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+				Map<String,?> mappen = shareddebts.getAll();
+
+				if (mappen.size() > 0){
+					Set<String> settet = mappen.keySet();
+					Iterator <String> iteratorn = settet.iterator();
+					while(iteratorn.hasNext()){
+						String string  = iteratorn.next();
+						list.add(string);
+					}
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("Erase contacts")
+					.setMessage("Are you sure you want to erase all your contacts?")
+					.setNegativeButton("No", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+						}
+					})
+					.setPositiveButton("Yes, I'm sure", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+							shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+							sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
+
+							Editor editor = shareddebts.edit();
+							editor.clear();
+							editor.commit();
+
+							Editor editor2 = sharednumber.edit();
+							editor2.clear();
+							editor2.commit();
+
+							new AlertDialog.Builder(view.getContext())
+							.setTitle("Contacts erased!")
+							.setMessage("You have erased all of your contacts!")
+							.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+								public void onClick(DialogInterface dialog, int which){
+									return;
+								}
+							}).show();
+						}
+					}).show();
+				}
+
+				else{
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("No friends :( ")
+					.setMessage("You do not have any contacts yet.")
+					.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+							return;
+						}
+					})
+					.show();
+				}
 			}
 		})
+		// EDIT 
 		.setPositiveButton("Edit number", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
+				final ArrayList<String> list = new ArrayList<String>();
+				shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+				Map<String,?> mappen = shareddebts.getAll();
 
 				if (mappen.size() > 0){
 					Set<String> settet = mappen.keySet();
@@ -335,7 +359,7 @@ public class ContactMenu extends ActionBarActivity {
 
 					// DIALOG 1
 					new AlertDialog.Builder(view.getContext())
-					.setTitle("Who do you want to edit?")
+					.setTitle("Who's number would you like to change?")
 					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -345,35 +369,27 @@ public class ContactMenu extends ActionBarActivity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 
+							final EditText input = new EditText(view.getContext());
+							input.setHint("Number");
 							new AlertDialog.Builder(view.getContext())
-							.setTitle("New number")
+							.setTitle("Change number")
+							.setView(input)
 							.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
 								}
 							})
-							.setItems(cs, new DialogInterface.OnClickListener() {
+							.setPositiveButton("Change", new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									final EditText input = new EditText(view.getContext());
-									input.setHint("Number");
+									String newNumber = "" + input.getText();
+									Editor editor = sharednumber.edit();
+									editor.putString(list.get(which), newNumber);
+									editor.commit();
+									
 									new AlertDialog.Builder(view.getContext())
-									.setTitle("Edit number")
-									.setView(input)
-									.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-										}
-									})
-									.setPositiveButton("Change", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-											String newNumber = "" + input.getText();
-											Editor editor = sharednumber.edit();
-											editor.putString(list.get(which), newNumber);
-											editor.commit();
-										}
-									})
+									.setTitle("Confirm")
+									.setMessage("Do you want to change ")
 									.show();
 								}
 							})
