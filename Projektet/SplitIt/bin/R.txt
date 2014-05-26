@@ -250,10 +250,11 @@ int drawable icon_contacts 0x7f02006a
 int drawable icon_debts 0x7f02006b
 int drawable icon_event 0x7f02006c
 int drawable icon_line 0x7f02006d
-int drawable main_contacts 0x7f02006e
-int drawable main_debt 0x7f02006f
-int drawable main_event 0x7f020070
-int drawable splitit_logo 0x7f020071
+int drawable logo 0x7f02006e
+int drawable main_contacts 0x7f02006f
+int drawable main_debt 0x7f020070
+int drawable main_event 0x7f020071
+int drawable splitit_logo 0x7f020072
 int id action_bar 0x7f05001c
 int id action_bar_activity_content 0x7f050015
 int id action_bar_container 0x7f05001b

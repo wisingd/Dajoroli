@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,11 +30,15 @@ import android.widget.EditText;
  */
 public class ContactMenu extends ActionBarActivity {
 
-	public SharedPreferences shareddebts;
-	public SharedPreferences sharednumber;
-
 	public static final String MyDebts = "Mydebts";
 	public static final String MyNumbers = "Mynumbers";
+	public SharedPreferences shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
+	public SharedPreferences sharednumber = getSharedPreferences(MyNumbers, Context.MODE_WORLD_READABLE);
+
+	final ArrayList<String> list = new ArrayList<String>();
+	Map<String,?> mappen = shareddebts.getAll();
+	Set<String> settet = mappen.keySet();
+	Iterator <String> iteratorn = settet.iterator();
 
 	String listString="";
 
@@ -208,7 +213,7 @@ public class ContactMenu extends ActionBarActivity {
 			String message = "";
 
 			if (iOweThese.size() != 0){
-				message = "You have a debt to these contacts:";
+				message = "<b>You have a debt to these contacts:</b>";
 
 				for(String temp: iOweThese){
 					message = message + "\n" + temp + "\t" + "\t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.";
@@ -216,7 +221,7 @@ public class ContactMenu extends ActionBarActivity {
 				message = message + "\n\n";
 			}
 			if (theseOweMe.size() != 0){
-				message = message +  "These contacts have a debt to you:";
+				message = message +  "<b>These contacts have a debt to you:</b>";
 
 				for(String temp: theseOweMe){
 					message = message + "\n" + temp  + "\t" + "\t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.";
@@ -224,7 +229,7 @@ public class ContactMenu extends ActionBarActivity {
 				message = message +"\n\n";
 			}
 			if (evenWithThese.size() != 0){
-				message = message + "You are even with these contacts:";
+				message = message + "<b>You are even with these contacts:</b>";
 
 				for(String temp: evenWithThese){
 					message = message + "\n" + temp;
@@ -233,7 +238,7 @@ public class ContactMenu extends ActionBarActivity {
 			}
 
 			new AlertDialog.Builder(this)
-			.setTitle("Test")
+			.setTitle("All contacts")
 			.setMessage("" + message)
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
@@ -242,19 +247,19 @@ public class ContactMenu extends ActionBarActivity {
 			})
 			.show();
 		}
-		
+
 		else {
 			new AlertDialog.Builder(this)
-			.setTitle("No friends :(")
-			.setMessage("You don't seem to have any contacts yet.")
-			.setNegativeButton("Add contact", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
+			.setTitle("No friends :( ")
+			.setMessage("You do not have any contacts yet.")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int which){
 				}
 			})
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			.setNegativeButton("Add a contact", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					//ContactMenu.addContact(view));
 				}
 			})
 			.show();
@@ -294,6 +299,106 @@ public class ContactMenu extends ActionBarActivity {
 			}
 		}).show();
 	}
+
+	public void editContact(final View view){
+
+		String name = iteratorn.next();
+		String number = sharednumber.getString(name, null);
+		String string = "";
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+
+		alert.setTitle("Choose")
+		.setMessage("What would you like to do?")
+		.setNeutralButton("Erase", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.setNegativeButton("Erase all", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		})
+		.setPositiveButton("Edit number", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				if (mappen.size() > 0){
+					Set<String> settet = mappen.keySet();
+					Iterator <String> iteratorn = settet.iterator();
+					while(iteratorn.hasNext()){
+						String string  = iteratorn.next();
+						list.add(string);
+					}
+					final CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+
+					// DIALOG 1
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("Who do you want to edit?")
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					})
+					.setItems(cs, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+
+							new AlertDialog.Builder(view.getContext())
+							.setTitle("New number")
+							.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+								}
+							})
+							.setItems(cs, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									final EditText input = new EditText(view.getContext());
+									input.setHint("Number");
+									new AlertDialog.Builder(view.getContext())
+									.setTitle("Edit number")
+									.setView(input)
+									.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+										}
+									})
+									.setPositiveButton("Change", new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											String newNumber = "" + input.getText();
+											Editor editor = sharednumber.edit();
+											editor.putString(list.get(which), newNumber);
+											editor.commit();
+										}
+									})
+									.show();
+								}
+							})
+							.show();
+						}
+					})
+					.show();
+				}//IF
+				else{
+					new AlertDialog.Builder(view.getContext())
+					.setTitle("No friends :( ")
+					.setMessage("You do not have any contacts yet.")
+					.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+						public void onClick(DialogInterface dialog, int which){
+							return;
+						}
+					})
+					.show();
+				}
+			}
+		})
+		.show();
+	}//Metod
+
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

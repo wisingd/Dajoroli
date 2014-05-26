@@ -28,6 +28,6 @@
     <string name="title_activity_add_attenders">Add attenders</string>
     <string name="delete_debt">Delete a debt!</string>
     
-    <color name="bgcolor">#50649F</color>
+    <color name="bgcolor">#D9AD83</color>
     
 </resources>

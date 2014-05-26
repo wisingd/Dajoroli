@@ -40,7 +40,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	private String selectedName;
 
 	String listString = "";
-	
+
 	int newdebt;
 	int olddebt;
 
@@ -225,7 +225,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			}
 
 			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-			final ArrayList<String> selectedItems = new ArrayList<String>();
 
 			// DIALOG 1
 			AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
@@ -238,13 +237,14 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				public void onClick (DialogInterface dialog, int which) {
 
 					final int position = which;
+					final String name = list.get(position);
 					final EditText input = new EditText(view.getContext());
 					input.setInputType(InputType.TYPE_CLASS_NUMBER);
 					input.setHint("Debt");
 
 					// DIALOG 2
 					new AlertDialog.Builder(view.getContext())
-					.setTitle("Enter debt to " + list.get(position))
+					.setTitle("Enter debt to " + name)
 					.setView(input)
 					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
@@ -279,25 +279,13 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 									editor.commit();
 
 									sharednumber = getSharedPreferences(MyNumbers, MODE_WORLD_READABLE);
-									final ArrayList<String> numberList = new ArrayList<String>();
-									String numberNames = "";
+									String number = sharednumber.getString(name, null);
 
-									for (String s :selectedItems){
-										String number = sharednumber.getString(s, null);
-										if (number != null){
-											numberList.add(s);
-										}
-									}
-
-									if (numberList.size() > 0) {
-										for (String s : numberList){
-											numberNames = numberNames + "\n" + s;
-										}
-
+									if (number != null) {
 										// DIALOG 4
 										new AlertDialog.Builder(view.getContext())
 										.setTitle("Notify")
-										.setMessage("Would you like to notify \n" + numberNames + "\n\nby sending a SMS?")
+										.setMessage("Would you like to notify " + name + "by sending a SMS?")
 										.setNegativeButton("No", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
@@ -307,22 +295,20 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
 
-												for(String s : numberList){
-													if (newdebt > 0){
-														sendSMS(sharednumber.getString(s, null), 
-																"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedItems.size() + " kr to you in Split It."
-																		+ "\n\nIn total, you now owe me " + newdebt + " kr.");
-													}
-													else if (newdebt < 0){
-														sendSMS(sharednumber.getString(s, null), 
-																"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedItems.size() + " kr to you in Split It."
-																		+ "\n\nIn total, I now owe you " + newdebt + " kr.");
-													}
-													else {
-														sendSMS(sharednumber.getString(s, null), 
-																"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedItems.size() + " kr to you in Split It."
-																		+ "\n\nGuess what? We are now even!");
-													}
+												if (newdebt > 0){
+													sendSMS(sharednumber.getString(name, null), 
+															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+																	+ "\n\nIn total, you now owe me " + newdebt + " kr.");
+												}
+												else if (newdebt < 0){
+													sendSMS(sharednumber.getString(name, null), 
+															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+																	+ "\n\nIn total, I now owe you " + newdebt + " kr.");
+												}
+												else {
+													sendSMS(sharednumber.getString(name, null), 
+															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+																	+ "\n\nGuess what? We are now even!");
 												}
 											}
 										})
@@ -413,8 +399,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 								editor.putInt(s, 0);
 								editor.commit();
 							}
-							
-						
+
+
 						}
 					})
 					.show();

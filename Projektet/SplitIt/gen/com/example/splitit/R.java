@@ -1005,10 +1005,11 @@ containing a value of this type.
         public static final int icon_debts=0x7f02006b;
         public static final int icon_event=0x7f02006c;
         public static final int icon_line=0x7f02006d;
-        public static final int main_contacts=0x7f02006e;
-        public static final int main_debt=0x7f02006f;
-        public static final int main_event=0x7f020070;
-        public static final int splitit_logo=0x7f020071;
+        public static final int logo=0x7f02006e;
+        public static final int main_contacts=0x7f02006f;
+        public static final int main_debt=0x7f020070;
+        public static final int main_event=0x7f020071;
+        public static final int splitit_logo=0x7f020072;
     }
     public static final class id {
         public static final int action_bar=0x7f05001c;
