@@ -105,7 +105,6 @@ public class EventCreater extends ActionBarActivity {
 
 		newFragment.show(getFragmentManager(), "datePicker");
 
-
 	}	
 
 	/**
@@ -127,7 +126,6 @@ public class EventCreater extends ActionBarActivity {
 		.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String message = "" + input.getText();
-
 
 				sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 
@@ -159,12 +157,27 @@ public class EventCreater extends ActionBarActivity {
 				sharedevent = getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
 				Editor editor = sharedevent.edit();
 
-				String value = "" + input.getText();
-				int cost = Integer.parseInt(value);
+				if(input.getText()!=null){
+					String value = "" + input.getText();
+					int cost = Integer.parseInt(value);
 
-				editor.putInt("cost", cost);
-				editor.commit();
-				showAttenderPickerDialog(view);			
+					editor.putInt("cost", cost);
+					editor.commit();
+					showAttenderPickerDialog(view);
+				}
+				else{
+					new AlertDialog.Builder(view.getContext()).setTitle("No amount")
+					.setMessage("You have to specify an amount, e.g 0.")
+					.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+						@Override
+						public void onClick(DialogInterface dialog, int button){
+
+						}
+
+					}).show();
+
+				}
+
 			}
 
 		})
@@ -180,7 +193,6 @@ public class EventCreater extends ActionBarActivity {
 
 		SQLiteDatabase db = helper.getWritableDatabase();
 
-
 		ContentValues values = new ContentValues();
 		values.put(Helper.colEventName, eventname);
 		values.put(Helper.colDate, date);
@@ -192,7 +204,6 @@ public class EventCreater extends ActionBarActivity {
 		return id;
 
 	}
-
 
 	public void showAttenderPickerDialog(final View view){
 		final ArrayList<String> list = new ArrayList<String>();
@@ -273,8 +284,6 @@ public class EventCreater extends ActionBarActivity {
 								return;
 							}
 						}).show();
-
-
 
 					}
 
@@ -366,92 +375,183 @@ public class EventCreater extends ActionBarActivity {
 					public void onClick(DialogInterface dialog, int which){
 						return;
 					}
-				}).setNegativeButton("Edit", new DialogInterface.OnClickListener(){
+				}).setNeutralButton("Edit", new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+						alert.setTitle("Edit option").
+						setMessage("What do you want to do?");
 
-						AlertDialog.Builder alert2 = new AlertDialog.Builder(view.getContext());
-						alert2.setTitle(chosenevent)
-						.setMessage("What would you like to do with " + chosenevent+ " that took place on "+chosendate +"?")
-						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						List<String> options = new ArrayList<String>();
+						options.add("Remove attender");
+						options.add("Change cost");
+						options.add("Change name");
+						options.add("Change date");
+
+						CharSequence[] cs = options.toArray(new CharSequence[options.size()]);
+
+						alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						})
+						.setItems(cs, new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,	int which) {
+								if(which == 0){
+									removeAttender(chosenevent, chosendate);
+								}
+								else if(which == 1){
+									changeCost(chosenevent, chosendate);
+								}
+								else if(which == 2){
+									changeName(chosenevent, chosendate);
+								}
+								else{
+									changeDate(chosenevent, chosendate);
+								}
+							}
+						}).show();
+					}
+				})
+				.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						final SQLiteDatabase db = helper.getWritableDatabase();
+
+						String[] columns = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
+
+						String where = Helper.colEventName + "=? AND "+ Helper.colDate + "=?";
+
+						String[] args = {chosenevent, chosendate};
+
+						Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, args, null, null, null);
+
+						final List<String> list = new ArrayList<String>();
+
+						int cost =0;
+						while(cursor.moveToNext()){
+							list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
+							cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
+						}
+						final int finalcost=cost;
+						final int nrOfAttenders = list.size(); 
+
+						String att = "";
+						for(String s : list){
+							if(list.size()==1){
+								att = att + s + "'s";
+							}
+							else if(list.indexOf(s) == list.size()-1){
+								att = att +" and " +s+"'s";
+							}
+							else if(list.indexOf(s)==list.size()-2){
+								att = att + s+"'s";
+							}
+							else{
+								att = att  + s +"'s" + ", ";
+							}
+
+						}
+
+						AlertDialog.Builder alert3 = new AlertDialog.Builder(view.getContext());
+						String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(cost/nrOfAttenders) + " kr each."; 
+						alert3.setTitle("Confirm")
+						.setMessage(output)
+						.setNegativeButton("No", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
 							}
 						})
-						.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-
+						.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
 							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-								final SQLiteDatabase db = helper.getWritableDatabase();
+							public void onClick(DialogInterface arg0, int arg1){
+								shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_WRITEABLE);
 
-								String[] columns = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
-
-								String where = Helper.colEventName + "=? AND "+ Helper.colDate + "=?";
-
-								String[] args = {chosenevent, chosendate};
-
-								Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, args, null, null, null);
-
-								final List<String> list = new ArrayList<String>();
-
-								int cost =0;
-								while(cursor.moveToNext()){
-									list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
-									cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
-								}
-								final int finalcost=cost;
-								final int nrOfAttenders = list.size(); 
-
-								String att = "";
+								Editor editor = shareddebts.edit();
 								for(String s : list){
-									if(list.indexOf(s) == list.size()-1){
-										att = att +" and " +s+"'s";
-									}
-									else if(list.indexOf(s)==list.size()-2){
-										att = att + s+"'s";
-									}
-									else{
-										att = att  + s +"'s" + ", ";
-									}
-
+									editor.putInt(s, shareddebts.getInt(s,0)-finalcost/nrOfAttenders);
 								}
+								editor.commit();
 
-								AlertDialog.Builder alert3 = new AlertDialog.Builder(view.getContext());
-								String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(cost/nrOfAttenders) + " kr each."; 
-								alert3.setTitle("Confirm")
-								.setMessage(output)
-								.setNegativeButton("No", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface arg0, int arg1) {
-									}
-								})
-								.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-									@Override
-									public void onClick(DialogInterface arg0, int arg1){
-										shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_WRITEABLE);
-
-										Editor editor = shareddebts.edit();
-										for(String s : list){
-											editor.putInt(s, shareddebts.getInt(s,0)-finalcost/nrOfAttenders);
-										}
-										editor.commit();
-
-										String where2 = Helper.colEventName +"=?";
-										String[] args2 ={chosenevent};
-										db.delete(Helper.TABLE_NAME, where2, args2);
-										db.close();
-									}
-								}).show();
-
+								String where2 = Helper.colEventName +"=?";
+								String[] args2 ={chosenevent};
+								db.delete(Helper.TABLE_NAME, where2, args2);
+								db.close();
 							}
 						}).show();
 
 					}
-
 				}).show();
 
 			}
+
 		}).show();
+
+	}
+
+	public void removeAttender(String eventname, String eventdate){
+
+//		SQLiteDatabase db = helper.getWritableDatabase();
+//
+//		String[] columns = {Helper.colAttender};
+//
+//		String where = Helper.colEventName+"= ? AND " + Helper.colDate + "=?"; 
+//
+//		String[] whereargs = {eventname, eventdate};
+//
+//		Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, whereargs, null, null, null);
+//
+//		final ArrayList<String> list = new ArrayList<String>();
+//
+//		while(cursor.moveToNext()){
+//			list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
+//		}
+//
+//		CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+//
+//		final ArrayList<String> selectedItems = new ArrayList<String>();
+//
+//		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//		alert.setTitle("Choose attenders")
+//		.setMessage("Who do you want to remove?")
+//		.setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {				
+//			@Override
+//			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//
+//				if (isChecked) {
+//					selectedItems.add(list.get(which));
+//				} 
+//				else {
+//					selectedItems.remove(list.get(which));
+//				}
+//			}
+//		})
+//		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//			public void onClick(DialogInterface dialog, int which) {
+//			}
+//		}).setPositiveButton("Next", new DialogInterface.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//
+//				String where = 
+//				for(String s : selectedItems){
+//					String whereargs =  
+//							db.delete(Helper.TABLE_NAME, where, whereArgs);
+//				}
+//			}
+//		}).show();
+
+	}
+	public void changeCost(String eventname, String eventdate){
+
+	}
+	public void changeName(String eventname, String eventdate){
+
+	}
+	public void changeDate(String eventname, String eventdate){
+
 	}
 }
