@@ -300,78 +300,9 @@ public class EventCreater extends ActionBarActivity {
 			}).show();
 		}
 	}
-
-
 	public void showEvents(final View view){
 
-		final SQLiteDatabase db = helper.getReadableDatabase();
-
-		String[] columns = {Helper.colEventName};
-
-		Cursor cursor = db.query(true,Helper.TABLE_NAME, columns, null, null, null, null, null, null);
-
-		final List<String> list = new ArrayList<String>();
-
-		while(cursor.moveToNext()){
-			list.add(cursor.getString(cursor.getColumnIndex(Helper.colEventName)));
-		}
-
-		db.close();
-
-		CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-		final ArrayList<String> selectedItems = new ArrayList<String>();
-
-		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-		alert.setTitle("Which event?")
-		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		})
-		.setItems(cs, new DialogInterface.OnClickListener() {
-			public void onClick (DialogInterface dialog, int which) {
-
-				final int position = which;
-				final String chosenevent = list.get(which);
-
-				String[] columns2 = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
-
-				SQLiteDatabase db = helper.getReadableDatabase();
-
-				String [] whereargs = new String []{chosenevent};
-				Cursor cursor2 = db.query(Helper.TABLE_NAME, columns2, "EventName=?",whereargs , null, null, null);
-
-				List<String> attendlist = new ArrayList<String>();
-
-				String date = "";
-				int cost = 0;
-
-				while(cursor2.moveToNext()){
-					attendlist.add(cursor2.getString(cursor2.getColumnIndex(Helper.colAttender)));
-					date = cursor2.getString(cursor2.getColumnIndex(Helper.colDate));
-					cost = cursor2.getInt(cursor2.getColumnIndex(Helper.colTotalCost));
-				}
-				String str="";
-				for(String s : attendlist){
-					str = str +"\n" + s ;
-				}
-
-				new AlertDialog.Builder(view.getContext())
-				.setTitle(chosenevent)
-				.setMessage("Date: " + date + "\nTotal cost: " + cost + " kr \nAttenders: "+ str )
-				.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-
-					public void onClick(DialogInterface dialog, int which){
-						return;
-					}
-				}).show();
-
-			}
-		}).show();
-	}
-
-	public void editEvents(final View view){
 		SQLiteDatabase db = helper.getWritableDatabase();
-
 
 		String[] columns = {Helper.colEventName, Helper.colDate};
 
@@ -379,16 +310,17 @@ public class EventCreater extends ActionBarActivity {
 
 		final List<String> list = new ArrayList<String>();
 		final List<String> datelist = new ArrayList<String>();
+		final List<String> outputlist=new ArrayList<String>();
 
 		while(cursor.moveToNext()){
-			list.add(cursor.getString(cursor.getColumnIndex(Helper.colEventName)));
+			outputlist.add(cursor.getString(cursor.getColumnIndex(Helper.colEventName)) + " - " + cursor.getString(cursor.getColumnIndex(Helper.colDate)));
 			datelist.add(cursor.getString(cursor.getColumnIndex(Helper.colDate)));
+			list.add(cursor.getString(cursor.getColumnIndex(Helper.colEventName)));
 		}
 
 		db.close();
 
-		CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-		final ArrayList<String> selectedItems = new ArrayList<String>();
+		CharSequence[] cs = outputlist.toArray(new CharSequence[outputlist.size()]);
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
 		alert.setTitle("Which event?")
@@ -399,95 +331,127 @@ public class EventCreater extends ActionBarActivity {
 		.setItems(cs, new DialogInterface.OnClickListener() {
 			public void onClick (DialogInterface dialog, int which) {
 
-				final int position = which;
 				final String chosenevent = list.get(which);
+
 				final String chosendate = datelist.get(which);
 
-				AlertDialog.Builder alert2 = new AlertDialog.Builder(view.getContext());
-				alert2.setTitle(chosenevent)
-				.setMessage("What would you like to do with " + chosenevent+ " that took place on "+chosendate +"?")
-				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
+				String[] columns2 = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
+
+				SQLiteDatabase db = helper.getReadableDatabase();
+
+				String where = Helper.colEventName +"=? AND "+ Helper.colDate + "=?"; 
+
+				String [] whereargs = {chosenevent, chosendate};
+				Cursor cursor2 = db.query(Helper.TABLE_NAME, columns2, where, whereargs , null, null, null);
+
+				List<String> attendlist = new ArrayList<String>();
+
+
+				int cost =0;
+				while(cursor2.moveToNext()){
+					attendlist.add(cursor2.getString(cursor2.getColumnIndex(Helper.colAttender)));
+					cost = cursor2.getInt(cursor2.getColumnIndex(Helper.colTotalCost));
+				}
+
+				String str="";
+				for(String s : attendlist){
+					str = str +"\n" + s ;
+				}
+
+				new AlertDialog.Builder(view.getContext())
+				.setTitle(chosenevent)
+				.setMessage("Date: " + chosendate + "\nTotal cost: " + cost + " kr \nAttenders: "+ str )
+				.setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+
+					public void onClick(DialogInterface dialog, int which){
+						return;
 					}
-				})
-				.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+				}).setNegativeButton("Edit", new DialogInterface.OnClickListener(){
 
 					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						final SQLiteDatabase db = helper.getWritableDatabase();
+					public void onClick(DialogInterface dialog, int which) {
 
-						String[] columns = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
-
-						String where = Helper.colEventName + "=? AND "+ Helper.colDate + "=?";
-
-						String[] args = {chosenevent, chosendate};
-
-						Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, args, null, null, null);
-
-						final List<String> list = new ArrayList<String>();
-
-						while(cursor.moveToNext()){
-							list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
-							cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
-						}
-						final int nrOfAttenders = list.size(); 
-
-						String att = "";
-						for(String s : list){
-							if(list.indexOf(s) == list.size()-1){
-								att = att +" and " +s;
-							}
-							else if(list.indexOf(s)==list.size()-2){
-								att = att + s;
-							}
-							else{
-								att = att  + s + ", ";
-							}
-
-						}
-						
-//						{Linn, Robin, Daniel}
-//						size = 3
-//						Linn index 0
-//						Robin index 1
-//						Daniel index 2
-						
-
-						
-						AlertDialog.Builder alert3 = new AlertDialog.Builder(view.getContext());
-						String output = "Are you sure you want to delete '" + chosenevent + "'? This will decrease the debt to " + att +" \nby " + Integer.toString(cost/nrOfAttenders) + "kr each."; 
-						alert3.setTitle("Confirm")
-						.setMessage(output)
-						.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						AlertDialog.Builder alert2 = new AlertDialog.Builder(view.getContext());
+						alert2.setTitle(chosenevent)
+						.setMessage("What would you like to do with " + chosenevent+ " that took place on "+chosendate +"?")
+						.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
 							}
 						})
-						.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+						.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
 							@Override
-							public void onClick(DialogInterface arg0, int arg1){
-								shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_WRITEABLE);
+							public void onClick(DialogInterface arg0, int arg1) {
+								final SQLiteDatabase db = helper.getWritableDatabase();
 
-								Editor editor = shareddebts.edit();
-								for(String s : list){
-									editor.putInt(s, shareddebts.getInt(s,0)-cost/nrOfAttenders);
+								String[] columns = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
+
+								String where = Helper.colEventName + "=? AND "+ Helper.colDate + "=?";
+
+								String[] args = {chosenevent, chosendate};
+
+								Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, args, null, null, null);
+
+								final List<String> list = new ArrayList<String>();
+
+								int cost =0;
+								while(cursor.moveToNext()){
+									list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
+									cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
 								}
-								editor.commit();
+								final int finalcost=cost;
+								final int nrOfAttenders = list.size(); 
 
-								String where2 = Helper.colEventName +"=?";
-								String[] args2 ={chosenevent};
-								db.delete(Helper.TABLE_NAME, where2, args2);
-								db.close();
+								String att = "";
+								for(String s : list){
+									if(list.indexOf(s) == list.size()-1){
+										att = att +" and " +s+"'s";
+									}
+									else if(list.indexOf(s)==list.size()-2){
+										att = att + s+"'s";
+									}
+									else{
+										att = att  + s +"'s" + ", ";
+									}
+
+								}
+
+								AlertDialog.Builder alert3 = new AlertDialog.Builder(view.getContext());
+								String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(cost/nrOfAttenders) + " kr each."; 
+								alert3.setTitle("Confirm")
+								.setMessage(output)
+								.setNegativeButton("No", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface arg0, int arg1) {
+									}
+								})
+								.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+									@Override
+									public void onClick(DialogInterface arg0, int arg1){
+										shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_WRITEABLE);
+
+										Editor editor = shareddebts.edit();
+										for(String s : list){
+											editor.putInt(s, shareddebts.getInt(s,0)-finalcost/nrOfAttenders);
+										}
+										editor.commit();
+
+										String where2 = Helper.colEventName +"=?";
+										String[] args2 ={chosenevent};
+										db.delete(Helper.TABLE_NAME, where2, args2);
+										db.close();
+									}
+								}).show();
+
 							}
 						}).show();
 
 					}
+
 				}).show();
 
 			}
-
 		}).show();
-
 	}
 }
