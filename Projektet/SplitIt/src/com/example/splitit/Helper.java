@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Helper extends SQLiteOpenHelper {
 
-	private static final int DATABASE_VERSION = 25;
+	private static final int DATABASE_VERSION = 26;
 	// Table name
 	public static final String TABLE_NAME="EVENTLIST";
 
