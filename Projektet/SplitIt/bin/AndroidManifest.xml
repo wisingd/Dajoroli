@@ -54,14 +54,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
-        <activity
-            android:name="com.example.splitit.AddAttenders"
-            android:label="@string/title_activity_add_attenders"
-            android:parentActivityName="com.example.splitit.EventCreater" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="EventCreater" />
-        </activity>
         <activity android:parentActivityName="com.example.splitit.ContactMenu" android:name=".ContactViewing"></activity>
     </application>
 

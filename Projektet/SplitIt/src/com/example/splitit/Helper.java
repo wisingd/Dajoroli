@@ -1,17 +1,10 @@
 package com.example.splitit;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import android.widget.Toast;
 
 public class Helper extends SQLiteOpenHelper {
 
@@ -32,9 +25,6 @@ public class Helper extends SQLiteOpenHelper {
 
 	// Database name
 	private static final String DATABASE_NAME="basename";
-
-	//Other
-	private Context context;
 
 	public Helper(Context context){
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
