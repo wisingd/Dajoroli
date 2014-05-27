@@ -88,7 +88,17 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			})
 			.setPositiveButton("Next", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
-
+					if (selectedItems.size() == 0) {
+						new AlertDialog.Builder(view.getContext())
+						.setTitle("No one selected")
+						.setMessage("You have not chosen any contacts!")
+						.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+							public void onClick(DialogInterface dialog, int whichButton){
+							}
+						})
+						.show();
+					}
+					else {
 					final EditText input = new EditText(view.getContext());
 					input.setInputType(InputType.TYPE_CLASS_NUMBER);
 					input.setHint("Debt");
@@ -105,7 +115,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						public void onClick(DialogInterface dialog, int whichButton) {
 							final String value = "" + input.getText();
 							final int debtAmount = Integer.parseInt(value);
-							listString = "Do you want to assign the total debt " + value + "kr (" + debtAmount/selectedItems.size() + " kr each) to the following contacts?";
+							listString = "Do you want to assign the total debt " + value + " kr (" + debtAmount/selectedItems.size() + " kr each) to the following contacts?";
 
 							for (String s :selectedItems){
 								listString = listString + "\n" + s;
@@ -144,13 +154,14 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 									if (numberList.size() > 0) {
 										for (String s : numberList){
-											numberNames = numberNames + "\n" + s;
+											String number = sharednumber.getString(s, null);
+											numberNames = numberNames + "\n" + s + " (" + number + ")";
 										}
 
 										// DIALOG 4
 										new AlertDialog.Builder(view.getContext())
 										.setTitle("Notify")
-										.setMessage("Would you like to notify \n" + numberNames + "\n\nby sending a SMS?")
+										.setMessage("Would you like to notify \n" + numberNames + "\n\nby sending an SMS?")
 										.setNegativeButton("No", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
@@ -164,12 +175,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 													if (newdebt > 0){
 														sendSMS(sharednumber.getString(s, null), 
 																"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedItems.size() + " kr to you in Split It."
-																		+ "\n\nIn total, you now owe me " + newdebt + " kr.");
+																		+ "\n\nIn total, you now owe me " + Math.abs(newdebt) + " kr.");
 													}
 													else if (newdebt < 0){
 														sendSMS(sharednumber.getString(s, null), 
 																"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedItems.size() + " kr to you in Split It."
-																		+ "\n\nIn total, I now owe you " + newdebt + " kr.");
+																		+ "\n\nIn total, I now owe you " + Math.abs(newdebt) + " kr.");
 													}
 													else {
 														sendSMS(sharednumber.getString(s, null), 
@@ -187,6 +198,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						}
 					})
 					.show(); // Dialog 2
+				}
 				}
 			})
 			.show(); // Dialog 1
@@ -285,7 +297,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 										// DIALOG 4
 										new AlertDialog.Builder(view.getContext())
 										.setTitle("Notify")
-										.setMessage("Would you like to notify " + name + "by sending a SMS?")
+										.setMessage("Would you like to notify " + name + "(" + sharednumber.getString(name, null) + ") by sending an SMS?")
 										.setNegativeButton("No", new DialogInterface.OnClickListener() {
 											@Override
 											public void onClick(DialogInterface dialog, int which) {
@@ -297,17 +309,17 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 												if (newdebt > 0){
 													sendSMS(sharednumber.getString(name, null), 
-															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+															"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
 																	+ "\n\nIn total, you now owe me " + newdebt + " kr.");
 												}
 												else if (newdebt < 0){
 													sendSMS(sharednumber.getString(name, null), 
-															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+															"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
 																	+ "\n\nIn total, I now owe you " + newdebt + " kr.");
 												}
 												else {
 													sendSMS(sharednumber.getString(name, null), 
-															"Hello " + name + "! I have added that I have a debt of " + debtAmount + " kr to you in Split It."
+															"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
 																	+ "\n\nGuess what? We are now even!");
 												}
 											}
@@ -436,8 +448,8 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	public void viewContacts(View view){
 
-		shareddebts = getSharedPreferences(MyDebts, Context.MODE_WORLD_READABLE);
-
+		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 		Map<String,?> mappen = shareddebts.getAll();
 		Set<String> settet = mappen.keySet();
 		Iterator <String> iteratorn = settet.iterator();
@@ -471,7 +483,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				message = "You have a debt to these contacts:";
 
 				for(String temp: iOweThese){
-					message = message + "\n" + temp + "\t" + "\t" + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.";
+					message = message + "\n" + temp + " (" + sharednumber.getString(temp, "--") + ") " + Integer.toString(Math.abs(shareddebts.getInt(temp, 0))) + " kr.";
 				}
 				message = message + "\n\n";
 			}
@@ -479,7 +491,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				message = message +  "These contacts have a debt to you:";
 
 				for(String temp: theseOweMe){
-					message = message + "\n" + temp  + "\t" + "\t" + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.";
+					message = message + "\n" + temp + " (" + sharednumber.getString(temp, "--") + ") " + Integer.toString(shareddebts.getInt(temp, 0)) + " kr.";
 				}
 				message = message +"\n\n";
 			}
@@ -487,13 +499,13 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				message = message + "You are even with these contacts:";
 
 				for(String temp: evenWithThese){
-					message = message + "\n" + temp;
+					message = message + "\n"  + temp + " (" + sharednumber.getString(temp, "--") + ") ";
 				}
 				message = message + "\n";
 			}
 
 			new AlertDialog.Builder(this)
-			.setTitle("Test")
+			.setTitle("All contacts")
 			.setMessage("" + message)
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
@@ -505,16 +517,16 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 		else {
 			new AlertDialog.Builder(this)
-			.setTitle("No friends :(")
-			.setMessage("You don't seem to have any contacts yet.")
-			.setNegativeButton("Add contact", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
+			.setTitle("No friends :( ")
+			.setMessage("You do not have any contacts yet.")
+			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+				public void onClick(DialogInterface dialog, int which){
 				}
 			})
-			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			.setNegativeButton("Add a contact", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					//ContactMenu.addContact(view));
 				}
 			})
 			.show();
