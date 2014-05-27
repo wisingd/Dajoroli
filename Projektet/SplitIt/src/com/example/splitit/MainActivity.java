@@ -1,6 +1,5 @@
 package com.example.splitit;
 
-import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;

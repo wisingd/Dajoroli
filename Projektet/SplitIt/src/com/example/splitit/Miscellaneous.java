@@ -1,4 +1,11 @@
 package com.example.splitit;
+
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+
 /**
  * A class with some miscellaneous methods.
  * @author Johannes
@@ -59,6 +66,24 @@ public class Miscellaneous {
 			
 		}
 		return string;
+	}
+
+	/**
+	 * Displays an alert dialog with one button with the text "OK".
+	 * @param title The title of the message
+	 * @param message The message
+	 * @param button The only button
+	 */
+	public static void displayMessage(String title, String message, Context context){
+		new AlertDialog.Builder(context)
+		.setTitle(title)
+		.setMessage(message)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+	
+			public void onClick(DialogInterface dialog, int which){
+				return;
+			}
+		}).show();
 	}
 
 }
