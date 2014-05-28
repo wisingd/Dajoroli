@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * The starting menu of the contact management. From here you can add contacts, view contacts debts and delete contacts. 
@@ -42,12 +43,9 @@ public class ContactMenu extends ActionBarActivity {
 		setContentView(R.layout.contact_view);
 	}
 
-	public void addContact(final View view){
+	public void writeName(final View view){
 		shareddebts = getSharedPreferences(MyDebts, MODE_PRIVATE);
 		sharednumber = getSharedPreferences(MyNumbers, MODE_PRIVATE);
-
-		final Editor editor = sharednumber.edit();
-		final Editor editor2 = shareddebts.edit();
 
 		final EditText input = new EditText(view.getContext());
 		input.setHint("Name of your new friend");
@@ -64,139 +62,125 @@ public class ContactMenu extends ActionBarActivity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 
 				if (input.length() == 0){
-					new AlertDialog.Builder(view.getContext())
-					.setTitle("No name")
-					.setMessage("You have to enter a name!")
-					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-						}
-					})
-					.show();
+					Toast.makeText(view.getContext(), "You have to enter a name!", Toast.LENGTH_LONG).show();
+					writeName(view);
 				}
 
-				else {
-					final String value = "" + input.getText();
-					new AlertDialog.Builder(view.getContext())
-					.setTitle("Phone number")
-					.setMessage(Html.fromHtml("Would you like to add a phone number to <b>" + value + "</b>, so you can notify your new friend when you add a debt?"))
-					.setNegativeButton("No", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							new AlertDialog.Builder(view.getContext())
-							.setTitle("Confirm")
-							.setMessage("Would you like to add " + value + " to your list of contacts, without a phone number?")
-							.setNegativeButton("No", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-								}
-							})
-							.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									editor.putString(value, null);
-									editor.commit();
-
-									editor2.putInt(value, 0);
-									editor2.commit();
-
-									new AlertDialog.Builder(view.getContext())
-									.setTitle("New contact added")
-									.setMessage("You have added " + value + " to your list of contacts!")
-									.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-										}
-									})
-									.setPositiveButton("View contacts", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-											viewContacts(view);
-										}
-									})
-									.show();
-								}
-							})
-							.show();
-						}
-					})
-					.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							final EditText input2 = new EditText(view.getContext());
-							input2.setInputType(InputType.TYPE_CLASS_NUMBER);						
-							input2.setHint(value + "'s phone number");
-
-							new AlertDialog.Builder(view.getContext())
-							.setTitle("Phone number")
-							.setView(input2)
-							.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-								}
-							})
-							.setPositiveButton("Next", new DialogInterface.OnClickListener() {
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									final String number = "" + input2.getText();
-									new AlertDialog.Builder(view.getContext())
-									.setTitle("Confirm")
-									.setMessage("Would you like to add " + value + " with the number " + number + " to your list of contacts?")
-									.setNegativeButton("No", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-										}
-									})
-									.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(DialogInterface dialog, int which) {
-											editor.putString(value, number);
-											editor.commit();
-
-											editor2.putInt(value, 0);
-											editor2.commit();
-
-											new AlertDialog.Builder(view.getContext())
-											.setTitle("New contact added")
-											.setMessage("You have added " + value + " to your list of contacts!")
-											.setNegativeButton("OK", new DialogInterface.OnClickListener() {
-												@Override
-												public void onClick(DialogInterface dialog, int which) {
-												}
-											})
-											.setPositiveButton("View contacts", new DialogInterface.OnClickListener() {
-												@Override
-												public void onClick(DialogInterface dialog, int which) {
-													viewContacts(view);
-												}
-											})
-											.show();
-										}
-									})
-									.show();
-								}
-							})
-							.show();
-						}
-					})
-					.show();
+				else{
+					String name = "" + input.getText();
+					addNumber(view, name);
 				}
 			}
 		})
 		.show();
 	}
 
-	public void viewContacts(View view){
+	public void addNumber(final View view, final String name){
 
+		new AlertDialog.Builder(view.getContext())
+		.setTitle("Phone number")
+		.setMessage(Html.fromHtml("Would you like to add a phone number to <b>" + name + "</b>, so you can notify your new friend when you add a debt?"))
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				confirmContact(view, null, name);
+			}
+		})
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				writeNumber(view, name);
+			}
+		})
+		.show();
+	}
+
+	public void writeNumber(final View view, final String name){
+		final EditText input = new EditText(view.getContext());
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);						
+		input.setHint(name + "'s phone number");
+
+		new AlertDialog.Builder(view.getContext())
+		.setTitle("Phone number")
+		.setView(input)
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				addNumber(view, name);
+			}
+		})
+		.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				String number = "" + input.getText();
+
+				if (number.length() == 0){
+					Toast.makeText(view.getContext(), "You have to enter a number!", Toast.LENGTH_LONG).show();
+					writeNumber(view, name);
+				}
+				else
+					confirmContact(view, number, name);
+			}
+		})
+		.show();
+	}
+
+	public void confirmContact(final View view, String number, final String name){
+		final Editor editor = sharednumber.edit();
+		final Editor editor2 = shareddebts.edit();
+		String value = null;
+		String str = ""; 
+
+
+		if (number == null){
+			str = ", without a number,";
+		}
+
+		else {
+			value = number;
+			str = ", with the number " + number + ",";
+		}
+
+		final String value2 = value;
+		String msg = "Are you sure you want to add " + name + str + " to your list of contacts?";
+
+		new AlertDialog.Builder(view.getContext())
+		.setTitle("Confirm")
+		.setMessage(msg)
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				editor.putString(name, value2);
+				editor.commit();
+
+				editor2.putInt(name, 0);
+				editor2.commit();
+
+				Toast.makeText(view.getContext(), "OK, contact added!", Toast.LENGTH_LONG).show();
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				Toast.makeText(view.getContext(), "OK, contact not added.", Toast.LENGTH_LONG).show();
+			}
+		})
+		.show();
+	}
+
+	public String getContactDebts(View view){
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
 		Map<String,?> mappen = shareddebts.getAll();
 		Set<String> settet = mappen.keySet();
 		Iterator <String> iteratorn = settet.iterator();
+		String message = "";
 
 
-		if (mappen.size() > 0) {
+		if (mappen.size() == 0)
+			return null;
 
+		else{
 			List<String> iOweThese = new ArrayList<String>();
 			List<String> theseOweMe = new ArrayList<String>();
 			List<String> evenWithThese = new ArrayList<String>();		
@@ -217,7 +201,7 @@ public class ContactMenu extends ActionBarActivity {
 			Collections.sort(theseOweMe);
 			Collections.sort(evenWithThese);
 
-			String message = "";
+
 
 			if (iOweThese.size() != 0){
 				message = "You have a debt to these contacts:";
@@ -243,30 +227,23 @@ public class ContactMenu extends ActionBarActivity {
 				}
 				message = message + "\n";
 			}
+		}
+		return message;
+	}
 
-			new AlertDialog.Builder(this)
+	public void viewContacts(final View view){
+
+		String message = getContactDebts(view);
+		if (message == null){
+			Toast.makeText(view.getContext(), Html.fromHtml("You do not have any contacts. Add a new one by pressing <i>'New...'</i>"), Toast.LENGTH_LONG).show();
+		}
+		else {
+			new AlertDialog.Builder(view.getContext())
 			.setTitle("All contacts")
 			.setMessage("" + message)
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-				}
-			})
-			.show();
-		}
-
-		else {
-			new AlertDialog.Builder(this)
-			.setTitle("No friends :( ")
-			.setMessage("You do not have any contacts yet.")
-			.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-				public void onClick(DialogInterface dialog, int which){
-				}
-			})
-			.setNegativeButton("Add a contact", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					//ContactMenu.addContact(view));
 				}
 			})
 			.show();
