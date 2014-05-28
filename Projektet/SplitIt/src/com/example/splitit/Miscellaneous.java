@@ -1,18 +1,16 @@
 package com.example.splitit;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+
+import java.util.List;
 
 /**
  * A class with some miscellaneous methods.
- * @author Johannes
- *
  */
 public class Miscellaneous {
-	
+
 	/**
 	 * A method that returns a string which states what the new debts have resulted in.
 	 * Depending on if a new debt has increased or decreased the total debt of the user to the contact
@@ -26,7 +24,7 @@ public class Miscellaneous {
 	 * @return
 	 */
 	public static String debtUpdateMessage( boolean addingOrSubtracting, int newamount, int oldamount, String name){
-		
+
 		String snew = Integer.toString(newamount);
 
 		String string = "";
@@ -63,7 +61,6 @@ public class Miscellaneous {
 			else {
 				string = name + "'s debt to you has decreased to " + snew + "kr.";
 			}
-			
 		}
 		return string;
 	}
@@ -79,11 +76,36 @@ public class Miscellaneous {
 		.setTitle(title)
 		.setMessage(message)
 		.setPositiveButton("OK", new DialogInterface.OnClickListener(){
-	
+
 			public void onClick(DialogInterface dialog, int which){
 				return;
 			}
 		}).show();
+	}
+
+	/**
+	 * Prints a list of strings as a pretty string, e.g. a list of vegetables transforms to something like "Tomato, Potato, Carrot, Cucumber and Turnip". 
+	 * @param list The list that will be printed
+	 * @return A string containing what the list contained.
+	 */
+	public static String listToPrettyString(List<String> list){
+		String att = "";
+		for(String s : list){
+			if(list.size()==1){
+				att = att + s + "'s";
+			}
+			else if(list.indexOf(s) == list.size()-1){
+				att = att +" and " +s+"'s";
+			}
+			else if(list.indexOf(s)==list.size()-2){
+				att = att + s+"'s";
+			}
+			else{
+				att = att  + s +"'s" + ", ";
+			}
+
+		}
+		return att;
 	}
 
 }

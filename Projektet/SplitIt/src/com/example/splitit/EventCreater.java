@@ -137,7 +137,8 @@ public class EventCreater extends ActionBarActivity {
 						eventCostDialog(view);
 					}
 					else{
-						Miscellaneous.displayMessage("Set name", "You have to set a name to be able to create an event.", view.getContext());
+						Toast.makeText(view.getContext(), "You have to set a name to be able to create an event.", Toast.LENGTH_LONG).show();
+						eventNameDialog(view);
 					}
 				}
 			});
@@ -188,8 +189,8 @@ public class EventCreater extends ActionBarActivity {
 					showAttenderPickerDialog(view);
 				}
 				else{
-					Miscellaneous.displayMessage("No amount", "You have to specify an amount, e.g 0.", view.getContext());
-
+					Toast.makeText(view.getContext(), "You have to specify an amount, e.g. 0.", Toast.LENGTH_LONG).show();
+					eventCostDialog(view);
 				}
 
 			}
@@ -236,7 +237,8 @@ public class EventCreater extends ActionBarActivity {
 	 * if none have been selected another AlertDialog is displayed and the event creation is aborted.
 	 * If the Ok-button is pressed and some attenders have been picked these attenders will be added
 	 * to the database through addAttenders with the values stored from eventCostDialog, eventNameDialog 
-	 * and the datepicker. 
+	 * and the datepicker.
+	 *  
 	 * @param view
 	 */
 	public void showAttenderPickerDialog(final View view){
@@ -273,29 +275,18 @@ public class EventCreater extends ActionBarActivity {
 			alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int whichButton) {
 					if(selectedItems.size()!=0){
-						String listString = "";
 						sharedevent = getSharedPreferences(MyEvent, Context.MODE_PRIVATE);
 						shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 						Editor editor = shareddebts.edit();
 						Editor editor2 = sharedevent.edit();
 
 						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)+1) + " " + Integer.toString(sharedevent.getInt("year", 0));
+						
+						String listString = Miscellaneous.listToPrettyString(selectedItems);
 
 						for (String s :selectedItems){
 							addAttender(sharedevent.getString("name", ""), s, datet, sharedevent.getInt("cost", 0));
 							editor.putInt(s, shareddebts.getInt(s,0) + sharedevent.getInt("cost", 0)/selectedItems.size());
-							if(selectedItems.size()==1){
-								listString = listString + s;
-							}
-							else if(selectedItems.indexOf(s) == selectedItems.size()-1){
-								listString = listString +" and " +s;
-							}
-							else if(selectedItems.indexOf(s)==selectedItems.size()-2){
-								listString = listString + s;
-							}
-							else{
-								listString = listString  + s + ", ";
-							}
 						}
 
 						editor.commit();
@@ -449,62 +440,61 @@ public class EventCreater extends ActionBarActivity {
 							list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
 							cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
 						}
-						final int finalcost=cost;
-						final int nrOfAttenders = list.size(); 
 
-						String att = "";
-						for(String s : list){
-							if(list.size()==1){
-								att = att + s + "'s";
-							}
-							else if(list.indexOf(s) == list.size()-1){
-								att = att +" and " +s+"'s";
-							}
-							else if(list.indexOf(s)==list.size()-2){
-								att = att + s+"'s";
-							}
-							else{
-								att = att  + s +"'s" + ", ";
-							}
 
-						}
-
-						AlertDialog.Builder alert3 = new AlertDialog.Builder(view.getContext());
-						String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(cost/nrOfAttenders) + " kr each."; 
-						alert3.setTitle("Confirm")
-						.setMessage(output)
-						.setNegativeButton("No", new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface arg0, int arg1) {
-							}
-						})
-						.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
-							@Override
-							public void onClick(DialogInterface arg0, int arg1){
-								shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-
-								Editor editor = shareddebts.edit();
-								for(String s : list){
-									editor.putInt(s, shareddebts.getInt(s,0)-finalcost/nrOfAttenders);
-								}
-								editor.commit();
-
-								String where2 = Helper.colEventName +"=?";
-								String[] args2 ={chosenevent};
-								db.delete(Helper.TABLE_NAME, where2, args2);
-								db.close();
-							}
-						}).show();
-
+						deletionConfirmation(chosenevent, cost, list, view);
 					}
 				}).show();
-
 			}
-
 		}).show();
+	}
+	/**
+	 * 
+	 * @param chosenevent The name of the event that will be deleted
+	 * @param totalCost The total cost of the event that will be deleted
+	 * @param list A list containing the attenders
+	 * @param view 
+	 */
+	public void deletionConfirmation(final String chosenevent, final int totalCost,final List<String> list, View view){
+		String att = Miscellaneous.listToPrettyString(list);
+		
+		final SQLiteDatabase db = helper.getWritableDatabase();
+		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+		String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(totalCost/list.size()) + " kr each."; 
+		alert.setTitle("Confirm")
+		.setMessage(output)
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+			}
+		})
+		.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface arg0, int arg1){
+				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 
+				Editor editor = shareddebts.edit();
+				for(String s : list){
+					editor.putInt(s, shareddebts.getInt(s,0)-totalCost/list.size());
+				}
+				editor.commit();
+
+				String where2 = Helper.colEventName +"=?";
+				String[] args2 ={chosenevent};
+				db.delete(Helper.TABLE_NAME, where2, args2);
+				db.close();
+			}
+		}).show();
 	}
 
+	/**
+	 * Displays an AlertDialog where the user can choose attenders to remove from a given event and performs the
+	 * necessary changes to the database and the SharedPreferences.
+	 * 
+	 * @param eventname The name of the event from which a set of attenders should be removed
+	 * @param eventdate The date of the event from which a set of attender should be removed
+	 * @param view 
+	 */
 	public void removeAttender(final String eventname, final String eventdate, final View view){
 
 		final SQLiteDatabase db = helper.getWritableDatabase();
@@ -598,7 +588,6 @@ public class EventCreater extends ActionBarActivity {
 				}
 			}
 		}).show();
-
 	}
 
 	public void changeCost(String eventname, String eventdate){
