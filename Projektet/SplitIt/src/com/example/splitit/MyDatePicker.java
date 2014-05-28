@@ -32,7 +32,7 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
 
 	public void onDateSet(DatePicker view, int year, int month, int day) {
 		
-		sharedevent = getActivity().getSharedPreferences(MyEvent, Context.MODE_WORLD_READABLE);
+		sharedevent = getActivity().getSharedPreferences(MyEvent, Context.MODE_PRIVATE);
 		
 		Editor editor = sharedevent.edit();
 		

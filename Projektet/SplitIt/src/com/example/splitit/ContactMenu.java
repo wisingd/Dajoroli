@@ -8,14 +8,11 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
@@ -481,7 +478,7 @@ public class ContactMenu extends ActionBarActivity {
 					.setItems(cs, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							
+
 							final int position = which;
 							final EditText input = new EditText(view.getContext());
 							input.setHint("Number");
@@ -497,10 +494,10 @@ public class ContactMenu extends ActionBarActivity {
 							.setPositiveButton("Change", new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog, int which) {
-									
+
 									final String newNumber = "" + input.getText();
 									String name = list.get(position);
-									
+
 									new AlertDialog.Builder(view.getContext())
 									.setTitle("Confirm")
 									.setMessage("Do you want to change " +  name + "'s number to " + newNumber + "?")
