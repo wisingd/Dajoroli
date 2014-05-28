@@ -23,10 +23,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.splitit.DebtAddingActivity"
-            android:parentActivityName="com.example.splitit.DebtMenu" >
-        </activity>
-        <activity
             android:name="com.example.splitit.ContactMenu"
             android:parentActivityName="com.example.splitit.MainActivity" >
         </activity>
@@ -37,14 +33,6 @@
         <activity
             android:name="com.example.splitit.ErasedContacts"
             android:parentActivityName="com.example.splitit.ContactMenu" >
-        </activity>
-        <activity
-            android:name="com.example.splitit.SplitADebt"
-            android:label="@string/title_activity_split_adebt"
-            android:parentActivityName="com.example.splitit.DebtMenu" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splitit.DebtMenu" />
         </activity>
         <activity
             android:name="com.example.splitit.EventCreater"

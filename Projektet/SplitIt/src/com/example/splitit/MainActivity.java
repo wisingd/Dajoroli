@@ -68,15 +68,27 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	/**Starts the activity DebtMenu.
+	 * 
+	 * @param view
+	 */
 	public void startDebtMenu(View view){
 		Intent intent = new Intent(this, DebtMenu.class);
 		startActivity(intent);
 	}
 	
+	/**
+	 * Starts the activity ContactMenu.
+	 * @param view
+	 */
 	public void startContactMenu(View view){
 		Intent intent = new Intent(this, ContactMenu.class);
 		startActivity(intent);
 	}
+	/**
+	 * Starts the activity EventCreater.
+	 * @param view
+	 */
 	public void startEvent(View view){
 		Intent intent = new Intent(this,EventCreater.class);
 		startActivity(intent);
