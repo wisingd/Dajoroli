@@ -1204,6 +1204,16 @@ containing a value of this type.
         public static final int contact_name=0x7f0a000f;
         public static final int createevent=0x7f0a0025;
         public static final int delete_debt=0x7f0a0027;
+        public static final int desc_create=0x7f0a0028;
+        public static final int desc_date=0x7f0a0029;
+        public static final int desc_editcontacts=0x7f0a0031;
+        public static final int desc_evenadebt=0x7f0a002e;
+        public static final int desc_iowethem=0x7f0a002d;
+        public static final int desc_new=0x7f0a0030;
+        public static final int desc_prettyline=0x7f0a002a;
+        public static final int desc_showevents=0x7f0a002b;
+        public static final int desc_theyoweme=0x7f0a002c;
+        public static final int desc_viewcontacts=0x7f0a002f;
         public static final int erase_contacts=0x7f0a001b;
         public static final int event_name=0x7f0a001f;
         public static final int hello_world=0x7f0a0024;

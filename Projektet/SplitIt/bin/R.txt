@@ -390,6 +390,16 @@ int string contact 0x7f0a0015
 int string contact_name 0x7f0a000f
 int string createevent 0x7f0a0025
 int string delete_debt 0x7f0a0027
+int string desc_create 0x7f0a0028
+int string desc_date 0x7f0a0029
+int string desc_editcontacts 0x7f0a0031
+int string desc_evenadebt 0x7f0a002e
+int string desc_iowethem 0x7f0a002d
+int string desc_new 0x7f0a0030
+int string desc_prettyline 0x7f0a002a
+int string desc_showevents 0x7f0a002b
+int string desc_theyoweme 0x7f0a002c
+int string desc_viewcontacts 0x7f0a002f
 int string erase_contacts 0x7f0a001b
 int string event_name 0x7f0a001f
 int string hello_world 0x7f0a0024

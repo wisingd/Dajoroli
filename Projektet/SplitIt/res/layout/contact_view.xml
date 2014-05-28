@@ -5,41 +5,37 @@
     android:background="@color/bgcolor"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="writeName"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/contact_new"
+        android:contentDescription="@string/desc_new" />
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="writeName"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/contact_new" />
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="viewContacts"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/contacts_view" 
+        android:contentDescription="@string/desc_viewcontacts"/>
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="viewContacts"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/contacts_view" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="editContact"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/contacts_edit" />
-    </LinearLayout>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="editContact"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/contacts_edit"
+        android:contentDescription="@string/desc_editcontacts" />
 
 </LinearLayout>
