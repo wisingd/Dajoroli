@@ -7,6 +7,10 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="19" />
+    
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -23,10 +27,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.splitit.DebtAddingActivity"
-            android:parentActivityName="com.example.splitit.DebtMenu" >
-        </activity>
-        <activity
             android:name="com.example.splitit.ContactMenu"
             android:parentActivityName="com.example.splitit.MainActivity" >
         </activity>
@@ -39,14 +39,6 @@
             android:parentActivityName="com.example.splitit.ContactMenu" >
         </activity>
         <activity
-            android:name="com.example.splitit.SplitADebt"
-            android:label="@string/title_activity_split_adebt"
-            android:parentActivityName="com.example.splitit.DebtMenu" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.splitit.DebtMenu" />
-        </activity>
-        <activity
             android:name="com.example.splitit.EventCreater"
             android:label="@string/title_activity_event_creater"
             android:parentActivityName="com.example.splitit.MainActivity" >
@@ -56,10 +48,5 @@
         </activity>
         <activity android:parentActivityName="com.example.splitit.ContactMenu" android:name=".ContactViewing"></activity>
     </application>
-
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    
 
 </manifest>

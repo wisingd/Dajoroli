@@ -3,60 +3,59 @@
     android:id="@+id/topview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="@color/bgcolor"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="whoOwesYou"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/debt_they_owe_me"
+        android:contentDescription="@string/desc_theyoweme" />
+
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="whoDoYouOwe"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/debt_i_owe_them" 
+        android:contentDescription="@string/desc_iowethem"/>
+
+    <ImageView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_line" 
+        android:contentDescription="@string/desc_prettyline"/>
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="whoOwesYou"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/debt_they_owe_me" />
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="evenDebt"
+        android:scaleType="centerInside"
+        android:scaleX="0.50"
+        android:scaleY="0.50"
+        android:src="@drawable/debt_even" 
+        android:contentDescription="@string/desc_evenadebt"/>
 
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="whoDoYouOwe"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/debt_i_owe_them" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerInside"
-            android:src="@drawable/icon_line" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="evenDebt"
-            android:scaleType="centerInside"
-            android:scaleX="0.50"
-            android:scaleY="0.50"
-            android:src="@drawable/debt_even" />
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="70dip"
-            android:background="@android:color/transparent"
-            android:onClick="viewContacts"
-            android:scaleType="centerInside"
-            android:scaleX="0.70"
-            android:scaleY="0.70"
-            android:src="@drawable/contacts" />
-    </LinearLayout>
+    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="70dip"
+        android:background="@android:color/transparent"
+        android:onClick="viewContacts"
+        android:scaleType="centerInside"
+        android:scaleX="0.70"
+        android:scaleY="0.70"
+        android:src="@drawable/contacts"
+        android:contentDescription="@string/desc_viewcontacts" />
 
 </LinearLayout>

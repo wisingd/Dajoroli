@@ -30,8 +30,8 @@ import android.widget.Toast;
 
 
 /**
- * Creates an activity that allows the user to write the name and date of an event.
- *   
+ * An activity that allows the user to create and access events which are stored in a 
+ * database.
  */
 public class EventCreater extends ActionBarActivity {
 
@@ -281,7 +281,7 @@ public class EventCreater extends ActionBarActivity {
 						Editor editor2 = sharedevent.edit();
 
 						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)+1) + " " + Integer.toString(sharedevent.getInt("year", 0));
-						
+
 						String listString = Miscellaneous.listToPrettyString(selectedItems);
 
 						for (String s :selectedItems){
@@ -315,6 +315,16 @@ public class EventCreater extends ActionBarActivity {
 			Miscellaneous.displayMessage("No friends :(","You do not have any contacts.", view.getContext());
 		}
 	}
+
+	/** Displays all stored events in an AlertDialog and lets the user see some information about them and provides some buttons.
+	 * All stored events are collected by sending a query to the SQLiteDatabase and displayed in an AlertDialog. The user is there able to 
+	 * click on one of the events which displays more information about the chosen event, the information is collected by a second query.
+	 * The user is at this stage presented with three button: "Delete", "Edit" and "Cancel". "Delete". The "Delete"-button starts the method 
+	 * deletionConfirmation, the "Edit"-button displays an AlertDialog where the user can choose in which way the event should be edited and 
+	 * depending on what is selected a corresponding method is run and finally the "Cancel"-button does nothing. 
+	 * 
+	 * @param view
+	 */
 	public void showEvents(final View view){
 
 		SQLiteDatabase db = helper.getWritableDatabase();
@@ -357,16 +367,17 @@ public class EventCreater extends ActionBarActivity {
 				String where = Helper.colEventName +"=? AND "+ Helper.colDate + "=?"; 
 
 				String [] whereargs = {chosenevent, chosendate};
+
 				Cursor cursor2 = db.query(Helper.TABLE_NAME, columns2, where, whereargs , null, null, null);
 
-				List<String> attendlist = new ArrayList<String>();
+				final List<String> attendlist = new ArrayList<String>();
 
-
-				int cost =0;
+				int cost = 0;
 				while(cursor2.moveToNext()){
 					attendlist.add(cursor2.getString(cursor2.getColumnIndex(Helper.colAttender)));
 					cost = cursor2.getInt(cursor2.getColumnIndex(Helper.colTotalCost));
 				}
+				final int totalCost = cost;
 
 				String str="";
 				for(String s : attendlist){
@@ -408,13 +419,13 @@ public class EventCreater extends ActionBarActivity {
 									removeAttender(chosenevent, chosendate, view);
 								}
 								else if(which == 1){
-									changeCost(chosenevent, chosendate);
+									changeCost(chosenevent, chosendate, view);
 								}
 								else if(which == 2){
-									changeName(chosenevent, chosendate);
+									changeName(chosenevent, chosendate, view);
 								}
 								else{
-									changeDate(chosenevent, chosendate);
+									changeDate(view);
 								}
 							}
 						}).show();
@@ -423,41 +434,23 @@ public class EventCreater extends ActionBarActivity {
 				.setNegativeButton("Delete", new DialogInterface.OnClickListener(){
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
-						final SQLiteDatabase db = helper.getWritableDatabase();
-
-						String[] columns = {Helper.colAttender, Helper.colEventName, Helper.colDate, Helper.colTotalCost};
-
-						String where = Helper.colEventName + "=? AND "+ Helper.colDate + "=?";
-
-						String[] args = {chosenevent, chosendate};
-
-						Cursor cursor = db.query(Helper.TABLE_NAME, columns, where, args, null, null, null);
-
-						final List<String> list = new ArrayList<String>();
-
-						int cost =0;
-						while(cursor.moveToNext()){
-							list.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
-							cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
-						}
-
-
-						deletionConfirmation(chosenevent, cost, list, view);
+						deletionConfirmation(chosenevent, totalCost, attendlist, view);
 					}
 				}).show();
 			}
 		}).show();
 	}
 	/**
-	 * 
+	 * Displays an AlertDialog that asks for a confirmation before an event is deleted and if the user approves deletes the event.
+	 *  
 	 * @param chosenevent The name of the event that will be deleted
 	 * @param totalCost The total cost of the event that will be deleted
 	 * @param list A list containing the attenders
 	 * @param view 
 	 */
-	public void deletionConfirmation(final String chosenevent, final int totalCost,final List<String> list, View view){
+	public void deletionConfirmation(final String chosenevent, final int totalCost,final List<String> list, final View view){
 		String att = Miscellaneous.listToPrettyString(list);
-		
+
 		final SQLiteDatabase db = helper.getWritableDatabase();
 		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
 		String output = "Are you sure you want to delete the event '" + chosenevent + "'? This will decrease "+att+" debts by " + Integer.toString(totalCost/list.size()) + " kr each."; 
@@ -483,6 +476,7 @@ public class EventCreater extends ActionBarActivity {
 				String[] args2 ={chosenevent};
 				db.delete(Helper.TABLE_NAME, where2, args2);
 				db.close();
+				Toast.makeText(view.getContext(), "The event has been deleted.", Toast.LENGTH_LONG).show();
 			}
 		}).show();
 	}
@@ -589,15 +583,127 @@ public class EventCreater extends ActionBarActivity {
 			}
 		}).show();
 	}
+	/**
+	 * Changes the cost associated with an event in the database and the SharedPreference to the values 
+	 * specified by the user through an AlertDialog.
+	 * Gets a list of the attenders to the event by making a query to the database which corresponds to a Cursor. The list 
+	 * is produces by making the cursor run through the result from the query. During this the former cost is also recorded.
+	 * The user is then supposed to type the new cost in an AlertDialog. The cost of the selected event is then updated through
+	 * the update-method and for every attender the total debt is changed. 
+	 * 
+	 * @param eventname The name of the event that will have its cost changed
+	 * @param eventdate The date of the event that will have its cost changed
+	 * @param view
+	 */
+	public void changeCost(final String eventname, final String eventdate, final View view){
+		final SQLiteDatabase db = helper.getWritableDatabase();
+		String [] columns = {Helper.colTotalCost, Helper.colAttender};
+		String where = Helper.colEventName + "=? AND " + Helper.colDate + "=?";
+		String[] whereargs = {eventname, eventdate};
+		Cursor cursor = db.query( Helper.TABLE_NAME, columns, where, whereargs, null, null, null);
+		int cost = 0;
+		final List<String> attendList = new ArrayList<String>();
+		while(cursor.moveToNext()){
+			cost = cursor.getInt(cursor.getColumnIndex(Helper.colTotalCost));
+			attendList.add(cursor.getString(cursor.getColumnIndex(Helper.colAttender)));
+		}
+		final int formercost = cost;
 
-	public void changeCost(String eventname, String eventdate){
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		final EditText input = new EditText(this);
+		input.setHint("Enter new cost");
+		input.setInputType(InputType.TYPE_CLASS_NUMBER);
+		alert.setTitle("Cost")
+		.setMessage("The old cost was " + formercost + ", what do you want the new to be?")
+		.setView(input)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				String value = "" + input.getText();
+
+				if(value.length()!=0){
+					int cost = Integer.parseInt(value);
+					shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
+					String where = Helper.colDate + "=? AND " +Helper.colEventName + "=?";
+					String[] whereArgs = {eventdate, eventname};
+					Editor editor = shareddebts.edit();
+					ContentValues values = new ContentValues();
+					values.put(Helper.colTotalCost, cost);
+					db.update(Helper.TABLE_NAME, values, where, whereArgs);
+
+					for(String s : attendList){
+						editor.putInt(s, shareddebts.getInt(s, 0)-formercost/attendList.size() + cost/attendList.size());
+					}
+					editor.commit();
+					Toast.makeText(view.getContext(), "The cost has been changed.", Toast.LENGTH_SHORT).show();
+
+				}
+				else{
+					Toast.makeText(view.getContext(), "You have to set a new cost if you want to change the cost.", Toast.LENGTH_LONG).show();
+					changeCost(eventname, eventdate, view);
+				}
+			}
+
+		})
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+
+		}).show();
 	}
-	public void changeName(String eventname, String eventdate){
+	/**
+	 * Changes the name of an event to a user inserted string.
+	 * Displays an AlertDialog where the user is asked to type the new name. 
+	 * After the user has done so and pushed the "OK"-button the name of the 
+	 * event is changed in the database through the update-method.
+	 * 
+	 * @param eventname The old name of the event 
+	 * @param eventdate The date of the event
+	 * @param view
+	 */
+	public void changeName(final String eventname, final String eventdate, final View view){
+		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
+		final EditText input = new EditText(this);
+		input.setHint("Enter new name");
+		alert.setTitle("Name")
+		.setMessage("The old name was " + eventname + ", what do you want the new to be?")
+		.setView(input)
+		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				String newName = "" + input.getText();
+				if (newName.length()!=0){
+					SQLiteDatabase db = helper.getWritableDatabase();
+					String where = Helper.colEventName + "=? AND " + Helper.colDate + "=?";
+					String[] whereArgs = {eventname, eventdate} ;
+					ContentValues values = new ContentValues();
+					values.put(Helper.colEventName, newName);
+					db.update(Helper.TABLE_NAME, values, where, whereArgs);
+					Toast.makeText(view.getContext(),"The name has been changed.", Toast.LENGTH_LONG).show();
+				}
+				else{
+					Toast.makeText(view.getContext(), "You have to enter a name.", Toast.LENGTH_LONG).show();
+					changeName(eventname, eventdate, view);
+				}
+			}
+		})
+		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
 
+			}
+		}).show();
 	}
-	public void changeDate(String eventname, String eventdate){
 
+	/**
+	 * A method that provides the user with help regarding changing of dates of events.
+	 * @param view
+	 */
+	public void changeDate(View view){
+		Miscellaneous.displayMessage("Hint", "Why don't you just delete this event and create a new one with the correct date?", view.getContext());
+		Toast.makeText(view.getContext(), "No can do", Toast.LENGTH_SHORT).show();
 	}
-
 }

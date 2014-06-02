@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">Split It</string>
     <string name="action_settings">Settings</string>
     <string name="contact_name">Contact name</string>
@@ -28,6 +29,19 @@
     <string name="title_activity_add_attenders">Add attenders</string>
     <string name="delete_debt">Delete a debt!</string>
     
+    <string name="desc_create">Create</string>
+    <string name="desc_date">Date</string>
+    <string name="desc_prettyline">A pretty line</string>
+    <string name="desc_showevents">Show events</string>
+    <string name="desc_theyoweme">They owe me</string>
+    <string name="desc_iowethem">I owe them</string>
+        <string name="desc_evenadebt">Even a debt</string>
+        <string name="desc_viewcontacts">View contacts</string>
+    <string name="desc_new">new</string>
+    <string name="desc_editcontacts">Edit contacts</string>
+        
+            
+        
     <color name="bgcolor">#D9AD83</color>
-    
+
 </resources>
