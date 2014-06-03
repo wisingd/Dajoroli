@@ -39,10 +39,16 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	public static final String MyNumbers = "Mynumbers";
 
 	String listString = "";
+	String numberNames = "";
+	String number = "";
 
 	int newdebt;
 	int olddebt;
 
+	/**
+	 * Returns an ArrayList<String> of contacts that is contained within the SharedPreference 'shareddebts'.
+	 * @return
+	 */
 	public ArrayList<String> getContactList(){
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 		Map<String,?> mappen = shareddebts.getAll();
@@ -68,61 +74,96 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		setContentView(R.layout.debt_view);
 	}
 
+	public void theyOweMe(View view){
+		chooseContacts(view, true);
+	}
 
-	public void whoOwesYou(final View view){
+	public void iOweThem(View view){
+		chooseContacts(view, false);
+	}
+
+	/**
+	 * Initial Dialog, where the user picks contacts.
+	 * @param view
+	 * @param bool True if "They Owe Me" is pressed, false if "I Owe Them" is pressed.
+	 */
+	public void chooseContacts(final View view, final boolean bool){
 		final ArrayList<String> list = getContactList();
 
 		if (list == null)
 			Toast.makeText(view.getContext(), Html.fromHtml("You do not have any contacts yet. Add one in <i>Contacts</i>"), Toast.LENGTH_LONG).show();
+
 		else {
-			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
+			final CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
 			final ArrayList<String> selectedItems = new ArrayList<String>();
+			AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
 
-			AlertDialog.Builder alert = new AlertDialog.Builder(this);
-			alert.setTitle("Who owes you?")
-			.setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {				
-				@Override
-				public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+			if (bool){
+				alert.setTitle("Who owes you?")
+				.setMultiChoiceItems(cs, null, new DialogInterface.OnMultiChoiceClickListener() {				
+					@Override
+					public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
-					if (isChecked) {
+						if (isChecked) {
+							selectedItems.add(list.get(which));
+						} 
+						else {
+							selectedItems.remove(list.get(which));
+						}
+					}
+				})
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+					}
+				})
+				.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+
+						if (selectedItems.size() == 0){
+							Toast.makeText(view.getContext(), "You have to choose at least one contact.", Toast.LENGTH_LONG).show();
+							chooseContacts(view, true);
+						}
+						else {
+							enterDebt(view, selectedItems, bool);
+						}
+					}
+				})
+				.show();
+			}
+
+			else {
+				alert.setTitle("Who do you owe?")
+				.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						Toast.makeText(view.getContext(), "Canceled.", Toast.LENGTH_SHORT).show();
+					}
+				})
+				.setItems(cs, new DialogInterface.OnClickListener() {
+					public void onClick (DialogInterface dialog, int which) {
+
 						selectedItems.add(list.get(which));
-					} 
-					else {
-						selectedItems.remove(list.get(which));
+						enterDebt(view, selectedItems, bool);
 					}
-				}
-			})
-			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-				}
-			})
-			.setPositiveButton("Next", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-
-					if (selectedItems.size() == 0){
-						Toast.makeText(view.getContext(), "You have to choose at least one contact.", Toast.LENGTH_LONG).show();
-						whoOwesYou(view);
-					}
-
-					else {
-						enterDebt(view, selectedItems);
-					}
-				}
-			})
-			.show();
+				})
+				.show();
+			}
 		}
 	}
 
-	public void enterDebt(final View view, ArrayList<String> selectedItems){
+	/**
+	 * This method creates a Dialog where the user enter the debt, even if it is the user who owes it or other persons owing the user.
+	 * 
+	 * @param selectedItems The selected contacts.
+	 * @param bool True if "They Owe Me" is pressed, false if "I Owe Them" is pressed.
+	 */
+	public void enterDebt(final View view, final ArrayList<String> selectedItems, final boolean bool){
 
 		final EditText input = new EditText(view.getContext());
 		input.setInputType(InputType.TYPE_CLASS_NUMBER);
 		input.setHint("Debt");
-		final ArrayList<String> selectedContacts = selectedItems;
 
-		// DIALOG 2
 		new AlertDialog.Builder(view.getContext())
-		.setTitle("Enter the total debt")
+		.setTitle("Enter total debt")
 		.setView(input)
 		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -132,42 +173,47 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		.setPositiveButton("Next", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				final String value = "" + input.getText();
+				final int debtAmount = Integer.parseInt(value);
 
-				if (value.length() > 0){
-					final int debtAmount = Integer.parseInt(value);
-					listString = "Do you want to assign the total debt " + value + " kr (" + debtAmount/selectedContacts.size() + " kr each) to the following contacts?";
+				if (value.length() > 0) {
 
-					for (String s :selectedContacts){
-						listString = listString + "\n" + s;
-					}
-
-					confirmTheyOweMe(view, selectedContacts, debtAmount);
-
+					confirmDebt(view, selectedItems, debtAmount, bool);
 				}
-				else{
+				else {
 					Toast.makeText(view.getContext(), "You have to enter a debt.", Toast.LENGTH_LONG).show();
-					enterDebt(view, selectedContacts);
+					enterDebt(view, selectedItems, true);
 				}
 			}
 		})
 		.show();
 	}
 
+	/**
+	 * This methods creates a Dialog where the user confirms names and debt.
+	 * 
+	 * @param selectedItems The selected contacts.
+	 * @param debt The entered debt.
+	 * @param bool True if "They Owe Me" is pressed, false if "I Owe Them" is pressed.
+	 */
 
-	public void confirmTheyOweMe(final View view, ArrayList<String> selectedItems, int debt){
+	public void confirmDebt(final View view, final ArrayList<String> selectedItems, final int debt, final boolean bool){
 
-		final ArrayList<String> selectedContacts = selectedItems;
-		final int debtAmount = debt;
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 		sharednumber = getSharedPreferences(MyNumbers, MODE_PRIVATE);
 
 		final Editor editor = shareddebts.edit();
-
 		final ArrayList<String> numberList = new ArrayList<String>();
+
+		if (bool) 
+			listString = "You're about to add a debt of " + debt/selectedItems.size() + " kr to " 
+					+ Miscellaneous.listToPrettyString(selectedItems, false) + ". Is this correct?"; 
+
+		else
+			listString = "Do you want to add a debt of " + debt + " kr to " + Miscellaneous.listToPrettyString(selectedItems, false) + "?";
 
 
 		new AlertDialog.Builder(view.getContext())
-		.setTitle("Confirm:")
+		.setTitle("Confirmation")
 		.setMessage("" + listString)
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -178,17 +224,29 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 
-				String numberNames = "";
+				if (bool){
+					for (String s :selectedItems){
+						number = sharednumber.getString(s, null);
+						olddebt = shareddebts.getInt(s, 0);
+						newdebt = olddebt + debt / selectedItems.size();
+						editor.putInt(s, newdebt);
+						editor.commit();
 
-				for (String s :selectedContacts){
-					String number = sharednumber.getString(s, null);
-					olddebt = shareddebts.getInt(s, 0);
-					newdebt = olddebt + debtAmount / selectedContacts.size();
-					editor.putInt(s, newdebt);
+						if (number != null){
+							numberList.add(s);
+						}
+					}
+				}
+
+				else {
+					number = sharednumber.getString(selectedItems.get(0), null);
+					olddebt = shareddebts.getInt(selectedItems.get(0), 0);
+					newdebt = olddebt - debt;
+					editor.putInt(selectedItems.get(0), newdebt);
 					editor.commit();
 
 					if (number != null){
-						numberList.add(s);
+						numberList.add(selectedItems.get(0));
 					}
 				}
 
@@ -198,9 +256,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 						numberNames = numberNames + "\n" + s + " (" + number + ")";
 					}
 
-					notifyTheyOweMeSMS(view, numberNames, numberList, selectedContacts, debtAmount);
+					notifySMS(view, numberNames, numberList, selectedItems, debt);
 				}
-				
+
 				else {
 					Toast.makeText(view.getContext(), "Debt added!", Toast.LENGTH_LONG).show();
 				}
@@ -208,24 +266,20 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		})
 		.show();
 	}
+
 	/**
+	 * The method creates the String that is to be sent in the SMS and then sends the SMS. 
 	 * 
-	 * @param view
 	 * @param listOfNamesWithNumber A list of all the names that have an associated number
 	 * @param listOfNumbers A list of all the numbers
 	 * @param selectedItems A list of all the selected contacts
 	 * @param debt The debt
 	 */
-	public void notifyTheyOweMeSMS(final View view, String listOfNamesWithNumber, ArrayList<String> listOfNumbers, ArrayList<String> selectedItems, int debt){
-
-		String numberNames = listOfNamesWithNumber;
-		final ArrayList<String> numberList = listOfNumbers;
-		final ArrayList<String> selectedContacts = selectedItems;
-		final int debtAmount = debt;
+	public void notifySMS(final View view, String listOfNamesWithNumber, final ArrayList<String> numberList, final ArrayList<String> selectedContacts, final int debtAmount){
 
 		new AlertDialog.Builder(view.getContext())
 		.setTitle("Notify")
-		.setMessage("Would you like to notify \n" + numberNames + "\n\nby sending an SMS?")
+		.setMessage("Would you like to notify \n" + listOfNamesWithNumber + "\n\nby sending an SMS?")
 		.setNegativeButton("No", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
@@ -236,176 +290,34 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 
-				for(String s : numberList){
+				for (String s : numberList){
+					newdebt = shareddebts.getInt(s, 0);
 					if (newdebt > 0){
 						sendSMS(sharednumber.getString(s, null), 
-								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() + " kr to you in Split It."
-										+ "\n\nIn total, you now owe me " + Math.abs(newdebt) + " kr.");
+								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() 
+								+ " kr to you in Split It." + "\n\nIn total, you now owe me " + Math.abs(newdebt) + " kr.");
 					}
 					else if (newdebt < 0){
 						sendSMS(sharednumber.getString(s, null), 
-								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() + " kr to you in Split It."
-										+ "\n\nIn total, I now owe you " + Math.abs(newdebt) + " kr.");
+								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() 
+								+ " kr to you in Split It."	+ "\n\nIn total, I now owe you " + Math.abs(newdebt) + " kr.");
 					}
 					else {
 						sendSMS(sharednumber.getString(s, null), 
-								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() + " kr to you in Split It."
-										+ "\n\nGuess what? We are now even!");
+								"Hello " + s + "! I have added that I have a debt of " + debtAmount / selectedContacts.size() 
+								+ " kr to you in Split It." + "\n\nGuess what? We are now even!");
 					}
-					Toast.makeText(view.getContext(), "SMS have been sent and the debts have been added.", Toast.LENGTH_LONG).show();
+
+					Toast.makeText(view.getContext(), "SMS have been sent and the debt have been added.", Toast.LENGTH_LONG).show();
 				}
 			}
 		})
 		.show();
 	}
 
-	public void whoDoYouOwe(final View view){
-
-		final ArrayList<String> list = getContactList();
-
-		if (list == null)
-			Toast.makeText(view.getContext(), Html.fromHtml("You do not have any contacts yet. Add one in <i>Contacts</i>"), Toast.LENGTH_LONG).show();
-
-		else {
-			CharSequence[] cs = list.toArray(new CharSequence[list.size()]);
-
-			AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
-			alert.setTitle("Who do you owe?")
-			.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					Toast.makeText(view.getContext(), "Canceled.", Toast.LENGTH_SHORT).show();
-				}
-			})
-			.setItems(cs, new DialogInterface.OnClickListener() {
-				public void onClick (DialogInterface dialog, int which) {
-
-					whatDoYouOwe(view, which, list);
-
-				}
-			})
-			.show();
-		}
-	}
-
-	public void whatDoYouOwe(final View view, final int which, final ArrayList<String> list){
-
-		final int position = which;
-		final ArrayList<String> contacts = list;
-		final String name = contacts.get(position);
-
-		final EditText input = new EditText(view.getContext());
-		input.setInputType(InputType.TYPE_CLASS_NUMBER);
-		input.setHint("Debt");
-
-		new AlertDialog.Builder(view.getContext())
-		.setTitle("Enter debt to " + name)
-		.setView(input)
-		.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				Toast.makeText(view.getContext(), "Canceled.", Toast.LENGTH_SHORT).show();
-			}
-		})
-
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				String value = "" + input.getText();
-				if (value.length() > 0){
-					final int debtAmount = Integer.parseInt(value);
-					final String name = list.get(position);
-
-					confirmIOweThem(view, name, debtAmount);
-				}
-				else{
-					Toast.makeText(view.getContext(), "You have to enter a debt.", Toast.LENGTH_LONG).show();
-					whatDoYouOwe(view, which, contacts);
-				}
-			}
-		})
-		.show();
-	}
-
-	public void confirmIOweThem(final View view, String debtName, int debt){
-
-		final String name = debtName;
-		final int debtAmount = debt;
-
-		String listString = "Do you want to add a debt of " + debtAmount + " kr to " + name + "?";
-
-		new AlertDialog.Builder(view.getContext())
-		.setTitle("Confirm:")
-		.setMessage("" + listString)
-		.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				Toast.makeText(view.getContext(), "OK, debts canceled.", Toast.LENGTH_LONG).show();
-			}
-		})
-		.setPositiveButton ("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				// Change the debt in SharedPreferences
-				shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
-				Editor editor = shareddebts.edit();
-				olddebt = shareddebts.getInt(name, 0);
-				newdebt = olddebt - debtAmount;
-				editor.putInt(name, newdebt);
-				editor.commit();
-
-				sharednumber = getSharedPreferences(MyNumbers, MODE_PRIVATE);
-				String number = sharednumber.getString(name, null);
-
-				if (number != null) {
-
-					notifyOwingSMS(view, name, debtAmount);
-
-				}
-
-				else
-					Toast.makeText(view.getContext(), "The debt has been added.", Toast.LENGTH_LONG).show();
-			}
-		})
-		.show();
-	}
-
-	public void notifyOwingSMS(final View view, String names, int debt){
-
-		final String name = names;
-		final int debtAmount = debt;
-
-		new AlertDialog.Builder(view.getContext())
-		.setTitle("Notify")
-		.setMessage("Would you like to notify " + name + " (" + sharednumber.getString(name, null) + ") by sending an SMS?")
-		.setNegativeButton("No", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				Toast.makeText(view.getContext(), "OK, no SMS has been sent but the debt has been added.", Toast.LENGTH_LONG).show();
-			}
-		})
-		.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-
-				if (newdebt > 0){
-					sendSMS(sharednumber.getString(name, null), 
-							"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
-									+ "\n\nIn total, you now owe me " + newdebt + " kr.");
-				}
-				else if (newdebt < 0){
-					sendSMS(sharednumber.getString(name, null), 
-							"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
-									+ "\n\nIn total, I now owe you " + newdebt + " kr.");
-				}
-				else {
-					sendSMS(sharednumber.getString(name, null), 
-							"Hello " + name + "! I have added that I have a debt of " + Math.abs(debtAmount) + " kr to you in Split It."
-									+ "\n\nGuess what? We are now even!");
-				}
-
-				Toast.makeText(view.getContext(), "SMS has been sent and the debt has been added.", Toast.LENGTH_LONG).show();
-			}
-		})
-		.show();
-	}
-
+	/**
+	 * This method evens a debt, that is setting the total debt amongst contacts to zero (0). 
+	 */
 	public void evenDebt(final View view){
 
 		final ArrayList<String> list = getContactList();
@@ -439,12 +351,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					for (String s: selectedItems){
-						listString = listString + "\n" + s;
-					}
+
+					listString = Miscellaneous.listToPrettyString(selectedItems, false);
+
 					new AlertDialog.Builder(view.getContext())
 					.setTitle("Confirm")
-					.setMessage("Are you sure you want to even your debt situation with the following contacts? " + listString)
+					.setMessage("You are about to even your debt situation with " + listString + ". Is this correct?")
 					.setNegativeButton("No", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 						}
@@ -466,9 +378,9 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 				}
 			})
 			.show();
-		}// IF
+		}
 
-	}//METHOD
+	}
 
 	public void sendSMS(String phonenumber, String message){
 		PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, SendingSms.class), 0);
@@ -476,6 +388,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		sms.sendTextMessage(phonenumber, null, message, pi, null);
 	}
 
+	/**
+	 * The method creates a String of all the lists containing all the contacts and their debts.
+	 * @return A list with all contacts and their respective debts.
+	 */
 	public String getContactDebts(View view){
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 		sharednumber = getSharedPreferences(MyNumbers, Context.MODE_PRIVATE);
@@ -509,8 +425,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			Collections.sort(theseOweMe);
 			Collections.sort(evenWithThese);
 
-
-
 			if (iOweThese.size() != 0){
 				message = "You have a debt to these contacts:";
 
@@ -538,7 +452,10 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		}
 		return message;
 	}
-
+	
+	/**
+	 * Opens a Dialog with all the contacts and their respective debts.
+	 */
 	public void viewContacts(final View view){
 
 		String message = getContactDebts(view);
@@ -560,9 +477,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -585,7 +499,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-		//String selectedName = (String) parent.getItemAtPosition(position);
 	}
 
 	@Override

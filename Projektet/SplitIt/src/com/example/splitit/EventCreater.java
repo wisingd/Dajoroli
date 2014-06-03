@@ -282,7 +282,7 @@ public class EventCreater extends ActionBarActivity {
 
 						datet = Integer.toString(sharedevent.getInt("day", 0)) + "/" + Integer.toString(sharedevent.getInt("month", 0)+1) + " " + Integer.toString(sharedevent.getInt("year", 0));
 
-						String listString = Miscellaneous.listToPrettyString(selectedItems);
+						String listString = Miscellaneous.listToPrettyString(selectedItems, true);
 
 						for (String s :selectedItems){
 							addAttender(sharedevent.getString("name", ""), s, datet, sharedevent.getInt("cost", 0));
@@ -449,7 +449,7 @@ public class EventCreater extends ActionBarActivity {
 	 * @param view 
 	 */
 	public void deletionConfirmation(final String chosenevent, final int totalCost,final List<String> list, final View view){
-		String att = Miscellaneous.listToPrettyString(list);
+		String att = Miscellaneous.listToPrettyString(list, true);
 
 		final SQLiteDatabase db = helper.getWritableDatabase();
 		AlertDialog.Builder alert = new AlertDialog.Builder(view.getContext());
