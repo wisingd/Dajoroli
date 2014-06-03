@@ -28,7 +28,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.EditText;
 import android.widget.Toast;
-
+/**
+ * An activity that handles debts to contacts.
+ *
+ */
 public class DebtMenu extends ActionBarActivity implements OnItemSelectedListener{
 
 
@@ -43,6 +46,11 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 	int newdebt;
 	int olddebt;
 
+	/**
+	 * Returns every key stored in  the SharedPreferences shareddebts by getting its keys
+	 * as a Set<String> and running through it with an Iterator.
+	 * @return A list of all the contacts
+	 */
 	public ArrayList<String> getContactList(){
 		shareddebts = getSharedPreferences(MyDebts, Context.MODE_PRIVATE);
 		Map<String,?> mappen = shareddebts.getAll();
@@ -68,7 +76,12 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		setContentView(R.layout.debt_view);
 	}
 
-
+/**
+ * Displays a list of all the contacts where the user is able to choose how many of them as the user wants.
+ * If the user has chosen at least one the method enterDebt is called, if the user hasn't chosen any contacts
+ * this method is called again. If the user hasn't got any contacts a Toast is displayed.
+ * @param view
+ */
 	public void whoOwesYou(final View view){
 		final ArrayList<String> list = getContactList();
 
@@ -112,7 +125,14 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 			.show();
 		}
 	}
-
+	/**
+	 * Displays an AlertDialog where the user is asked to enter the debt to add to the contacts.
+	 * If the user has entered a debt and pushes the "Next"-button the method confirmTheyOweMe is called
+	 * and if the user hasn't entered a debt this method is called again to let the user actually enter a debt.
+	 * Finally there is a "Cancel"-button which let the user cancel the debt adding.
+	 * @param view
+	 * @param selectedItems the previously selected contacts.
+	 */
 	public void enterDebt(final View view, ArrayList<String> selectedItems){
 
 		final EditText input = new EditText(view.getContext());
@@ -120,7 +140,6 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		input.setHint("Debt");
 		final ArrayList<String> selectedContacts = selectedItems;
 
-		// DIALOG 2
 		new AlertDialog.Builder(view.getContext())
 		.setTitle("Enter the total debt")
 		.setView(input)
@@ -153,7 +172,16 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 		.show();
 	}
 
-
+	/**
+	 * Displays an AlertDialog with two buttons that lets the user accept or decline the addition of
+	 * the given debt to the given contacts. If the user accepts, i.e. pushes the "Yes"-button, the
+	 * SharedPreferences shareddebts is changed for every contact given as parameter and if any of these contacts
+	 * have a number stored in the SharedPreferences sharednumber the method notifyTheyOweMeSMS is called.
+	 * If the user declines a Toast is displayed.  
+	 * @param view
+	 * @param selectedItems A list of the contacts to which a debt should be added
+	 * @param debt The debt that should be divided among the contacts.
+	 */
 	public void confirmTheyOweMe(final View view, ArrayList<String> selectedItems, int debt){
 
 		final ArrayList<String> selectedContacts = selectedItems;
@@ -200,7 +228,7 @@ public class DebtMenu extends ActionBarActivity implements OnItemSelectedListene
 
 					notifyTheyOweMeSMS(view, numberNames, numberList, selectedContacts, debtAmount);
 				}
-				
+
 				else {
 					Toast.makeText(view.getContext(), "Debt added!", Toast.LENGTH_LONG).show();
 				}
