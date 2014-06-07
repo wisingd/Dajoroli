@@ -42,4 +42,4 @@ Team
     Johannes Rehnberg
     Daniel Wising
 
-Built at Chalmers, 2014.
+Built at Chalmers, 2014 as a part of the course DAT255 Software Engineering Project.
