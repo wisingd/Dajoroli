@@ -28,12 +28,8 @@ Android SDK targets
 
 Tests
 
-Unit tests can be found in the TestSplitIt folder.
-Documentation of acceptance tests can be found in the doc folder.
-
-License
-
-See the LICENSE file in project root.
+    Unit tests can be found in the TestSplitIt folder.
+    Documentation of acceptance tests can be found in the doc folder.
 
 Team
 
