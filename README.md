@@ -1,4 +1,4 @@
-Dajoroli
+Split It
 ========
 
 Split It is a finance app that targets young mobile people with
